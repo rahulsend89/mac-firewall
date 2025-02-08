@@ -1,0 +1,16 @@
+# Build artifacts
+build/
+bin/
+*.o
+*.a
+
+# IDE
+.vscode/
+.idea/
+*.xcodeproj/
+
+# Logs
+*.log
+
+# Backup
+backup/
