@@ -1,8 +1,22 @@
 /**
- * Policy Engine Header
+ * Policy Engine - Fast path evaluation
  */
 
 #ifndef POLICY_ENGINE_H
 #define POLICY_ENGINE_H
 
-#endif
+#include "config_parser.h"
+#include <EndpointSecurity/EndpointSecurity.h>
+#include <stdbool.h>
+
+/**
+ * Policy decision
+ */
+typedef enum {
+    POLICY_ALLOW,
+    POLICY_DENY,
+    POLICY_ASK_USER
+} policy_decision_t;
+
+/**
+ * Initialize policy engine with configuration
