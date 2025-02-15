@@ -8,3 +8,8 @@
 
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
+
+static es_client_t *g_client = NULL;
+static volatile int g_running = 1;
