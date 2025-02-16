@@ -5,6 +5,7 @@
  * we use NOTIFY events (no deadline) and kill malicious processes.
  * 
  * This is how some commercial security tools work - they observe
+
  * and react rather than block inline.
  */
 
