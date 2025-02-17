@@ -18,9 +18,3 @@
 #include <signal.h>
 #include <fcntl.h>
 #include <mach/mach.h>
-
-#include "cJSON.h"
-#include "config_parser.h"
-
-// Code signing flags
-#ifndef CS_VALID
