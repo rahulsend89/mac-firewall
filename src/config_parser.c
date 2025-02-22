@@ -16,3 +16,9 @@ static char** parse_string_array(cJSON *array, size_t *count) {
     }
     
     *count = cJSON_GetArraySize(array);
+    if (*count == 0) return NULL;
+    
+    char **result = malloc(sizeof(char*) * (*count));
+    if (result == NULL) {
+        *count = 0;
+        return NULL;
