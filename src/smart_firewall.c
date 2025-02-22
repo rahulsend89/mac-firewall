@@ -8,11 +8,3 @@
  */
 
 #include <EndpointSecurity/EndpointSecurity.h>
-#include <stdio.h>
-#include <signal.h>
-#include <unistd.h>
-#include <string.h>
-#include <fcntl.h>  // For O_CREAT, O_TRUNC
-#include <sys/fcntl.h>  // For FWRITE
-#include <mach/mach.h>
-#include <bsm/libbsm.h>
