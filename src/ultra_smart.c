@@ -5,6 +5,7 @@
  * Strategy:
  * 1. Respond ALLOW immediately to ALL events
  * 2. AFTER responding, decide if we should mute the process
+
  * 3. Use NOTIFY events for actual blocking decisions (kill process)
  */
 
