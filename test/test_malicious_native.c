@@ -15,5 +15,3 @@ int main() {
     printf("Test: Malicious Native Binary\n");
     printf("Attempting to read SSH private key...\n");
     
-    // Get home directory
-    struct passwd *pw = getpwuid(getuid());
