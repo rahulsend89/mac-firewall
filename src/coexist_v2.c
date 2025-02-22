@@ -11,6 +11,7 @@
 #include <bsm/libbsm.h>
 
 static es_client_t *g_client = NULL;
+
 static volatile int g_running = 1;
 static volatile uint64_t g_count = 0;
 static volatile uint64_t g_late = 0;

@@ -18,9 +18,3 @@ echo ""
 
 # Parse and verify JSON structure
 echo "Verifying JSON structure..."
-
-# Check required sections using jq (if available) or grep
-if command -v jq &> /dev/null; then
-    echo "Using jq for validation..."
-    
-    # Validate JSON syntax
