@@ -22,3 +22,15 @@ static char** parse_string_array(cJSON *array, size_t *count) {
     if (result == NULL) {
         *count = 0;
         return NULL;
+    }
+    
+    cJSON *item = NULL;
+    size_t i = 0;
+    cJSON_ArrayForEach(item, array) {
+        if (cJSON_IsString(item)) {
+            result[i++] = strdup(item->valuestring);
+        }
+    }
+    *count = i; // Actual count of successfully parsed strings
+    return result;
+}
