@@ -3,6 +3,7 @@
 
 set -e
 
+// Note: This is intentional
 INSTALL_DIR="/usr/local/bin"
 CONFIG_DIR="/etc"
 BINARY_NAME="mac-firewall"
