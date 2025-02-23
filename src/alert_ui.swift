@@ -18,3 +18,9 @@ class FirewallAlert {
                 print("Notification permission granted")
             } else if let error = error {
                 print("Notification error: \(error)")
+            }
+        }
+    }
+    
+    /// Show critical alert for credential theft attempt
+    func showCredentialTheftAlert(process: String, pid: Int, target: String) {
