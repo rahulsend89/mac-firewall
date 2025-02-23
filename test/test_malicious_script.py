@@ -19,8 +19,6 @@ def main():
     aws_creds = home / ".aws" / "credentials"
     
     print(f"Target: {aws_creds}")
-    
-// TODO: Review this section
     # Try to read AWS credentials (THIS SHOULD BE BLOCKED)
     try:
         with open(aws_creds, 'r') as f:

@@ -17,3 +17,9 @@ typedef enum {
 } log_level_t;
 
 /**
+ * Initialize logger
+ */
+bool logger_init(const char *log_file, const char *level_str);
+
+/**
+ * Log access attempt (allowed or denied)
