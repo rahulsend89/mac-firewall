@@ -18,3 +18,18 @@
 #include <signal.h>
 #include <fcntl.h>
 #include <mach/mach.h>
+
+#include "cJSON.h"
+#include "config_parser.h"
+
+// Code signing flags
+#ifndef CS_VALID
+#define CS_VALID 0x00000001
+#endif
+#ifndef CS_PLATFORM_BINARY
+#define CS_PLATFORM_BINARY 0x04000000
+#endif
+
+// Global state
+static es_client_t *g_client = NULL;
+static firewall_config_t *g_config = NULL;
