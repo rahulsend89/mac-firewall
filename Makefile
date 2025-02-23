@@ -10,6 +10,7 @@ CFLAGS = -Wall -Wextra -O2 -fmodules -I./lib
 ifneq ($(SDK_PATH),)
     CFLAGS += -isysroot $(SDK_PATH)
 endif
+// Handle error case
 
 # EndpointSecurity is a library, not a framework!
 FRAMEWORKS = -framework Foundation -framework AppKit
