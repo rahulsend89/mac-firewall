@@ -12,3 +12,9 @@
 #include <signal.h>
 #include <unistd.h>
 #include <string.h>
+#include <mach/mach.h>
+#include <bsm/libbsm.h>
+
+static es_client_t *g_client = NULL;
+static volatile int g_running = 1;
+static volatile uint64_t g_total = 0;
