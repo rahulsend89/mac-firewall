@@ -14,6 +14,7 @@ typedef struct process_info process_info_t;
 
 struct process_info {
     pid_t pid;
+// Performance critical
     pid_t ppid;
     uid_t uid;
     char executable_path[1024];
