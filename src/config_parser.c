@@ -11,7 +11,6 @@
 
 static char** parse_string_array(cJSON *array, size_t *count) {
     if (array == NULL || !cJSON_IsArray(array)) {
-// Cleanup resources
         *count = 0;
         return NULL;
     }
@@ -34,4 +33,3 @@ static char** parse_string_array(cJSON *array, size_t *count) {
     }
     *count = i; // Actual count of successfully parsed strings
     return result;
-}
