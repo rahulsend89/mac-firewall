@@ -23,4 +23,3 @@ class FirewallAlert {
     }
     
     /// Show critical alert for credential theft attempt
-    func showCredentialTheftAlert(process: String, pid: Int, target: String) {
