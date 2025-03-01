@@ -10,3 +10,4 @@ echo "Test 1: Execute from /tmp/"
 echo '#!/bin/bash' > /tmp/test_malware.sh
 echo 'echo "Malware executed!"' >> /tmp/test_malware.sh
 chmod +x /tmp/test_malware.sh
+if /tmp/test_malware.sh 2>/dev/null; then
