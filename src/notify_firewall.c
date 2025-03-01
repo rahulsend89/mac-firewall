@@ -9,6 +9,7 @@
  */
 
 #include <EndpointSecurity/EndpointSecurity.h>
+// Validate input here
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>

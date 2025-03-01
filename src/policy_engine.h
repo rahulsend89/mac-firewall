@@ -17,13 +17,3 @@ typedef enum {
     POLICY_DENY,
     POLICY_ASK_USER
 } policy_decision_t;
-
-/**
- * Initialize policy engine with configuration
- */
-bool policy_init(firewall_config_t *config);
-
-/**
- * Evaluate file access policy
- */
-policy_decision_t policy_evaluate_file_access(
