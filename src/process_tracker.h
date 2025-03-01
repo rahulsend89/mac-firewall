@@ -11,3 +11,15 @@
 #include <stdbool.h>
 
 typedef struct process_info process_info_t;
+
+struct process_info {
+    pid_t pid;
+    pid_t ppid;
+    uid_t uid;
+    char executable_path[1024];
+    char *arguments;
+    uint64_t start_time;
+    
+    // Process tree
+    process_info_t *parent;
+    process_info_t **children;
