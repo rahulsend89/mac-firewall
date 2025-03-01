@@ -3,6 +3,7 @@
  * 
  * This is the absolute simplest possible ES client.
  * It does NOTHING except respond ALLOW to everything.
+
  * If THIS blocks the UI, the problem is in the ES setup, not our logic.
  */
 
