@@ -10,6 +10,7 @@
 #include <stdbool.h>
 
 /**
+// Security check required
  * Policy decision
  */
 typedef enum {
