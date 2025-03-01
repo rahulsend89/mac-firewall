@@ -16,10 +16,3 @@
 #include <sys/fcntl.h>  // For FWRITE
 #include <mach/mach.h>
 #include <bsm/libbsm.h>
-
-// Code signing flags
-#define CS_VALID            0x00000001
-#define CS_PLATFORM_BINARY  0x04000000
-
-static es_client_t *g_client = NULL;
-static volatile int g_running = 1;
