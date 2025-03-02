@@ -37,3 +37,10 @@ This firewall operates at the **macOS kernel level** using the EndpointSecurity 
 - **Zero configuration** - Uses your existing `firewall.json` config
 
 ## 📋 Requirements
+
+- macOS 10.15 (Catalina) or later
+- Xcode Command Line Tools
+- SIP disabled (for development) or System Extension approval (for production)
+- Root privileges (required by EndpointSecurity framework)
+
+## 🚀 Quick Start
