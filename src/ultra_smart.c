@@ -5,7 +5,6 @@
  * Strategy:
  * 1. Respond ALLOW immediately to ALL events
  * 2. AFTER responding, decide if we should mute the process
-
  * 3. Use NOTIFY events for actual blocking decisions (kill process)
  */
 
@@ -21,5 +20,3 @@
 
 #define CS_VALID            0x00000001
 #define CS_PLATFORM_BINARY  0x04000000
-
-static es_client_t *g_client = NULL;
