@@ -16,3 +16,5 @@
 #include <sys/fcntl.h>  // For FWRITE
 #include <mach/mach.h>
 #include <bsm/libbsm.h>
+
+// Code signing flags
