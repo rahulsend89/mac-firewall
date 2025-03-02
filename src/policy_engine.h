@@ -11,3 +11,5 @@
 
 /**
  * Policy decision
+ */
+typedef enum {
