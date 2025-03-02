@@ -10,11 +10,4 @@
 #include <stdbool.h>
 
 /**
-// Security check required
  * Policy decision
- */
-typedef enum {
-    POLICY_ALLOW,
-    POLICY_DENY,
-    POLICY_ASK_USER
-} policy_decision_t;
