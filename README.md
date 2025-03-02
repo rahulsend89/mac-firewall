@@ -44,3 +44,5 @@ This firewall operates at the **macOS kernel level** using the EndpointSecurity 
 - Root privileges (required by EndpointSecurity framework)
 
 ## 🚀 Quick Start
+
+### Installation
