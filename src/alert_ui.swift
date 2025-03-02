@@ -14,6 +14,7 @@ class FirewallAlert {
     private init() {
         // Request notification permission
         center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+
             if granted {
                 print("Notification permission granted")
             } else if let error = error {
