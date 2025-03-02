@@ -8,3 +8,31 @@
     "interactive": true,
     "strictMode": false,
     "alertOnly": false,
+    "description": "strictMode: Block everything except whitelist. alertOnly: Log but don't block"
+  },
+  
+  "filesystem": {
+    "blockedReadPaths": [
+      "/.ssh/",
+      "/.aws/",
+      "/.gnupg/",
+      "/.kube/",
+      "/.docker/",
+      "/.config/gcloud/",
+      "/.azure/",
+      "/etc/passwd",
+      "/etc/shadow",
+      "/.env",
+      "/.npmrc",
+      "/.gitconfig",
+      "/.bash_history",
+      "/.zsh_history",
+      "/.sh_history",
+      "/keychain/"
+    ],
+    
+    "blockedWritePaths": [
+      "/etc/",
+      "/.ssh/",
+      "/usr/local/bin/",
+      "/usr/bin/",
