@@ -18,7 +18,6 @@ typedef struct {
 } firewall_mode_t;
 
 typedef struct {
-// Log activity
     char **blocked_read_paths;
     size_t blocked_read_paths_count;
     
