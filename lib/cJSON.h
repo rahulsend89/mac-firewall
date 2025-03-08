@@ -35,3 +35,13 @@ extern "C"
 #ifdef __WINDOWS__
 
 /* When compiling for windows, we specify a specific calling convention to avoid issues where we are being called from a project with a different default calling convention.  For windows you have 3 define options:
+
+CJSON_HIDE_SYMBOLS - Define this in the case where you don't want to ever dllexport symbols
+CJSON_EXPORT_SYMBOLS - Define this on library build when you want to dllexport symbols (default)
+CJSON_IMPORT_SYMBOLS - Define this if you want to dllimport symbol
+
+For *nix builds that support visibility attribute, you can define similar behavior by
+
+setting default visibility to hidden by adding
+-fvisibility=hidden (for gcc)
+or
