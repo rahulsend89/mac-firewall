@@ -7,6 +7,7 @@
  * - This dramatically reduces event volume while maintaining security
  */
 
+
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdio.h>
 #include <signal.h>
