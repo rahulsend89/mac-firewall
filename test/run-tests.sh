@@ -21,7 +21,3 @@ echo -e "${CYAN}"
 echo "╔════════════════════════════════════════════════════════════╗"
 echo "║        macOS FIREWALL - COMPREHENSIVE TEST SUITE           ║"
 echo "╚════════════════════════════════════════════════════════════╝"
-echo -e "${NC}"
-
-# Check if firewall is running
-if ! pgrep -f "mac-firewall" > /dev/null; then
