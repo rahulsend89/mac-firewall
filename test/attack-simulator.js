@@ -39,3 +39,8 @@ function log(msg, color = 'reset') {
 }
 
 function logTest(name, expected, actual) {
+  results.summary.total++;
+  const passed = expected === actual;
+  if (passed) {
+    results.summary.blocked++;
+    log(`  ✅ ${name}: BLOCKED (as expected)`, 'green');
