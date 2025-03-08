@@ -265,3 +265,58 @@ CJSON_PUBLIC(void) cJSON_Delete(cJSON *item)
             global_hooks.deallocate(item->valuestring);
             item->valuestring = NULL;
         }
+        if (!(item->type & cJSON_StringIsConst) && (item->string != NULL))
+        {
+            global_hooks.deallocate(item->string);
+            item->string = NULL;
+        }
+        global_hooks.deallocate(item);
+        item = next;
+    }
+}
+
+/* get the decimal point character of the current locale */
+static unsigned char get_decimal_point(void)
+{
+#ifdef ENABLE_LOCALES
+    struct lconv *lconv = localeconv();
+    return (unsigned char) lconv->decimal_point[0];
+#else
+    return '.';
+#endif
+}
+
+typedef struct
+{
+    const unsigned char *content;
+    size_t length;
+    size_t offset;
+    size_t depth; /* How deeply nested (in arrays/objects) is the input at the current offset. */
+    internal_hooks hooks;
+} parse_buffer;
+
+/* check if the given size is left to read in a given parse buffer (starting with 1) */
+#define can_read(buffer, size) ((buffer != NULL) && (((buffer)->offset + size) <= (buffer)->length))
+/* check if the buffer can be accessed at the given index (starting with 0) */
+#define can_access_at_index(buffer, index) ((buffer != NULL) && (((buffer)->offset + index) < (buffer)->length))
+#define cannot_access_at_index(buffer, index) (!can_access_at_index(buffer, index))
+/* get a pointer to the buffer at the position */
+#define buffer_at_offset(buffer) ((buffer)->content + (buffer)->offset)
+
+/* Parse the input text to generate a number, and populate the result into item. */
+static cJSON_bool parse_number(cJSON * const item, parse_buffer * const input_buffer)
+{
+    double number = 0;
+    unsigned char *after_end = NULL;
+    unsigned char *number_c_string;
+    unsigned char decimal_point = get_decimal_point();
+    size_t i = 0;
+    size_t number_string_length = 0;
+    cJSON_bool has_decimal_point = false;
+
+    if ((input_buffer == NULL) || (input_buffer->content == NULL))
+    {
+        return false;
+    }
+
+    /* copy the number into a temporary buffer and replace '.' with the decimal point
