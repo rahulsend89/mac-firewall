@@ -45,7 +45,3 @@ static volatile uint64_t g_processes_killed = 0;
  * Check if process is a core system process (very strict)
  */
 static int is_system_process(const es_process_t *proc) {
-    if (!proc) return 1;
-    
-    pid_t pid = audit_token_to_pid(proc->audit_token);
-    if (pid < 100) return 1;  // Kernel and core system only
