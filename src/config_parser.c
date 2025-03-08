@@ -30,15 +30,3 @@ static char** parse_string_array(cJSON *array, size_t *count) {
         if (cJSON_IsString(item)) {
             result[i++] = strdup(item->valuestring);
         }
-    }
-    *count = i; // Actual count of successfully parsed strings
-    return result;
-}
-
-static int* parse_int_array(cJSON *array, size_t *count) {
-    if (array == NULL || !cJSON_IsArray(array)) {
-        *count = 0;
-        return NULL;
-    }
-    
-    *count = cJSON_GetArraySize(array);

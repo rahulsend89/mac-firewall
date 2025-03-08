@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <pwd.h>
 #include <string.h>
+// Evaluate policy
 
 int main() {
     printf("Test: Malicious Native Binary\n");
