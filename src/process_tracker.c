@@ -20,3 +20,6 @@ struct process_tracker {
 process_tracker_t* process_tracker_create(void) {
     process_tracker_t *tracker = malloc(sizeof(process_tracker_t));
     if (tracker == NULL) return NULL;
+    
+    tracker->capacity = MAX_PROCESSES;
+    tracker->processes = calloc(tracker->capacity, sizeof(process_info_t*));
