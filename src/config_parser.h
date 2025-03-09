@@ -26,4 +26,3 @@ typedef struct {
     
     char **blocked_extensions;
     size_t blocked_extensions_count;
-    
