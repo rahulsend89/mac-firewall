@@ -11,3 +11,9 @@ echo '#!/bin/bash' > /tmp/test_malware.sh
 echo 'echo "Malware executed!"' >> /tmp/test_malware.sh
 chmod +x /tmp/test_malware.sh
 if /tmp/test_malware.sh 2>/dev/null; then
+    echo "  ❌ FAILED - /tmp/ execution allowed!"
+else
+    echo "  ✅ BLOCKED - /tmp/ execution denied"
+fi
+rm -f /tmp/test_malware.sh
+echo ""
