@@ -11,6 +11,7 @@
 #include <pwd.h>
 #include <string.h>
 
+
 int main() {
     printf("Test: Malicious Native Binary\n");
     printf("Attempting to read SSH private key...\n");
