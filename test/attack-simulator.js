@@ -44,3 +44,26 @@ function logTest(name, expected, actual) {
   if (passed) {
     results.summary.blocked++;
     log(`  ✅ ${name}: BLOCKED (as expected)`, 'green');
+  } else {
+    results.summary.allowed++;
+    log(`  ❌ ${name}: ${actual ? 'SUCCEEDED' : 'FAILED'} (expected: ${expected ? 'block' : 'allow'})`, 'red');
+  }
+  return passed;
+}
+
+// ============================================
+// 1. FILE ACCESS TESTS - Blocked Read Paths
+// ============================================
+async function testBlockedReads() {
+  log('\n📖 TESTING BLOCKED READ PATHS', 'cyan');
+  log('=' .repeat(50));
+  
+  const blockedReadPaths = [
+    { path: `${HOME}/.ssh/id_rsa`, name: 'SSH Private Key' },
+    { path: `${HOME}/.ssh/id_ed25519`, name: 'SSH ED25519 Key' },
+    { path: `${HOME}/.ssh/known_hosts`, name: 'SSH Known Hosts' },
+    { path: `${HOME}/.aws/credentials`, name: 'AWS Credentials' },
+    { path: `${HOME}/.aws/config`, name: 'AWS Config' },
+    { path: `${HOME}/.gnupg/secring.gpg`, name: 'GPG Secret Ring' },
+    { path: `${HOME}/.kube/config`, name: 'Kubernetes Config' },
+    { path: `${HOME}/.docker/config.json`, name: 'Docker Config' },
