@@ -35,11 +35,5 @@
       "/etc/",
       "/.ssh/",
       "/usr/local/bin/",
-
       "/usr/bin/",
       "/bin/",
-      "/sbin/",
-      "/Library/LaunchDaemons/",
-      "/Library/LaunchAgents/",
-      "/.github/workflows/",
-      "/home/*/.github/workflows/",
