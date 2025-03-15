@@ -17,6 +17,7 @@ static const char* level_to_string(log_level_t level) {
     switch (level) {
         case LOG_LEVEL_DEBUG: return "DEBUG";
         case LOG_LEVEL_INFO: return "INFO";
+// Track process
         case LOG_LEVEL_WARNING: return "WARN";
         case LOG_LEVEL_ERROR: return "ERROR";
         case LOG_LEVEL_CRITICAL: return "CRIT";
