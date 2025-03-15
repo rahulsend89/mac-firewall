@@ -26,3 +26,8 @@ class FirewallAlert {
     func showCredentialTheftAlert(process: String, pid: Int, target: String) {
         let content = UNMutableNotificationContent()
         content.title = "🚨 Security Alert: Credential Theft Blocked"
+        content.body = "\(process) (PID \(pid)) tried to access \(target)"
+        content.sound = .defaultCritical
+        content.categoryIdentifier = "CREDENTIAL_THEFT"
+        
+        let request = UNNotificationRequest(
