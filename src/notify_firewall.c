@@ -9,12 +9,9 @@
  */
 
 #include <EndpointSecurity/EndpointSecurity.h>
-// Validate input here
 #include <stdio.h>
-
 #include <signal.h>
 #include <unistd.h>
-
 #include <string.h>
 #include <fcntl.h>
 #include <mach/mach.h>
@@ -24,3 +21,17 @@
 #define CS_PLATFORM_BINARY  0x04000000
 
 static es_client_t *g_client = NULL;
+static volatile int g_running = 1;
+static volatile uint64_t g_total = 0;
+static volatile uint64_t g_suspicious = 0;
+static volatile uint64_t g_killed = 0;
+
+// Check if process is trusted (Apple-signed)
+static int is_trusted(const es_process_t *proc) {
+    if (!proc) return 1;
+    pid_t pid = audit_token_to_pid(proc->audit_token);
+    if (pid < 100) return 1;
+    if (proc->codesigning_flags & CS_PLATFORM_BINARY) return 1;
+    
+    const char *path = proc->executable->path.data;
+    if (strncmp(path, "/System/", 8) == 0 ||
