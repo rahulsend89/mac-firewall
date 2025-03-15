@@ -12,3 +12,6 @@ bool policy_init(firewall_config_t *config) {
     g_policy_config = config;
     return config != NULL;
 }
+
+bool policy_path_matches(const char *path, const char *pattern) {
+    // Support wildcards using fnmatch
