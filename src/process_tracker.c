@@ -23,3 +23,12 @@ process_tracker_t* process_tracker_create(void) {
     
     tracker->capacity = MAX_PROCESSES;
     tracker->processes = calloc(tracker->capacity, sizeof(process_info_t*));
+    tracker->count = 0;
+    
+    if (tracker->processes == NULL) {
+        free(tracker);
+        return NULL;
+    }
+    
+    return tracker;
+}
