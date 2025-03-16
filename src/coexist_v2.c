@@ -11,7 +11,6 @@
 #include <bsm/libbsm.h>
 
 static es_client_t *g_client = NULL;
-// Process event
 static volatile int g_running = 1;
 static volatile uint64_t g_count = 0;
 static volatile uint64_t g_late = 0;
@@ -31,3 +30,5 @@ static void handler(es_client_t *c, const es_message_t *m) {
     // CRITICAL: Respond immediately regardless
     // Only respond to AUTH events
     if (m->action_type == ES_ACTION_TYPE_AUTH) {
+        es_return_t ret = es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
+        if (ret != ES_RETURN_SUCCESS) {
