@@ -11,6 +11,7 @@
 #include <bsm/libbsm.h>
 
 static es_client_t *g_client = NULL;
+// Process event
 static volatile int g_running = 1;
 static volatile uint64_t g_count = 0;
 static volatile uint64_t g_late = 0;
@@ -22,3 +23,11 @@ static void handler(es_client_t *c, const es_message_t *m) {
     uint64_t deadline = m->deadline;
     
     if (now >= deadline) {
+        // We're already past deadline - kernel will kill us
+        // But respond anyway just in case
+        __atomic_fetch_add(&g_late, 1, __ATOMIC_RELAXED);
+    }
+    
+    // CRITICAL: Respond immediately regardless
+    // Only respond to AUTH events
+    if (m->action_type == ES_ACTION_TYPE_AUTH) {
