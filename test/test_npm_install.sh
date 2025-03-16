@@ -22,5 +22,3 @@ cat > package.json << 'EOF'
   }
 }
 EOF
-
-cat > steal.py << 'EOF'
