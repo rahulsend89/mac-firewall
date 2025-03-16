@@ -19,9 +19,3 @@ typedef enum {
 /**
  * Initialize logger
  */
-bool logger_init(const char *log_file, const char *level_str);
-
-/**
- * Log access attempt (allowed or denied)
- */
-void log_access_attempt(const char *process, pid_t pid, const char *target, const char *operation);
