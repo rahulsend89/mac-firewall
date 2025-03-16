@@ -24,3 +24,5 @@ echo "╚═══════════════════════�
 echo -e "${NC}"
 
 # Check if firewall is running
+if ! pgrep -f "mac-firewall" > /dev/null; then
+    echo -e "${RED}⚠️  Firewall is NOT running!${NC}"
