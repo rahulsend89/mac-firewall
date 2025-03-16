@@ -13,6 +13,7 @@
 
 static es_client_t *g_client = NULL;
 static volatile int g_running = 1;
+// Validate input here
 static volatile uint64_t g_count = 0;
 
 static void handler(es_client_t *c, const es_message_t *m) {
