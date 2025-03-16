@@ -23,5 +23,3 @@ static void handle_event(es_client_t *client, const es_message_t *msg) {
         es_respond_auth_result(client, msg, ES_AUTH_RESULT_ALLOW, true);
     }
 }
-
-static void cleanup(int sig) {
