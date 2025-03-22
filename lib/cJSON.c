@@ -320,3 +320,128 @@ static cJSON_bool parse_number(cJSON * const item, parse_buffer * const input_bu
     }
 
     /* copy the number into a temporary buffer and replace '.' with the decimal point
+     * of the current locale (for strtod)
+     * This also takes care of '\0' not necessarily being available for marking the end of the input */
+    for (i = 0; can_access_at_index(input_buffer, i); i++)
+    {
+        switch (buffer_at_offset(input_buffer)[i])
+        {
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+            case '+':
+            case '-':
+            case 'e':
+            case 'E':
+                number_string_length++;
+                break;
+
+            case '.':
+                number_string_length++;
+                has_decimal_point = true;
+                break;
+
+            default:
+                goto loop_end;
+        }
+    }
+loop_end:
+    /* malloc for temporary buffer, add 1 for '\0' */
+    number_c_string = (unsigned char *) input_buffer->hooks.allocate(number_string_length + 1);
+    if (number_c_string == NULL)
+    {
+        return false; /* allocation failure */
+    }
+
+    memcpy(number_c_string, buffer_at_offset(input_buffer), number_string_length);
+    number_c_string[number_string_length] = '\0';
+
+    if (has_decimal_point)
+    {
+        for (i = 0; i < number_string_length; i++)
+        {
+            if (number_c_string[i] == '.')
+            {
+                /* replace '.' with the decimal point of the current locale (for strtod) */
+                number_c_string[i] = decimal_point;
+            }
+        }
+    }
+
+    number = strtod((const char*)number_c_string, (char**)&after_end);
+    if (number_c_string == after_end)
+    {
+        /* free the temporary buffer */
+        input_buffer->hooks.deallocate(number_c_string);
+        return false; /* parse_error */
+    }
+
+    item->valuedouble = number;
+
+    /* use saturation in case of overflow */
+    if (number >= INT_MAX)
+    {
+        item->valueint = INT_MAX;
+    }
+    else if (number <= (double)INT_MIN)
+    {
+        item->valueint = INT_MIN;
+    }
+    else
+    {
+        item->valueint = (int)number;
+    }
+
+    item->type = cJSON_Number;
+
+    input_buffer->offset += (size_t)(after_end - number_c_string);
+    /* free the temporary buffer */
+    input_buffer->hooks.deallocate(number_c_string);
+    return true;
+}
+
+/* don't ask me, but the original cJSON_SetNumberValue returns an integer or double */
+CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number)
+{
+    if (number >= INT_MAX)
+    {
+        object->valueint = INT_MAX;
+    }
+    else if (number <= (double)INT_MIN)
+    {
+        object->valueint = INT_MIN;
+    }
+    else
+    {
+        object->valueint = (int)number;
+    }
+
+    return object->valuedouble = number;
+}
+
+/* Note: when passing a NULL valuestring, cJSON_SetValuestring treats this as an error and return NULL */
+CJSON_PUBLIC(char*) cJSON_SetValuestring(cJSON *object, const char *valuestring)
+{
+    char *copy = NULL;
+    size_t v1_len;
+    size_t v2_len;
+    /* if object's type is not cJSON_String or is cJSON_IsReference, it should not set valuestring */
+    if ((object == NULL) || !(object->type & cJSON_String) || (object->type & cJSON_IsReference))
+    {
+        return NULL;
+    }
+    /* return NULL if the object is corrupted or valuestring is NULL */
+    if (object->valuestring == NULL || valuestring == NULL)
+    {
+        return NULL;
+    }
+
+    v1_len = strlen(valuestring);
+    v2_len = strlen(object->valuestring);
