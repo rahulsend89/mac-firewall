@@ -34,3 +34,5 @@ class FirewallAlert {
             identifier: UUID().uuidString,
             content: content,
             trigger: nil
+        )
+        
