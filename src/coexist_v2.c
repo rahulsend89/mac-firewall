@@ -21,14 +21,3 @@ static void handler(es_client_t *c, const es_message_t *m) {
     uint64_t now = mach_absolute_time();
     uint64_t deadline = m->deadline;
     
-    if (now >= deadline) {
-        // We're already past deadline - kernel will kill us
-        // But respond anyway just in case
-        __atomic_fetch_add(&g_late, 1, __ATOMIC_RELAXED);
-    }
-    
-    // CRITICAL: Respond immediately regardless
-    // Only respond to AUTH events
-    if (m->action_type == ES_ACTION_TYPE_AUTH) {
-        es_return_t ret = es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
-        if (ret != ES_RETURN_SUCCESS) {
