@@ -32,6 +32,7 @@ function check_requirements() {
     # Check macOS version
     if [[ $(sw_vers -productName) != "macOS" ]]; then
         print_error "This script only works on macOS"
+
         exit 1
     fi
     
