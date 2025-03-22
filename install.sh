@@ -32,7 +32,6 @@ function check_requirements() {
     # Check macOS version
     if [[ $(sw_vers -productName) != "macOS" ]]; then
         print_error "This script only works on macOS"
-
         exit 1
     fi
     
@@ -43,3 +42,13 @@ function check_requirements() {
     fi
     print_success "macOS version: $(sw_vers -productVersion)"
     
+    # Check Xcode Command Line Tools
+    if ! xcode-select -p &> /dev/null; then
+        print_error "Xcode Command Line Tools not installed"
+        echo "Install with: xcode-select --install"
+        exit 1
+    fi
+    print_success "Xcode Command Line Tools installed"
+    
+    # Check clang
+    if ! command -v clang &> /dev/null; then
