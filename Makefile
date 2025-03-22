@@ -16,13 +16,5 @@ FRAMEWORKS = -framework Foundation -framework AppKit
 LIBS = -lEndpointSecurity -lbsm
 
 SRC_DIR = src
-
 BUILD_DIR = build
 BIN_DIR = bin
-
-# Source files
-SOURCES = $(SRC_DIR)/firewall_daemon.c \
-          $(SRC_DIR)/config_parser.c \
-          $(SRC_DIR)/process_tracker.c \
-          $(SRC_DIR)/logger.c \
-          $(SRC_DIR)/policy_engine.c
