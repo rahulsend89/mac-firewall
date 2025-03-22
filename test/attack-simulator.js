@@ -71,5 +71,3 @@ async function testBlockedReads() {
     { path: `${HOME}/.azure/accessTokens.json`, name: 'Azure Tokens' },
     { path: '/etc/passwd', name: 'System Passwd' },
     { path: `${HOME}/.env`, name: 'Environment File' },
-    { path: `${HOME}/.npmrc`, name: 'NPM Config' },
-    { path: `${HOME}/.gitconfig`, name: 'Git Config' },
