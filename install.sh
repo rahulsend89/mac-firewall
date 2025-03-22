@@ -20,3 +20,25 @@ function print_success() {
 
 function print_error() {
     echo -e "${RED}✗${NC} $1"
+}
+
+function print_warning() {
+    echo -e "${YELLOW}⚠${NC} $1"
+}
+
+function check_requirements() {
+    echo "Checking requirements..."
+    
+    # Check macOS version
+    if [[ $(sw_vers -productName) != "macOS" ]]; then
+        print_error "This script only works on macOS"
+        exit 1
+    fi
+    
+    macos_version=$(sw_vers -productVersion | cut -d. -f1)
+    if [[ $macos_version -lt 10 ]]; then
+        print_error "Requires macOS 10.15 (Catalina) or later"
+        exit 1
+    fi
+    print_success "macOS version: $(sw_vers -productVersion)"
+    
