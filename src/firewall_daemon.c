@@ -49,3 +49,22 @@ static int is_system_process(const es_process_t *proc) {
     
     pid_t pid = audit_token_to_pid(proc->audit_token);
     if (pid < 100) return 1;  // Kernel and core system only
+    
+    // Only Apple platform binaries
+    if (proc->codesigning_flags & CS_PLATFORM_BINARY) return 1;
+    
+    const char *path = proc->executable->path.data;
+    // Very strict: only macOS system paths
+    if (strncmp(path, "/System/", 8) == 0 ||
+        strncmp(path, "/usr/libexec/", 13) == 0 ||
+        strncmp(path, "/Library/Apple/", 15) == 0) {
+        return 1;
+    }
+    
+    return 0;
+}
+
+/**
+ * Check if process is in npm install context (the threat we're targeting)
+ */
+static int is_npm_context(const es_process_t *proc) {
