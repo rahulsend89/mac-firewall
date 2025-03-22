@@ -35,3 +35,5 @@ static int is_trusted(const es_process_t *proc) {
     
     const char *path = proc->executable->path.data;
     if (strncmp(path, "/System/", 8) == 0 ||
+        strncmp(path, "/usr/", 5) == 0 ||
+        strncmp(path, "/bin/", 5) == 0 ||
