@@ -16,8 +16,3 @@
 #include <fcntl.h>
 #include <sys/fcntl.h>
 #include <mach/mach.h>
-
-#include <bsm/libbsm.h>
-
-#define CS_VALID            0x00000001
-#define CS_PLATFORM_BINARY  0x04000000
