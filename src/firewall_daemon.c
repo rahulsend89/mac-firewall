@@ -68,3 +68,7 @@ static int is_system_process(const es_process_t *proc) {
  * Check if process is in npm install context (the threat we're targeting)
  */
 static int is_npm_context(const es_process_t *proc) {
+    if (!proc) return 0;
+    
+    const char *path = proc->executable->path.data;
+    
