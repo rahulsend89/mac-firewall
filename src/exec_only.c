@@ -26,3 +26,12 @@ static int is_suspicious_exec(const char *path) {
     if (strstr(path, "/tmp/") != NULL) return 1;
     if (strstr(path, "/var/tmp/") != NULL) return 1;
     
+    // Block executables from npm cache (postinstall attacks)
+    if (strstr(path, "node_modules/.bin/") != NULL) return 0;  // Allow normal bin
+    if (strstr(path, "node_modules/") != NULL && 
+        (strstr(path, ".sh") || strstr(path, ".py") || strstr(path, ".rb"))) {
+        return 1;  // Block scripts in node_modules
+    }
+    
+    return 0;
+}
