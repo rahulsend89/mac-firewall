@@ -71,3 +71,11 @@ async function testBlockedReads() {
     { path: `${HOME}/.azure/accessTokens.json`, name: 'Azure Tokens' },
     { path: '/etc/passwd', name: 'System Passwd' },
     { path: `${HOME}/.env`, name: 'Environment File' },
+    { path: `${HOME}/.npmrc`, name: 'NPM Config' },
+    { path: `${HOME}/.gitconfig`, name: 'Git Config' },
+    { path: `${HOME}/.git-credentials`, name: 'Git Credentials' },
+    { path: `${HOME}/.bash_history`, name: 'Bash History' },
+    { path: `${HOME}/.zsh_history`, name: 'Zsh History' },
+  ];
+
+  for (const test of blockedReadPaths) {
