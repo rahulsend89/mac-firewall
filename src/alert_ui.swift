@@ -35,4 +35,3 @@ class FirewallAlert {
             content: content,
             trigger: nil
         )
-        
