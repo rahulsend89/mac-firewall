@@ -9,6 +9,3 @@ This should be BLOCKED by the firewall
 import os
 import sys
 from pathlib import Path
-
-def main():
-    print("Test: Malicious Python Script")
