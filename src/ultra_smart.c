@@ -19,19 +19,3 @@
 #include <bsm/libbsm.h>
 
 #define CS_VALID            0x00000001
-#define CS_PLATFORM_BINARY  0x04000000
-
-static es_client_t *g_client = NULL;
-static volatile int g_running = 1;
-static volatile uint64_t g_total = 0;
-static volatile uint64_t g_muted = 0;
-static volatile uint64_t g_suspicious = 0;
-
-static void handler(es_client_t *c, const es_message_t *m) {
-    __atomic_fetch_add(&g_total, 1, __ATOMIC_RELAXED);
-    
-    // CRITICAL: Respond IMMEDIATELY - before ANY logic
-    if (m->action_type == ES_ACTION_TYPE_AUTH) {
-        es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
-    }
-    
