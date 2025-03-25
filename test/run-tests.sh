@@ -19,3 +19,24 @@ NC='\033[0m'
 
 echo -e "${CYAN}"
 echo "╔════════════════════════════════════════════════════════════╗"
+echo "║        macOS FIREWALL - COMPREHENSIVE TEST SUITE           ║"
+echo "╚════════════════════════════════════════════════════════════╝"
+echo -e "${NC}"
+
+# Check if firewall is running
+if ! pgrep -f "mac-firewall" > /dev/null; then
+    echo -e "${RED}⚠️  Firewall is NOT running!${NC}"
+    echo -e "${YELLOW}Start it with: sudo ./bin/mac-firewall firewall.json${NC}"
+    echo ""
+    read -p "Continue anyway? (y/N) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        exit 1
+    fi
+else
+    echo -e "${GREEN}✅ Firewall is running${NC}"
+fi
+
+echo ""
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${CYAN}  1️⃣  FILE ACCESS TESTS - Credential Reads${NC}"
