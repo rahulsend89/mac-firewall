@@ -266,6 +266,7 @@ CJSON_PUBLIC(void) cJSON_Delete(cJSON *item)
             item->valuestring = NULL;
         }
         if (!(item->type & cJSON_StringIsConst) && (item->string != NULL))
+
         {
             global_hooks.deallocate(item->string);
             item->string = NULL;
