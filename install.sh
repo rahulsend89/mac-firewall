@@ -38,17 +38,3 @@ function check_requirements() {
     macos_version=$(sw_vers -productVersion | cut -d. -f1)
     if [[ $macos_version -lt 10 ]]; then
         print_error "Requires macOS 10.15 (Catalina) or later"
-        exit 1
-    fi
-    print_success "macOS version: $(sw_vers -productVersion)"
-    
-    # Check Xcode Command Line Tools
-    if ! xcode-select -p &> /dev/null; then
-        print_error "Xcode Command Line Tools not installed"
-        echo "Install with: xcode-select --install"
-        exit 1
-    fi
-    print_success "Xcode Command Line Tools installed"
-    
-    # Check clang
-    if ! command -v clang &> /dev/null; then
