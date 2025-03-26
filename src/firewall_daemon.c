@@ -72,3 +72,12 @@ static int is_npm_context(const es_process_t *proc) {
     
     const char *path = proc->executable->path.data;
     
+    // Direct npm/node execution
+    if (strstr(path, "/node") ||
+        strstr(path, "/npm") ||
+        strstr(path, "/yarn") ||
+        strstr(path, "/pnpm") ||
+        strstr(path, "/npx")) {
+        return 1;
+    }
+    
