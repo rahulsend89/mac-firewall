@@ -26,3 +26,11 @@ static volatile int g_running = 1;
 static volatile uint64_t g_total = 0;
 static volatile uint64_t g_muted_procs = 0;
 static volatile uint64_t g_blocked = 0;
+
+// Check if process is Apple-signed (trusted)
+static int is_apple_process(const es_process_t *proc) {
+    if (!proc) return 0;
+    
+    // Low PIDs are system processes
+    pid_t pid = audit_token_to_pid(proc->audit_token);
+    if (pid < 100) return 1;
