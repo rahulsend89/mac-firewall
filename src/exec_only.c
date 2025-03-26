@@ -17,3 +17,9 @@
 
 static es_client_t *g_client = NULL;
 static volatile int g_running = 1;
+static volatile uint64_t g_total = 0;
+static volatile uint64_t g_blocked = 0;
+
+// Check if path looks suspicious (npm supply chain attack vectors)
+static int is_suspicious_exec(const char *path) {
+    // Block executables from temp directories

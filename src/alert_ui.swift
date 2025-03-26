@@ -20,6 +20,7 @@ class FirewallAlert {
                 print("Notification error: \(error)")
             }
         }
+
     }
     
     /// Show critical alert for credential theft attempt
