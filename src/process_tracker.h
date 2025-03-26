@@ -11,3 +11,8 @@
 #include <stdbool.h>
 
 typedef struct process_info process_info_t;
+
+struct process_info {
+    pid_t pid;
+    pid_t ppid;
+    uid_t uid;
