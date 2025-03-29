@@ -81,3 +81,10 @@ static int is_npm_context(const es_process_t *proc) {
         return 1;
     }
     
+    return 0;
+}
+
+/**
+ * Check if process is trusted for CREDENTIAL access
+ */
+static int is_trusted_for_credentials(const es_process_t *proc) {
