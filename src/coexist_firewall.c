@@ -28,3 +28,12 @@ static void handler(es_client_t *c, const es_message_t *m) {
     
     // Only then count (non-blocking)
     __atomic_fetch_add(&g_count, 1, __ATOMIC_RELAXED);
+}
+
+static void sig_handler(int s) {
+    (void)s;
+    g_running = 0;
+}
+
+int main(void) {
+    if (getuid() != 0) {
