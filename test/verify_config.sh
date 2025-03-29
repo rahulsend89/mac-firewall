@@ -21,3 +21,20 @@ echo "Verifying JSON structure..."
 
 # Check required sections using jq (if available) or grep
 if command -v jq &> /dev/null; then
+    echo "Using jq for validation..."
+    
+    # Validate JSON syntax
+    if ! jq empty "$CONFIG_FILE" 2>/dev/null; then
+        echo "❌ Invalid JSON syntax"
+        exit 1
+    fi
+    echo "✓ Valid JSON syntax"
+    
+    # Check mode section
+    enabled=$(jq -r '.mode.enabled' "$CONFIG_FILE")
+    strict=$(jq -r '.mode.strictMode' "$CONFIG_FILE")
+    alert=$(jq -r '.mode.alertOnly' "$CONFIG_FILE")
+    interactive=$(jq -r '.mode.interactive' "$CONFIG_FILE")
+    
+    echo ""
+    echo "Mode Configuration:"
