@@ -32,3 +32,14 @@ process_tracker_t* process_tracker_create(void) {
     
     return tracker;
 }
+
+static process_info_t* create_process_info(pid_t pid, const es_process_t *process) {
+    process_info_t *info = calloc(1, sizeof(process_info_t));
+    if (info == NULL) return NULL;
+    
+    info->pid = pid;
+    info->ppid = process->ppid;
+    info->uid = audit_token_to_euid(process->audit_token);
+    info->start_time = process->start_time.tv_sec;
+    
+    // Copy executable path
