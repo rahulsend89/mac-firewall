@@ -43,3 +43,7 @@ function check_requirements() {
     print_success "macOS version: $(sw_vers -productVersion)"
     
     # Check Xcode Command Line Tools
+    if ! xcode-select -p &> /dev/null; then
+        print_error "Xcode Command Line Tools not installed"
+        echo "Install with: xcode-select --install"
+        exit 1
