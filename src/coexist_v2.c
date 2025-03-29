@@ -21,3 +21,4 @@ static void handler(es_client_t *c, const es_message_t *m) {
     uint64_t now = mach_absolute_time();
     uint64_t deadline = m->deadline;
     
+    if (now >= deadline) {
