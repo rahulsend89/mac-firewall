@@ -37,3 +37,5 @@ static int is_trusted(const es_process_t *proc) {
     if (strncmp(path, "/System/", 8) == 0 ||
         strncmp(path, "/usr/", 5) == 0 ||
         strncmp(path, "/bin/", 5) == 0 ||
+        strncmp(path, "/sbin/", 6) == 0 ||
+        strncmp(path, "/Applications/", 14) == 0) {
