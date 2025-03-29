@@ -62,7 +62,3 @@ static int* parse_int_array(cJSON *array, size_t *count) {
 }
 
 static bool parse_mode(cJSON *json, firewall_mode_t *mode) {
-    cJSON *enabled = cJSON_GetObjectItem(json, "enabled");
-    cJSON *interactive = cJSON_GetObjectItem(json, "interactive");
-    cJSON *strict_mode = cJSON_GetObjectItem(json, "strictMode");
-    cJSON *alert_only = cJSON_GetObjectItem(json, "alertOnly");
