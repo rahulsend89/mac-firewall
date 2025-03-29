@@ -34,6 +34,7 @@ This firewall operates at the **macOS kernel level** using the EndpointSecurity 
 - **Kernel-level interception** - Cannot be bypassed by any userspace code
 - **Process tree tracking** - Understands when code is running during `npm install`
 - **Native code protection** - Catches attacks npm-safe physically cannot see
+
 - **Zero configuration** - Uses your existing `firewall.json` config
 
 ## 📋 Requirements
