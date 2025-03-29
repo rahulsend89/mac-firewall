@@ -39,4 +39,3 @@ static void log_message(log_level_t level, const char *format, ...) {
     time_t now = time(NULL);
     struct tm *tm_info = localtime(&now);
     char timestamp[32];
-    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", tm_info);
