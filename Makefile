@@ -18,3 +18,27 @@ LIBS = -lEndpointSecurity -lbsm
 SRC_DIR = src
 BUILD_DIR = build
 BIN_DIR = bin
+
+# Source files
+SOURCES = $(SRC_DIR)/firewall_daemon.c \
+          $(SRC_DIR)/config_parser.c \
+          $(SRC_DIR)/process_tracker.c \
+          $(SRC_DIR)/logger.c \
+          $(SRC_DIR)/policy_engine.c
+
+OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+
+# Targets
+TARGET = $(BIN_DIR)/mac-firewall
+ENTITLEMENTS = entitlements.plist
+
+.PHONY: all clean install uninstall sign
+
+all: $(TARGET)
+
+# Create directories
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
