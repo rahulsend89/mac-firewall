@@ -34,7 +34,6 @@ This firewall operates at the **macOS kernel level** using the EndpointSecurity 
 - **Kernel-level interception** - Cannot be bypassed by any userspace code
 - **Process tree tracking** - Understands when code is running during `npm install`
 - **Native code protection** - Catches attacks npm-safe physically cannot see
-
 - **Zero configuration** - Uses your existing `firewall.json` config
 
 ## 📋 Requirements
@@ -47,3 +46,31 @@ This firewall operates at the **macOS kernel level** using the EndpointSecurity 
 ## 🚀 Quick Start
 
 ### Installation
+
+```bash
+git clone https://github.com/yourusername/mac-firewall.git
+cd mac-firewall
+./install.sh
+```
+
+The script will:
+1. Check requirements (macOS version, Xcode, etc.)
+2. Download dependencies (cJSON library)
+3. Build and code-sign the firewall
+4. Install to `/usr/local/bin/` (requires sudo)
+
+### Running
+
+```bash
+# Start firewall with default config
+sudo mac-firewall /etc/mac-firewall.json
+
+# Or use local config
+sudo mac-firewall firewall.json
+```
+
+### Testing Protection
+
+Try this malicious npm package simulator:
+
+```bash
