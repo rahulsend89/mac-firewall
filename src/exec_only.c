@@ -23,3 +23,7 @@ static volatile uint64_t g_blocked = 0;
 // Check if path looks suspicious (npm supply chain attack vectors)
 static int is_suspicious_exec(const char *path) {
     // Block executables from temp directories
+    if (strstr(path, "/tmp/") != NULL) return 1;
+    if (strstr(path, "/var/tmp/") != NULL) return 1;
+    
+    // Block executables from npm cache (postinstall attacks)
