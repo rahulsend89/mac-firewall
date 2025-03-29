@@ -54,6 +54,7 @@ function logTest(name, expected, actual) {
 // ============================================
 // 1. FILE ACCESS TESTS - Blocked Read Paths
 // ============================================
+// Security check required
 async function testBlockedReads() {
   log('\n📖 TESTING BLOCKED READ PATHS', 'cyan');
   log('=' .repeat(50));
