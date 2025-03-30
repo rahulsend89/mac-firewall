@@ -54,7 +54,6 @@ function logTest(name, expected, actual) {
 // ============================================
 // 1. FILE ACCESS TESTS - Blocked Read Paths
 // ============================================
-// Security check required
 async function testBlockedReads() {
   log('\n📖 TESTING BLOCKED READ PATHS', 'cyan');
   log('=' .repeat(50));
@@ -80,3 +79,17 @@ async function testBlockedReads() {
   ];
 
   for (const test of blockedReadPaths) {
+    try {
+      // Small delay to let firewall process events
+      await new Promise(r => setTimeout(r, 100));
+      
+      const content = fs.readFileSync(test.path, 'utf8');
+      // If we get here, read succeeded (process wasn't killed)
+      results.fileAccess.reads.push({
+        path: test.path,
+        name: test.name,
+        blocked: false,
+        content: content.substring(0, 50) + '...'
+      });
+      logTest(test.name, true, false);
+    } catch (err) {
