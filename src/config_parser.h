@@ -27,3 +27,17 @@ typedef struct {
     char **blocked_extensions;
     size_t blocked_extensions_count;
     
+    char **allowed_paths;
+    size_t allowed_paths_count;
+} firewall_filesystem_t;
+
+typedef struct {
+    bool enabled;
+    char *mode;
+    bool allow_localhost;
+    bool allow_private_networks;
+    
+    char **blocked_domains;
+    size_t blocked_domains_count;
+    
+    char **allowed_domains;
