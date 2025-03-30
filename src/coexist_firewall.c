@@ -37,3 +37,6 @@ static void sig_handler(int s) {
 
 int main(void) {
     if (getuid() != 0) {
+        fprintf(stderr, "Run as root\n");
+        return 1;
+    }
