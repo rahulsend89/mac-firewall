@@ -25,3 +25,10 @@ try {
   console.log('  ✅ Blocked or killed');
 }
 " 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
+
+sleep 1
+
+# 2. Test SSH key read
+echo ""
+echo -e "${CYAN}Test 2: SSH Key Theft (.ssh/id_rsa)${NC}"
+node -e "
