@@ -45,3 +45,16 @@
       "/.bashrc",
       "/.zshrc",
       "/.profile",
+      "/.bash_profile",
+      "/.zprofile",
+      "/.git/hooks/"
+    ],
+    
+    "blockedExtensions": [
+      ".sh",
+      ".command",
+      ".bash",
+      ".zsh",
+      ".py",
+      ".rb",
+      ".pl",
