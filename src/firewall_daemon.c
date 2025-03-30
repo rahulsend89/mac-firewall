@@ -83,16 +83,3 @@ static int is_npm_context(const es_process_t *proc) {
     
     return 0;
 }
-
-/**
- * Check if process is trusted for CREDENTIAL access
- */
-static int is_trusted_for_credentials(const es_process_t *proc) {
-    if (!proc) return 1;
-    
-    // System processes are always trusted
-    if (is_system_process(proc)) return 1;
-    
-    const char *path = proc->executable->path.data;
-    
-    // Trusted applications for credential access
