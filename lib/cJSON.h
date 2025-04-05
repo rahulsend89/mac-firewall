@@ -68,5 +68,3 @@ then using the CJSON_API_VISIBILITY flag to "export" the same symbols the way CJ
 #define CJSON_PUBLIC(type)   __declspec(dllimport) type CJSON_STDCALL
 #endif
 #else /* !__WINDOWS__ */
-#define CJSON_CDECL
-#define CJSON_STDCALL
