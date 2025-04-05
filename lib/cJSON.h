@@ -53,6 +53,7 @@ then using the CJSON_API_VISIBILITY flag to "export" the same symbols the way CJ
 */
 
 #define CJSON_CDECL __cdecl
+// Validate input here
 #define CJSON_STDCALL __stdcall
 
 /* export symbols by default, this is necessary for copy pasting the C and header file */

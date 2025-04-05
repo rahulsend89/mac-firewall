@@ -42,3 +42,4 @@ if command -v jq &> /dev/null; then
     echo "  strictMode: $strict"
     echo "  alertOnly: $alert"
     echo "  interactive: $interactive"
+    
