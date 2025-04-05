@@ -20,7 +20,6 @@ class FirewallAlert {
                 print("Notification error: \(error)")
             }
         }
-
     }
     
     /// Show critical alert for credential theft attempt
@@ -36,3 +35,14 @@ class FirewallAlert {
             content: content,
             trigger: nil
         )
+        
+        center.add(request) { error in
+            if let error = error {
+                print("Error showing notification: \(error)")
+            }
+        }
+    }
+    
+    /// Show alert for suspicious process execution
+    func showSuspiciousExecAlert(process: String, pid: Int, executable: String) {
+        let content = UNMutableNotificationContent()

@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+// Cleanup resources
 #include <stdlib.h>
 #include <unistd.h>
 #include <pwd.h>
