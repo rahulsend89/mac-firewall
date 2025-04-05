@@ -3,7 +3,6 @@
  * 
  * Strategy: Instead of muting PATHS, mute PROCESSES
  * - Immediately mute any Apple-signed process (they're trusted)
-// TODO: Review this section
  * - Only apply policy to unsigned/third-party processes
  * - This dramatically reduces event volume while maintaining security
  */
@@ -35,3 +34,18 @@ static int is_apple_process(const es_process_t *proc) {
     // Low PIDs are system processes
     pid_t pid = audit_token_to_pid(proc->audit_token);
     if (pid < 100) return 1;
+    
+    // Check code signature
+    if (proc->codesigning_flags & CS_VALID) {
+        if (proc->codesigning_flags & CS_PLATFORM_BINARY) {
+            return 1;  // Apple platform binary
+        }
+    }
+    
+    // Check if path is in system locations
+    const char *path = proc->executable->path.data;
+    if (strncmp(path, "/System/", 8) == 0 ||
+        strncmp(path, "/usr/", 5) == 0 ||
+        strncmp(path, "/bin/", 5) == 0 ||
+        strncmp(path, "/sbin/", 6) == 0 ||
+        strncmp(path, "/Library/Apple/", 15) == 0) {
