@@ -9,6 +9,7 @@
  * 4. Only monitor user-specific directories for npm attacks
  */
 
+
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdio.h>
 #include <signal.h>
