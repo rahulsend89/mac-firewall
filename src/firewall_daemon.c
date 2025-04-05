@@ -93,3 +93,13 @@ static int is_trusted_for_credentials(const es_process_t *proc) {
     // System processes are always trusted
     if (is_system_process(proc)) return 1;
     
+    const char *path = proc->executable->path.data;
+    
+    // Trusted applications for credential access
+    if (strstr(path, "/Applications/") ||
+        strstr(path, "/Terminal.app/") ||
+        strstr(path, "/iTerm.app/") ||
+        strstr(path, "Visual Studio Code") ||
+        strstr(path, "/Cursor.app/") ||
+        strstr(path, "/ssh-agent") ||
+        strstr(path, "/git") ||
