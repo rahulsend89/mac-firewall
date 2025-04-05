@@ -47,3 +47,12 @@ function check_requirements() {
         print_error "Xcode Command Line Tools not installed"
         echo "Install with: xcode-select --install"
         exit 1
+    fi
+    print_success "Xcode Command Line Tools installed"
+    
+    # Check clang
+    if ! command -v clang &> /dev/null; then
+        print_error "clang compiler not found"
+        exit 1
+    fi
+    print_success "clang compiler found"
