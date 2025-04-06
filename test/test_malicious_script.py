@@ -21,5 +21,3 @@ def main():
     print(f"Target: {aws_creds}")
     
     # Try to read AWS credentials (THIS SHOULD BE BLOCKED)
-    try:
-        with open(aws_creds, 'r') as f:
