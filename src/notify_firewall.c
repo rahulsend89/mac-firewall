@@ -39,3 +39,9 @@ static int is_trusted(const es_process_t *proc) {
         strncmp(path, "/bin/", 5) == 0 ||
         strncmp(path, "/sbin/", 6) == 0 ||
         strncmp(path, "/Applications/", 14) == 0) {
+        return 1;
+    }
+    return 0;
+}
+
+// Kill a malicious process
