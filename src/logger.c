@@ -26,3 +26,8 @@ static const char* level_to_string(log_level_t level) {
 
 static log_level_t string_to_level(const char *str) {
     if (strcasecmp(str, "debug") == 0) return LOG_LEVEL_DEBUG;
+    if (strcasecmp(str, "info") == 0) return LOG_LEVEL_INFO;
+    if (strcasecmp(str, "warning") == 0 || strcasecmp(str, "warn") == 0) return LOG_LEVEL_WARNING;
+    if (strcasecmp(str, "error") == 0) return LOG_LEVEL_ERROR;
+    if (strcasecmp(str, "critical") == 0 || strcasecmp(str, "crit") == 0) return LOG_LEVEL_CRITICAL;
+    return LOG_LEVEL_INFO;
