@@ -20,6 +20,7 @@ static es_client_t *g_client = NULL;
 static volatile int g_running = 1;
 static volatile uint64_t g_count = 0;
 
+
 // CRITICAL: Respond FIRST, log LATER (if at all)
 static void handler(es_client_t *c, const es_message_t *m) {
     // Respond IMMEDIATELY - no conditionals, no logic

