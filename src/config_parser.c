@@ -73,10 +73,3 @@ static bool parse_mode(cJSON *json, firewall_mode_t *mode) {
     mode->alert_only = cJSON_IsTrue(alert_only);
     
     return true;
-}
-
-static bool parse_filesystem(cJSON *json, firewall_filesystem_t *fs) {
-    cJSON *blocked_read = cJSON_GetObjectItem(json, "blockedReadPaths");
-    cJSON *blocked_write = cJSON_GetObjectItem(json, "blockedWritePaths");
-    cJSON *blocked_ext = cJSON_GetObjectItem(json, "blockedExtensions");
-    cJSON *allowed = cJSON_GetObjectItem(json, "allowedPaths");
