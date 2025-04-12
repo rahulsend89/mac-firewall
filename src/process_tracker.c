@@ -43,3 +43,20 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
     info->start_time = process->start_time.tv_sec;
     
     // Copy executable path
+    size_t path_len = process->executable->path.length;
+    if (path_len >= sizeof(info->executable_path)) {
+        path_len = sizeof(info->executable_path) - 1;
+    }
+    memcpy(info->executable_path, process->executable->path.data, path_len);
+    info->executable_path[path_len] = '\0';
+    
+    // Set flags based on executable name
+    info->is_npm = strstr(info->executable_path, "/npm") != NULL;
+    info->is_node = strstr(info->executable_path, "/node") != NULL;
+    info->is_script = strstr(info->executable_path, "python") != NULL ||
+                     strstr(info->executable_path, "ruby") != NULL ||
+                     strstr(info->executable_path, "bash") != NULL ||
+                     strstr(info->executable_path, "sh") != NULL;
+    
+    // Check if native binary (not a script interpreter)
+    info->is_native_binary = !info->is_node && !info->is_script;
