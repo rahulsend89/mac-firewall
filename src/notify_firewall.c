@@ -31,6 +31,7 @@ static int is_trusted(const es_process_t *proc) {
     if (!proc) return 1;
     pid_t pid = audit_token_to_pid(proc->audit_token);
     if (pid < 100) return 1;
+
     if (proc->codesigning_flags & CS_PLATFORM_BINARY) return 1;
     
     const char *path = proc->executable->path.data;
