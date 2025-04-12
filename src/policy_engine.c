@@ -22,3 +22,15 @@ policy_decision_t policy_evaluate_file_access(
     const char *process_path,
     pid_t pid,
     const char *file_path,
+    bool is_write
+) {
+    (void)process_path; // Unused for now
+    (void)pid;          // Unused for now
+    
+    if (g_policy_config == NULL || !g_policy_config->mode.enabled) {
+        return POLICY_ALLOW;
+    }
+    
+    // Check blocked paths
+    if (is_write) {
+        for (size_t i = 0; i < g_policy_config->filesystem.blocked_write_paths_count; i++) {
