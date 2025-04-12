@@ -4,7 +4,6 @@
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
   in the Software without restriction, including without limitation the rights
-
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
   furnished to do so, subject to the following conditions:
@@ -267,7 +266,6 @@ CJSON_PUBLIC(void) cJSON_Delete(cJSON *item)
             item->valuestring = NULL;
         }
         if (!(item->type & cJSON_StringIsConst) && (item->string != NULL))
-
         {
             global_hooks.deallocate(item->string);
             item->string = NULL;
@@ -447,3 +445,275 @@ CJSON_PUBLIC(char*) cJSON_SetValuestring(cJSON *object, const char *valuestring)
 
     v1_len = strlen(valuestring);
     v2_len = strlen(object->valuestring);
+
+    if (v1_len <= v2_len)
+    {
+        /* strcpy does not handle overlapping string: [X1, X2] [Y1, Y2] => X2 < Y1 or Y2 < X1 */
+        if (!( valuestring + v1_len < object->valuestring || object->valuestring + v2_len < valuestring ))
+        {
+            return NULL;
+        }
+        strcpy(object->valuestring, valuestring);
+        return object->valuestring;
+    }
+    copy = (char*) cJSON_strdup((const unsigned char*)valuestring, &global_hooks);
+    if (copy == NULL)
+    {
+        return NULL;
+    }
+    if (object->valuestring != NULL)
+    {
+        cJSON_free(object->valuestring);
+    }
+    object->valuestring = copy;
+
+    return copy;
+}
+
+typedef struct
+{
+    unsigned char *buffer;
+    size_t length;
+    size_t offset;
+    size_t depth; /* current nesting depth (for formatted printing) */
+    cJSON_bool noalloc;
+    cJSON_bool format; /* is this print a formatted print */
+    internal_hooks hooks;
+} printbuffer;
+
+/* realloc printbuffer if necessary to have at least "needed" bytes more */
+static unsigned char* ensure(printbuffer * const p, size_t needed)
+{
+    unsigned char *newbuffer = NULL;
+    size_t newsize = 0;
+
+    if ((p == NULL) || (p->buffer == NULL))
+    {
+        return NULL;
+    }
+
+    if ((p->length > 0) && (p->offset >= p->length))
+    {
+        /* make sure that offset is valid */
+        return NULL;
+    }
+
+    if (needed > INT_MAX)
+    {
+        /* sizes bigger than INT_MAX are currently not supported */
+        return NULL;
+    }
+
+    needed += p->offset + 1;
+    if (needed <= p->length)
+    {
+        return p->buffer + p->offset;
+    }
+
+    if (p->noalloc) {
+        return NULL;
+    }
+
+    /* calculate new buffer size */
+    if (needed > (INT_MAX / 2))
+    {
+        /* overflow of int, use INT_MAX if possible */
+        if (needed <= INT_MAX)
+        {
+            newsize = INT_MAX;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    else
+    {
+        newsize = needed * 2;
+    }
+
+    if (p->hooks.reallocate != NULL)
+    {
+        /* reallocate with realloc if available */
+        newbuffer = (unsigned char*)p->hooks.reallocate(p->buffer, newsize);
+        if (newbuffer == NULL)
+        {
+            p->hooks.deallocate(p->buffer);
+            p->length = 0;
+            p->buffer = NULL;
+
+            return NULL;
+        }
+    }
+    else
+    {
+        /* otherwise reallocate manually */
+        newbuffer = (unsigned char*)p->hooks.allocate(newsize);
+        if (!newbuffer)
+        {
+            p->hooks.deallocate(p->buffer);
+            p->length = 0;
+            p->buffer = NULL;
+
+            return NULL;
+        }
+
+        memcpy(newbuffer, p->buffer, p->offset + 1);
+        p->hooks.deallocate(p->buffer);
+    }
+    p->length = newsize;
+    p->buffer = newbuffer;
+
+    return newbuffer + p->offset;
+}
+
+/* calculate the new length of the string in a printbuffer and update the offset */
+static void update_offset(printbuffer * const buffer)
+{
+    const unsigned char *buffer_pointer = NULL;
+    if ((buffer == NULL) || (buffer->buffer == NULL))
+    {
+        return;
+    }
+    buffer_pointer = buffer->buffer + buffer->offset;
+
+    buffer->offset += strlen((const char*)buffer_pointer);
+}
+
+/* securely comparison of floating-point variables */
+static cJSON_bool compare_double(double a, double b)
+{
+    double maxVal = fabs(a) > fabs(b) ? fabs(a) : fabs(b);
+    return (fabs(a - b) <= maxVal * DBL_EPSILON);
+}
+
+/* Render the number nicely from the given item into a string. */
+static cJSON_bool print_number(const cJSON * const item, printbuffer * const output_buffer)
+{
+    unsigned char *output_pointer = NULL;
+    double d = item->valuedouble;
+    int length = 0;
+    size_t i = 0;
+    unsigned char number_buffer[26] = {0}; /* temporary buffer to print the number into */
+    unsigned char decimal_point = get_decimal_point();
+    double test = 0.0;
+
+    if (output_buffer == NULL)
+    {
+        return false;
+    }
+
+    /* This checks for NaN and Infinity */
+    if (isnan(d) || isinf(d))
+    {
+        length = sprintf((char*)number_buffer, "null");
+    }
+    else if(d == (double)item->valueint)
+    {
+        length = sprintf((char*)number_buffer, "%d", item->valueint);
+    }
+    else
+    {
+        /* Try 15 decimal places of precision to avoid nonsignificant nonzero digits */
+        length = sprintf((char*)number_buffer, "%1.15g", d);
+
+        /* Check whether the original double can be recovered */
+        if ((sscanf((char*)number_buffer, "%lg", &test) != 1) || !compare_double((double)test, d))
+        {
+            /* If not, print with 17 decimal places of precision */
+            length = sprintf((char*)number_buffer, "%1.17g", d);
+        }
+    }
+
+    /* sprintf failed or buffer overrun occurred */
+    if ((length < 0) || (length > (int)(sizeof(number_buffer) - 1)))
+    {
+        return false;
+    }
+
+    /* reserve appropriate space in the output */
+    output_pointer = ensure(output_buffer, (size_t)length + sizeof(""));
+    if (output_pointer == NULL)
+    {
+        return false;
+    }
+
+    /* copy the printed number to the output and replace locale
+     * dependent decimal point with '.' */
+    for (i = 0; i < ((size_t)length); i++)
+    {
+        if (number_buffer[i] == decimal_point)
+        {
+            output_pointer[i] = '.';
+            continue;
+        }
+
+        output_pointer[i] = number_buffer[i];
+    }
+    output_pointer[i] = '\0';
+
+    output_buffer->offset += (size_t)length;
+
+    return true;
+}
+
+/* parse 4 digit hexadecimal number */
+static unsigned parse_hex4(const unsigned char * const input)
+{
+    unsigned int h = 0;
+    size_t i = 0;
+
+    for (i = 0; i < 4; i++)
+    {
+        /* parse digit */
+        if ((input[i] >= '0') && (input[i] <= '9'))
+        {
+            h += (unsigned int) input[i] - '0';
+        }
+        else if ((input[i] >= 'A') && (input[i] <= 'F'))
+        {
+            h += (unsigned int) 10 + input[i] - 'A';
+        }
+        else if ((input[i] >= 'a') && (input[i] <= 'f'))
+        {
+            h += (unsigned int) 10 + input[i] - 'a';
+        }
+        else /* invalid */
+        {
+            return 0;
+        }
+
+        if (i < 3)
+        {
+            /* shift left to make place for the next nibble */
+            h = h << 4;
+        }
+    }
+
+    return h;
+}
+
+/* converts a UTF-16 literal to UTF-8
+ * A literal can be one or two sequences of the form \uXXXX */
+static unsigned char utf16_literal_to_utf8(const unsigned char * const input_pointer, const unsigned char * const input_end, unsigned char **output_pointer)
+{
+    long unsigned int codepoint = 0;
+    unsigned int first_code = 0;
+    const unsigned char *first_sequence = input_pointer;
+    unsigned char utf8_length = 0;
+    unsigned char utf8_position = 0;
+    unsigned char sequence_length = 0;
+    unsigned char first_byte_mark = 0;
+
+    if ((input_end - first_sequence) < 6)
+    {
+        /* input ends unexpectedly */
+        goto fail;
+    }
+
+    /* get the first utf16 sequence */
+    first_code = parse_hex4(first_sequence + 2);
+
+    /* check that the code is valid */
+    if (((first_code >= 0xDC00) && (first_code <= 0xDFFF)))
+    {
