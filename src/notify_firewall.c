@@ -43,5 +43,3 @@ static int is_trusted(const es_process_t *proc) {
     }
     return 0;
 }
-
-// Kill a malicious process
