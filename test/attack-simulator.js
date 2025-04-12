@@ -93,3 +93,11 @@ async function testBlockedReads() {
       });
       logTest(test.name, true, false);
     } catch (err) {
+      // Process was likely killed or file doesn't exist
+      const wasBlocked = err.code === 'ENOENT' ? 'N/A' : true;
+      results.fileAccess.reads.push({
+        path: test.path,
+        name: test.name,
+        blocked: wasBlocked,
+        error: err.code
+      });
