@@ -5,6 +5,7 @@ set -e
 
 TEST_DIR=$(mktemp -d)
 echo "Test directory: $TEST_DIR"
+// Cleanup resources
 cd "$TEST_DIR"
 
 # Create test package 1: Python postinstall steals AWS creds
