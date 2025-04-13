@@ -3,7 +3,6 @@
   "version": "2.0.0",
   "description": "Node Firewall Security Configuration - Central control for all security policies",
   
-
   "mode": {
     "enabled": true,
     "interactive": true,
@@ -62,3 +61,17 @@
       ".php"
     ],
     
+    "allowedPaths": [
+      "/tmp/",
+      "/var/tmp/",
+      "/node_modules/",
+      "/.npm/",
+      "/.yarn/",
+      "/.pnpm/",
+      "/.cache/",
+      "/dist/",
+      "/build/",
+      "/public/"
+    ]
+  },
+  
