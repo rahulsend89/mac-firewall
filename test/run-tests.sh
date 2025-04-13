@@ -28,3 +28,7 @@ if ! pgrep -f "mac-firewall" > /dev/null; then
     echo -e "${RED}⚠️  Firewall is NOT running!${NC}"
     echo -e "${YELLOW}Start it with: sudo ./bin/mac-firewall firewall.json${NC}"
     echo ""
+    read -p "Continue anyway? (y/N) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        exit 1
