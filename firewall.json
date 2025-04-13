@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "Node Firewall Security Configuration - Central control for all security policies",
   
+
   "mode": {
     "enabled": true,
     "interactive": true,
