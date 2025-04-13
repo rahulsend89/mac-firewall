@@ -73,3 +73,28 @@ static bool parse_mode(cJSON *json, firewall_mode_t *mode) {
     mode->alert_only = cJSON_IsTrue(alert_only);
     
     return true;
+}
+
+static bool parse_filesystem(cJSON *json, firewall_filesystem_t *fs) {
+    cJSON *blocked_read = cJSON_GetObjectItem(json, "blockedReadPaths");
+    cJSON *blocked_write = cJSON_GetObjectItem(json, "blockedWritePaths");
+    cJSON *blocked_ext = cJSON_GetObjectItem(json, "blockedExtensions");
+    cJSON *allowed = cJSON_GetObjectItem(json, "allowedPaths");
+    
+    fs->blocked_read_paths = parse_string_array(blocked_read, &fs->blocked_read_paths_count);
+    fs->blocked_write_paths = parse_string_array(blocked_write, &fs->blocked_write_paths_count);
+    fs->blocked_extensions = parse_string_array(blocked_ext, &fs->blocked_extensions_count);
+    fs->allowed_paths = parse_string_array(allowed, &fs->allowed_paths_count);
+    
+    return true;
+}
+
+static bool parse_network(cJSON *json, firewall_network_t *net) {
+    cJSON *enabled = cJSON_GetObjectItem(json, "enabled");
+    cJSON *mode = cJSON_GetObjectItem(json, "mode");
+    cJSON *allow_localhost = cJSON_GetObjectItem(json, "allowLocalhost");
+    cJSON *allow_private = cJSON_GetObjectItem(json, "allowPrivateNetworks");
+    cJSON *blocked_domains = cJSON_GetObjectItem(json, "blockedDomains");
+    cJSON *allowed_domains = cJSON_GetObjectItem(json, "allowedDomains");
+    cJSON *suspicious_ports = cJSON_GetObjectItem(json, "suspiciousPorts");
+    cJSON *credential_patterns = cJSON_GetObjectItem(json, "credentialPatterns");
