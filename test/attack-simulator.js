@@ -101,3 +101,4 @@ async function testBlockedReads() {
         blocked: wasBlocked,
         error: err.code
       });
+      if (err.code === 'ENOENT') {
