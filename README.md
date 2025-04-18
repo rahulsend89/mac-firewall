@@ -98,3 +98,14 @@ npm install
 ┌─────────────────────────────────────────────────┐
 │           User Space                            │
 │                                                 │
+│  npm install malicious-package                 │
+│       │                                         │
+│       ├─> node-gyp (compiles malicious.node)  │
+│       ├─> python3 setup.py                     │
+│       └─> /tmp/backdoor (downloaded binary)    │
+│                    │                            │
+│                    └─> open("~/.ssh/id_rsa")   │
+│                              ▼                  │
+└──────────────────────────────┼─────────────────┘
+                               │
+          ┌────────────────────▼────────────────┐
