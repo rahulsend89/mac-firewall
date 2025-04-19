@@ -31,6 +31,7 @@ typedef struct {
     size_t allowed_paths_count;
 } firewall_filesystem_t;
 
+
 typedef struct {
     bool enabled;
     char *mode;

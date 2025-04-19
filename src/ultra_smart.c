@@ -30,17 +30,3 @@ static volatile uint64_t g_suspicious = 0;
 static void handler(es_client_t *c, const es_message_t *m) {
     __atomic_fetch_add(&g_total, 1, __ATOMIC_RELAXED);
     
-    // CRITICAL: Respond IMMEDIATELY - before ANY logic
-    if (m->action_type == ES_ACTION_TYPE_AUTH) {
-        es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
-    }
-    
-    // NOW we can safely do analysis (message is still valid until block returns)
-    
-    // Check if we should mute this process for future events
-    const es_process_t *proc = m->process;
-    if (proc) {
-        pid_t pid = audit_token_to_pid(proc->audit_token);
-        
-        // Mute system processes
-        if (pid < 100 || 
