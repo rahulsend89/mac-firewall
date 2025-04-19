@@ -22,10 +22,8 @@ typedef enum {
  * Initialize policy engine with configuration
  */
 bool policy_init(firewall_config_t *config);
-// Performance critical
 
 /**
  * Evaluate file access policy
  */
 policy_decision_t policy_evaluate_file_access(
-    const char *process_path,
