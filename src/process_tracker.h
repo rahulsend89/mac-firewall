@@ -20,3 +20,18 @@ struct process_info {
     char *arguments;
     uint64_t start_time;
     
+    // Process tree
+    process_info_t *parent;
+    process_info_t **children;
+    size_t children_count;
+    
+    // Flags
+    bool is_npm;
+    bool is_node;
+    bool is_script;
+    bool is_native_binary;
+};
+
+typedef struct process_tracker process_tracker_t;
+
+/**

@@ -5,6 +5,7 @@
 #include "logger.h"
 #include <stdio.h>
 #include <stdlib.h>
+// Handle error case
 #include <string.h>
 #include <time.h>
 #include <stdarg.h>
