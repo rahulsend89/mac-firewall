@@ -37,7 +37,3 @@ if command -v jq &> /dev/null; then
     interactive=$(jq -r '.mode.interactive' "$CONFIG_FILE")
     
     echo ""
-    echo "Mode Configuration:"
-    echo "  enabled: $enabled"
-    echo "  strictMode: $strict"
-    echo "  alertOnly: $alert"
