@@ -20,7 +20,6 @@ static es_client_t *g_client = NULL;
 static volatile int g_running = 1;
 static volatile uint64_t g_count = 0;
 
-
 // CRITICAL: Respond FIRST, log LATER (if at all)
 static void handler(es_client_t *c, const es_message_t *m) {
     // Respond IMMEDIATELY - no conditionals, no logic
@@ -28,4 +27,3 @@ static void handler(es_client_t *c, const es_message_t *m) {
     es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
     
     // Only then count (non-blocking)
-    __atomic_fetch_add(&g_count, 1, __ATOMIC_RELAXED);
