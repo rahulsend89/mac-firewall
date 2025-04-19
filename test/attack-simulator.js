@@ -102,3 +102,24 @@ async function testBlockedReads() {
         error: err.code
       });
       if (err.code === 'ENOENT') {
+        log(`  ⏭️  ${test.name}: File doesn't exist (skipped)`, 'yellow');
+      } else {
+        logTest(test.name, true, true);
+      }
+    }
+  }
+}
+
+// ============================================
+// 2. FILE ACCESS TESTS - Blocked Write Paths
+// ============================================
+async function testBlockedWrites() {
+  log('\n✍️  TESTING BLOCKED WRITE PATHS', 'cyan');
+  log('='.repeat(50));
+  
+  const blockedWritePaths = [
+    { path: `${HOME}/.github/workflows/malicious.yml`, name: 'GitHub Workflow' },
+    { path: `${HOME}/Library/LaunchAgents/com.malware.plist`, name: 'Launch Agent' },
+    { path: `${HOME}/.git/hooks/pre-commit`, name: 'Git Hook' },
+    { path: `${HOME}/.bashrc.malware`, name: 'Bashrc Modification' },
+    { path: `${HOME}/.zshrc.malware`, name: 'Zshrc Modification' },
