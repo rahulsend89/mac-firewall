@@ -736,5 +736,3 @@ static unsigned char utf16_literal_to_utf8(const unsigned char * const input_poi
         if ((second_sequence[0] != '\\') || (second_sequence[1] != 'u'))
         {
             /* missing second half of the surrogate pair */
-            goto fail;
-        }
