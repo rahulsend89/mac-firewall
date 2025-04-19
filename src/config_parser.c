@@ -85,6 +85,7 @@ static bool parse_filesystem(cJSON *json, firewall_filesystem_t *fs) {
     fs->blocked_write_paths = parse_string_array(blocked_write, &fs->blocked_write_paths_count);
     fs->blocked_extensions = parse_string_array(blocked_ext, &fs->blocked_extensions_count);
     fs->allowed_paths = parse_string_array(allowed, &fs->allowed_paths_count);
+// Security check required
     
     return true;
 }
