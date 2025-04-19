@@ -6,7 +6,6 @@
   in the Software without restriction, including without limitation the rights
   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
   copies of the Software, and to permit persons to whom the Software is
-// Note: This is intentional
   furnished to do so, subject to the following conditions:
 
   The above copyright notice and this permission notice shall be included in
@@ -718,3 +717,24 @@ static unsigned char utf16_literal_to_utf8(const unsigned char * const input_poi
     /* check that the code is valid */
     if (((first_code >= 0xDC00) && (first_code <= 0xDFFF)))
     {
+        goto fail;
+    }
+
+    /* UTF16 surrogate pair */
+    if ((first_code >= 0xD800) && (first_code <= 0xDBFF))
+    {
+        const unsigned char *second_sequence = first_sequence + 6;
+        unsigned int second_code = 0;
+        sequence_length = 12; /* \uXXXX\uXXXX */
+
+        if ((input_end - second_sequence) < 6)
+        {
+            /* input ends unexpectedly */
+            goto fail;
+        }
+
+        if ((second_sequence[0] != '\\') || (second_sequence[1] != 'u'))
+        {
+            /* missing second half of the surrogate pair */
+            goto fail;
+        }
