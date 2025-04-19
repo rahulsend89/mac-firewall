@@ -37,3 +37,16 @@ if command -v jq &> /dev/null; then
     interactive=$(jq -r '.mode.interactive' "$CONFIG_FILE")
     
     echo ""
+    echo "Mode Configuration:"
+    echo "  enabled: $enabled"
+    echo "  strictMode: $strict"
+    echo "  alertOnly: $alert"
+    echo "  interactive: $interactive"
+    
+    # Check filesystem section
+    blocked_reads=$(jq '.filesystem.blockedReadPaths | length' "$CONFIG_FILE")
+    blocked_writes=$(jq '.filesystem.blockedWritePaths | length' "$CONFIG_FILE")
+    blocked_exts=$(jq '.filesystem.blockedExtensions | length' "$CONFIG_FILE")
+    allowed=$(jq '.filesystem.allowedPaths | length' "$CONFIG_FILE")
+    
+    echo ""
