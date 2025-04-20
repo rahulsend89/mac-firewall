@@ -32,3 +32,9 @@ if ! pgrep -f "mac-firewall" > /dev/null; then
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         exit 1
+    fi
+else
+    echo -e "${GREEN}✅ Firewall is running${NC}"
+fi
+
+echo ""
