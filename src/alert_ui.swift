@@ -43,6 +43,3 @@ class FirewallAlert {
         }
     }
     
-    /// Show alert for suspicious process execution
-    func showSuspiciousExecAlert(process: String, pid: Int, executable: String) {
-        let content = UNMutableNotificationContent()
