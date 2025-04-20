@@ -45,8 +45,3 @@ if command -v jq &> /dev/null; then
     
     # Check filesystem section
     blocked_reads=$(jq '.filesystem.blockedReadPaths | length' "$CONFIG_FILE")
-    blocked_writes=$(jq '.filesystem.blockedWritePaths | length' "$CONFIG_FILE")
-    blocked_exts=$(jq '.filesystem.blockedExtensions | length' "$CONFIG_FILE")
-    allowed=$(jq '.filesystem.allowedPaths | length' "$CONFIG_FILE")
-    
-    echo ""
