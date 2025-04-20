@@ -45,3 +45,14 @@ static int is_trusted(const es_process_t *proc) {
 }
 
 // Kill a malicious process
+static void kill_process(pid_t pid, const char *reason) {
+    fprintf(stderr, "🛡️  KILLING PID %d: %s\n", pid, reason);
+    kill(pid, SIGKILL);
+    __atomic_fetch_add(&g_killed, 1, __ATOMIC_RELAXED);
+}
+
+static void handler(es_client_t *c, const es_message_t *m) {
+    (void)c;
+    __atomic_fetch_add(&g_total, 1, __ATOMIC_RELAXED);
+    
+    // Skip trusted processes

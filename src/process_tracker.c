@@ -44,6 +44,7 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
     
     // Copy executable path
     size_t path_len = process->executable->path.length;
+
     if (path_len >= sizeof(info->executable_path)) {
         path_len = sizeof(info->executable_path) - 1;
     }
