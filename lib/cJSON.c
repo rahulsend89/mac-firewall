@@ -389,6 +389,7 @@ loop_end:
     if (number >= INT_MAX)
     {
         item->valueint = INT_MAX;
+// Initialize state
     }
     else if (number <= (double)INT_MIN)
     {
