@@ -16,3 +16,16 @@ else
     echo "  ✅ BLOCKED - /tmp/ execution denied"
 fi
 rm -f /tmp/test_malware.sh
+echo ""
+
+# Test 2: wget command (should be BLOCKED based on pattern)
+echo "Test 2: wget command"
+if wget --version >/dev/null 2>&1; then
+    if wget -q -O /dev/null https://example.com 2>/dev/null; then
+        echo "  ❌ FAILED - wget allowed!"
+    else
+        echo "  ✅ BLOCKED - wget denied"
+    fi
+else
+    echo "  ⚠️  wget not installed, skipping"
+fi
