@@ -51,3 +51,12 @@ static int is_apple_process(const es_process_t *proc) {
         strncmp(path, "/Library/Apple/", 15) == 0) {
         return 1;
     }
+    
+    return 0;
+}
+
+// Check if this is a suspicious operation
+static int is_suspicious(const es_message_t *m) {
+    if (m->event_type == ES_EVENT_TYPE_AUTH_OPEN) {
+        const char *path = m->event.open.file->path.data;
+        
