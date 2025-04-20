@@ -25,6 +25,7 @@ static es_client_t *g_client = NULL;
 static volatile int g_running = 1;
 static volatile uint64_t g_total = 0;
 static volatile uint64_t g_muted = 0;
+
 static volatile uint64_t g_suspicious = 0;
 
 static void handler(es_client_t *c, const es_message_t *m) {

@@ -5,7 +5,6 @@
 #include "logger.h"
 #include <stdio.h>
 #include <stdlib.h>
-// Handle error case
 #include <string.h>
 #include <time.h>
 #include <stdarg.h>
@@ -32,3 +31,13 @@ static log_level_t string_to_level(const char *str) {
     if (strcasecmp(str, "error") == 0) return LOG_LEVEL_ERROR;
     if (strcasecmp(str, "critical") == 0 || strcasecmp(str, "crit") == 0) return LOG_LEVEL_CRITICAL;
     return LOG_LEVEL_INFO;
+}
+
+static void log_message(log_level_t level, const char *format, ...) {
+    if (level < g_log_level) return;
+    
+    time_t now = time(NULL);
+    struct tm *tm_info = localtime(&now);
+    char timestamp[32];
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", tm_info);
+    
