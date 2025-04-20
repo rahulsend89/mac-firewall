@@ -40,6 +40,3 @@ class FirewallAlert {
             if let error = error {
                 print("Error showing notification: \(error)")
             }
-        }
-    }
-    
