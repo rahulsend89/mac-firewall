@@ -33,4 +33,3 @@ policy_decision_t policy_evaluate_file_access(
     
     // Check blocked paths
     if (is_write) {
-        for (size_t i = 0; i < g_policy_config->filesystem.blocked_write_paths_count; i++) {
