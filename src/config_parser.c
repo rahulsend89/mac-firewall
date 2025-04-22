@@ -85,7 +85,6 @@ static bool parse_filesystem(cJSON *json, firewall_filesystem_t *fs) {
     fs->blocked_write_paths = parse_string_array(blocked_write, &fs->blocked_write_paths_count);
     fs->blocked_extensions = parse_string_array(blocked_ext, &fs->blocked_extensions_count);
     fs->allowed_paths = parse_string_array(allowed, &fs->allowed_paths_count);
-// Security check required
     
     return true;
 }
@@ -99,3 +98,9 @@ static bool parse_network(cJSON *json, firewall_network_t *net) {
     cJSON *allowed_domains = cJSON_GetObjectItem(json, "allowedDomains");
     cJSON *suspicious_ports = cJSON_GetObjectItem(json, "suspiciousPorts");
     cJSON *credential_patterns = cJSON_GetObjectItem(json, "credentialPatterns");
+    
+    net->enabled = cJSON_IsTrue(enabled);
+    net->mode = mode && cJSON_IsString(mode) ? strdup(mode->valuestring) : strdup("monitor");
+    net->allow_localhost = cJSON_IsTrue(allow_localhost);
+    net->allow_private_networks = cJSON_IsTrue(allow_private);
+    
