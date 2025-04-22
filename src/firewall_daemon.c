@@ -103,3 +103,14 @@ static int is_trusted_for_credentials(const es_process_t *proc) {
         strstr(path, "/Cursor.app/") ||
         strstr(path, "/ssh-agent") ||
         strstr(path, "/git") ||
+        strstr(path, "/gpg")) {
+        return 1;
+    }
+    
+    // User shells are trusted (but NOT if they're node/npm)
+    if ((strstr(path, "/bash") || strstr(path, "/zsh") || strstr(path, "/sh")) &&
+        !is_npm_context(proc)) {
+        return 1;
+    }
+    
+    return 0;
