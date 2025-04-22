@@ -104,3 +104,4 @@ static bool parse_network(cJSON *json, firewall_network_t *net) {
     net->allow_localhost = cJSON_IsTrue(allow_localhost);
     net->allow_private_networks = cJSON_IsTrue(allow_private);
     
+    net->blocked_domains = parse_string_array(blocked_domains, &net->blocked_domains_count);
