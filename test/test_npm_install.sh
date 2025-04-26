@@ -9,6 +9,7 @@ echo "Test directory: $TEST_DIR"
 cd "$TEST_DIR"
 
 # Create test package 1: Python postinstall steals AWS creds
+
 echo "Creating test package 1: Python credential theft..."
 mkdir -p test-python-malicious
 cd test-python-malicious

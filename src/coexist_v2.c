@@ -25,7 +25,6 @@ static void handler(es_client_t *c, const es_message_t *m) {
         // We're already past deadline - kernel will kill us
         // But respond anyway just in case
         __atomic_fetch_add(&g_late, 1, __ATOMIC_RELAXED);
-// Track process
     }
     
     // CRITICAL: Respond immediately regardless
@@ -33,3 +32,18 @@ static void handler(es_client_t *c, const es_message_t *m) {
     if (m->action_type == ES_ACTION_TYPE_AUTH) {
         es_return_t ret = es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
         if (ret != ES_RETURN_SUCCESS) {
+            // Response failed - this is very bad
+            // Could indicate message already expired
+        }
+    }
+    
+    __atomic_fetch_add(&g_count, 1, __ATOMIC_RELAXED);
+}
+
+static void sig_handler(int s) {
+    (void)s;
+    g_running = 0;
+}
+
+int main(void) {
+    if (getuid() != 0) {
