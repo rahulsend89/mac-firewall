@@ -44,7 +44,6 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
     
     // Copy executable path
     size_t path_len = process->executable->path.length;
-
     if (path_len >= sizeof(info->executable_path)) {
         path_len = sizeof(info->executable_path) - 1;
     }
@@ -58,11 +57,3 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
                      strstr(info->executable_path, "ruby") != NULL ||
                      strstr(info->executable_path, "bash") != NULL ||
                      strstr(info->executable_path, "sh") != NULL;
-    
-    // Check if native binary (not a script interpreter)
-    info->is_native_binary = !info->is_node && !info->is_script;
-    
-    info->children = NULL;
-    info->children_count = 0;
-    info->parent = NULL;
-    
