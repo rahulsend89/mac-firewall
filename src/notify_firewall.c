@@ -15,7 +15,6 @@
 #include <string.h>
 #include <fcntl.h>
 #include <mach/mach.h>
-
 #include <bsm/libbsm.h>
 
 #define CS_VALID            0x00000001
@@ -57,3 +56,5 @@ static void handler(es_client_t *c, const es_message_t *m) {
     __atomic_fetch_add(&g_total, 1, __ATOMIC_RELAXED);
     
     // Skip trusted processes
+    if (is_trusted(m->process)) return;
+    
