@@ -68,10 +68,3 @@
       "/.npm/",
       "/.yarn/",
       "/.pnpm/",
-      "/.cache/",
-      "/dist/",
-      "/build/",
-      "/public/"
-    ]
-  },
-  
