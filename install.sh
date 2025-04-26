@@ -63,14 +63,3 @@ function check_sip() {
     echo "Checking System Integrity Protection (SIP)..."
     
     sip_status=$(csrutil status | grep -o "enabled\|disabled")
-    if [[ "$sip_status" == "enabled" ]]; then
-        print_warning "SIP is enabled"
-        echo ""
-        echo "For development, you may need to disable SIP:"
-        echo "  1. Reboot into Recovery Mode (Cmd+R at startup)"
-        echo "  2. Open Terminal from Utilities menu"
-        echo "  3. Run: csrutil disable"
-        echo "  4. Reboot normally"
-        echo ""
-        echo "Note: This reduces system security. Re-enable after testing."
-        echo "      For production, create a System Extension instead."
