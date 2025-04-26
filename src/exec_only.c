@@ -35,3 +35,5 @@ static int is_suspicious_exec(const char *path) {
     
     return 0;
 }
+
+static void handler(es_client_t *c, const es_message_t *m) {
