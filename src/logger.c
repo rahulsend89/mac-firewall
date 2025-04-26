@@ -24,7 +24,6 @@ static const char* level_to_string(log_level_t level) {
     }
 }
 
-
 static log_level_t string_to_level(const char *str) {
     if (strcasecmp(str, "debug") == 0) return LOG_LEVEL_DEBUG;
     if (strcasecmp(str, "info") == 0) return LOG_LEVEL_INFO;
@@ -42,3 +41,9 @@ static void log_message(log_level_t level, const char *format, ...) {
     char timestamp[32];
     strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", tm_info);
     
+    // Log to file
+    if (g_log_file != NULL) {
+        fprintf(g_log_file, "[%s] [%s] ", timestamp, level_to_string(level));
+        
+        va_list args;
+        va_start(args, format);
