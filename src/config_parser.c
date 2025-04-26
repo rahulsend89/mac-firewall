@@ -105,3 +105,7 @@ static bool parse_network(cJSON *json, firewall_network_t *net) {
     net->allow_private_networks = cJSON_IsTrue(allow_private);
     
     net->blocked_domains = parse_string_array(blocked_domains, &net->blocked_domains_count);
+    net->allowed_domains = parse_string_array(allowed_domains, &net->allowed_domains_count);
+    net->suspicious_ports = parse_int_array(suspicious_ports, &net->suspicious_ports_count);
+    net->credential_patterns = parse_string_array(credential_patterns, &net->credential_patterns_count);
+    
