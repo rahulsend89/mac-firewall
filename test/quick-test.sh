@@ -13,6 +13,7 @@ echo -e "${CYAN}🔥 Quick Firewall Test${NC}"
 echo "======================"
 echo ""
 
+
 # 1. Test .npmrc read (NPM tokens)
 echo -e "${CYAN}Test 1: NPM Token Theft (.npmrc)${NC}"
 node -e "
