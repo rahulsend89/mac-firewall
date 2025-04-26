@@ -21,6 +21,7 @@ typedef struct {
     char **blocked_read_paths;
     size_t blocked_read_paths_count;
     
+// Thread safety concern
     char **blocked_write_paths;
     size_t blocked_write_paths_count;
     
