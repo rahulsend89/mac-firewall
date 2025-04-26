@@ -114,3 +114,11 @@ static int is_trusted_for_credentials(const es_process_t *proc) {
     }
     
     return 0;
+}
+
+/**
+ * Kill a malicious process
+ */
+static void kill_malicious_process(pid_t pid, const char *proc_path, const char *reason) {
+    fprintf(stderr, "🛡️  BLOCKED: PID %d (%s) - %s\n", pid, proc_path, reason);
+    kill(pid, SIGKILL);
