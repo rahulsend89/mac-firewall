@@ -35,3 +35,4 @@ struct process_info {
 typedef struct process_tracker process_tracker_t;
 
 /**
+ * Create process tracker
