@@ -40,3 +40,22 @@ class FirewallAlert {
             if let error = error {
                 print("Error showing notification: \(error)")
             }
+        }
+    }
+    
+    /// Show alert for suspicious process execution
+    func showSuspiciousExecAlert(process: String, pid: Int, executable: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "⚠️ Suspicious Process Blocked"
+        content.body = "\(process) tried to execute \(executable)"
+        content.sound = .default
+        content.categoryIdentifier = "SUSPICIOUS_EXEC"
+        
+        let request = UNNotificationRequest(
+            identifier: UUID().uuidString,
+            content: content,
+            trigger: nil
+        )
+        
+        center.add(request)
+    }
