@@ -55,5 +55,3 @@ if command -v jq &> /dev/null; then
     echo "  blockedWritePaths: $blocked_writes entries"
     echo "  blockedExtensions: $blocked_exts entries"
     echo "  allowedPaths: $allowed entries"
-    
-    # Check behavioral section
