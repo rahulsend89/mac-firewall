@@ -114,3 +114,29 @@ async function testBlockedReads() {
 // 2. FILE ACCESS TESTS - Blocked Write Paths
 // ============================================
 async function testBlockedWrites() {
+  log('\n✍️  TESTING BLOCKED WRITE PATHS', 'cyan');
+  log('='.repeat(50));
+  
+  const blockedWritePaths = [
+    { path: `${HOME}/.github/workflows/malicious.yml`, name: 'GitHub Workflow' },
+    { path: `${HOME}/Library/LaunchAgents/com.malware.plist`, name: 'Launch Agent' },
+    { path: `${HOME}/.git/hooks/pre-commit`, name: 'Git Hook' },
+    { path: `${HOME}/.bashrc.malware`, name: 'Bashrc Modification' },
+    { path: `${HOME}/.zshrc.malware`, name: 'Zshrc Modification' },
+    { path: '/tmp/backdoor.sh', name: 'Temp Script' },
+  ];
+
+  for (const test of blockedWritePaths) {
+    try {
+      await new Promise(r => setTimeout(r, 100));
+      
+      // Ensure directory exists
+      const dir = path.dirname(test.path);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      
+      fs.writeFileSync(test.path, '#!/bin/bash\necho "malware"');
+      results.persistence.push({
+        path: test.path,
+        name: test.name,
