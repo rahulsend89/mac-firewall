@@ -13,7 +13,6 @@ echo -e "${CYAN}🔥 Quick Firewall Test${NC}"
 echo "======================"
 echo ""
 
-
 # 1. Test .npmrc read (NPM tokens)
 echo -e "${CYAN}Test 1: NPM Token Theft (.npmrc)${NC}"
 node -e "
@@ -32,3 +31,6 @@ sleep 1
 # 2. Test SSH key read
 echo ""
 echo -e "${CYAN}Test 2: SSH Key Theft (.ssh/id_rsa)${NC}"
+node -e "
+const fs = require('fs');
+try {
