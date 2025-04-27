@@ -34,3 +34,13 @@ static void handler(es_client_t *c, const es_message_t *m) {
         if (ret != ES_RETURN_SUCCESS) {
             // Response failed - this is very bad
             // Could indicate message already expired
+        }
+    }
+    
+    __atomic_fetch_add(&g_count, 1, __ATOMIC_RELAXED);
+}
+
+static void sig_handler(int s) {
+    (void)s;
+    g_running = 0;
+}
