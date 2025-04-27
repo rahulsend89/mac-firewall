@@ -40,3 +40,13 @@ fi
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${CYAN}  1️⃣  FILE ACCESS TESTS - Credential Reads${NC}"
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+
+# Test credential file reads
+test_read() {
+    local file="$1"
+    local name="$2"
+    
+    if [ ! -f "$file" ]; then
+        echo -e "  ${YELLOW}⏭️  $name: File doesn't exist${NC}"
+        return 0
