@@ -32,8 +32,3 @@ static int is_suspicious_exec(const char *path) {
         (strstr(path, ".sh") || strstr(path, ".py") || strstr(path, ".rb"))) {
         return 1;  // Block scripts in node_modules
     }
-    
-    return 0;
-}
-
-static void handler(es_client_t *c, const es_message_t *m) {
