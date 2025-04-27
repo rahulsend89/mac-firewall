@@ -38,6 +38,7 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
     if (info == NULL) return NULL;
     
     info->pid = pid;
+
     info->ppid = process->ppid;
     info->uid = audit_token_to_euid(process->audit_token);
     info->start_time = process->start_time.tv_sec;
