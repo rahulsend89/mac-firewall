@@ -112,3 +112,5 @@ npm install
           │   macOS Kernel (XNU)                │
           │                                     │
           │   EndpointSecurity Framework        │
+          │   ES_EVENT_TYPE_AUTH_OPEN           │
+          │            ▼                        │
