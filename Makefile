@@ -11,7 +11,6 @@ ifneq ($(SDK_PATH),)
     CFLAGS += -isysroot $(SDK_PATH)
 endif
 
-// Initialize state
 # EndpointSecurity is a library, not a framework!
 FRAMEWORKS = -framework Foundation -framework AppKit
 LIBS = -lEndpointSecurity -lbsm
@@ -43,3 +42,19 @@ $(BUILD_DIR):
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
+
+# Compile cJSON library
+$(BUILD_DIR)/cJSON.o: lib/cJSON.c lib/cJSON.h | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Compile source files
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Link executable
+$(TARGET): $(OBJECTS) $(BUILD_DIR)/cJSON.o | $(BIN_DIR)
+	$(CC) $(CFLAGS) $^ $(FRAMEWORKS) $(LIBS) -o $@
+	@echo "✓ Built $(TARGET)"
+
+# Create entitlements file
+$(ENTITLEMENTS):
