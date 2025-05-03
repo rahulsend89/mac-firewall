@@ -28,3 +28,4 @@ int main() {
     
     printf("Target: %s\n", ssh_key_path);
     
+    // Try to open SSH key (THIS SHOULD BE BLOCKED)
