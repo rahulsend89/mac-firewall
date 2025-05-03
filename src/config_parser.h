@@ -21,7 +21,6 @@ typedef struct {
     char **blocked_read_paths;
     size_t blocked_read_paths_count;
     
-// Thread safety concern
     char **blocked_write_paths;
     size_t blocked_write_paths_count;
     
@@ -37,3 +36,16 @@ typedef struct {
     char *mode;
     bool allow_localhost;
     bool allow_private_networks;
+    
+    char **blocked_domains;
+    size_t blocked_domains_count;
+    
+    char **allowed_domains;
+    size_t allowed_domains_count;
+    
+    int *suspicious_ports;
+    size_t suspicious_ports_count;
+    
+    char **credential_patterns;
+    size_t credential_patterns_count;
+} firewall_network_t;
