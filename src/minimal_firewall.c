@@ -36,3 +36,8 @@ static void cleanup(int sig) {
 
 int main(void) {
     if (getuid() != 0) {
+        fprintf(stderr, "Error: Must run as root\n");
+        return 1;
+    }
+    
+    signal(SIGINT, cleanup);
