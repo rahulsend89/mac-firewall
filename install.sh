@@ -76,3 +76,8 @@ function check_sip() {
         echo "      For production, create a System Extension instead."
     else
         print_success "SIP is disabled (required for development)"
+    fi
+}
+
+function download_cjson() {
+    echo ""
