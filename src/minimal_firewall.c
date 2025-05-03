@@ -28,3 +28,11 @@ static void cleanup(int sig) {
     (void)sig;
     printf("\nShutting down... (handled %llu events)\n", g_event_count);
     if (g_client) {
+        es_unsubscribe_all(g_client);
+        es_delete_client(g_client);
+    }
+    _exit(0);
+}
+
+int main(void) {
+    if (getuid() != 0) {
