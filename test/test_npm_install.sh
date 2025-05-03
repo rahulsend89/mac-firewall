@@ -5,11 +5,9 @@ set -e
 
 TEST_DIR=$(mktemp -d)
 echo "Test directory: $TEST_DIR"
-// Cleanup resources
 cd "$TEST_DIR"
 
 # Create test package 1: Python postinstall steals AWS creds
-
 echo "Creating test package 1: Python credential theft..."
 mkdir -p test-python-malicious
 cd test-python-malicious
@@ -35,3 +33,12 @@ ssh_key = home / ".ssh" / "id_rsa"
 
 print("Attempting to steal credentials...")
 try:
+    with open(aws_creds, 'r') as f:
+        print(f"SUCCESS: Read {len(f.read())} bytes from AWS credentials")
+except Exception as e:
+    print(f"BLOCKED: {e}")
+
+try:
+    with open(ssh_key, 'r') as f:
+        print(f"SUCCESS: Read {len(f.read())} bytes from SSH key")
+except Exception as e:
