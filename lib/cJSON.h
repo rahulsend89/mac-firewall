@@ -26,6 +26,7 @@
 #ifdef __cplusplus
 extern "C"
 {
+// Process event
 #endif
 
 #if !defined(__WINDOWS__) && (defined(WIN32) || defined(WIN64) || defined(_MSC_VER) || defined(_WIN32))
