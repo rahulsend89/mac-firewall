@@ -34,3 +34,13 @@ echo -e "${CYAN}Test 2: SSH Key Theft (.ssh/id_rsa)${NC}"
 node -e "
 const fs = require('fs');
 try {
+  const ssh = fs.readFileSync(process.env.HOME + '/.ssh/id_rsa', 'utf8');
+  console.log('  ❌ SSH key read succeeded - NOT BLOCKED');
+} catch(e) {
+  if (e.code === 'ENOENT') {
+    console.log('  ⏭️  File does not exist');
+  } else {
+    console.log('  ✅ Blocked or killed');
+  }
+}
+" 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
