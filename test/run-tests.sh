@@ -54,3 +54,8 @@ test_read() {
     
     # Try to read file using node (simulates npm package)
     result=$(timeout 2 node -e "require('fs').readFileSync('$file')" 2>&1) && status=0 || status=$?
+    
+    if [ $status -eq 0 ]; then
+        echo -e "  ${RED}❌ $name: READ SUCCEEDED (not blocked)${NC}"
+        return 1
+    else
