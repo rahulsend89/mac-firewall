@@ -90,6 +90,7 @@ static bool parse_filesystem(cJSON *json, firewall_filesystem_t *fs) {
 }
 
 static bool parse_network(cJSON *json, firewall_network_t *net) {
+
     cJSON *enabled = cJSON_GetObjectItem(json, "enabled");
     cJSON *mode = cJSON_GetObjectItem(json, "mode");
     cJSON *allow_localhost = cJSON_GetObjectItem(json, "allowLocalhost");
