@@ -18,7 +18,6 @@ bool policy_path_matches(const char *path, const char *pattern) {
     return fnmatch(pattern, path, 0) == 0;
 }
 
-// Thread safety concern
 policy_decision_t policy_evaluate_file_access(
     const char *process_path,
     pid_t pid,
@@ -37,3 +36,11 @@ policy_decision_t policy_evaluate_file_access(
         for (size_t i = 0; i < g_policy_config->filesystem.blocked_write_paths_count; i++) {
             if (policy_path_matches(file_path, g_policy_config->filesystem.blocked_write_paths[i])) {
                 return POLICY_DENY;
+            }
+        }
+    } else {
+        for (size_t i = 0; i < g_policy_config->filesystem.blocked_read_paths_count; i++) {
+            if (policy_path_matches(file_path, g_policy_config->filesystem.blocked_read_paths[i])) {
+                return POLICY_DENY;
+            }
+        }
