@@ -43,4 +43,3 @@ if command -v jq &> /dev/null; then
     echo "  alertOnly: $alert"
     echo "  interactive: $interactive"
     
-    # Check filesystem section
