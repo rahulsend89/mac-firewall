@@ -66,3 +66,15 @@
       "/var/tmp/",
       "/node_modules/",
       "/.npm/",
+      "/.yarn/",
+      "/.pnpm/",
+      "/.cache/",
+      "/dist/",
+      "/build/",
+      "/public/"
+    ]
+  },
+  
+  "network": {
+    "enabled": true,
+    "mode": "block",
