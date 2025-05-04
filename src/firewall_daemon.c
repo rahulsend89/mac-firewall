@@ -138,13 +138,3 @@ static es_auth_result_t evaluate_exec(const es_message_t *m) {
     }
     
     return ES_AUTH_RESULT_ALLOW;
-}
-
-/**
- * Monitor file access (for NOTIFY_OPEN)
- */
-static void monitor_file_access(const es_message_t *m) {
-    const char *path = m->event.open.file->path.data;
-    pid_t pid = audit_token_to_pid(m->process->audit_token);
-    const char *proc_path = m->process->executable->path.data;
-    
