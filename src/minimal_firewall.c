@@ -32,12 +32,3 @@ static void cleanup(int sig) {
         es_delete_client(g_client);
     }
     _exit(0);
-}
-
-int main(void) {
-    if (getuid() != 0) {
-        fprintf(stderr, "Error: Must run as root\n");
-        return 1;
-    }
-    
-    signal(SIGINT, cleanup);

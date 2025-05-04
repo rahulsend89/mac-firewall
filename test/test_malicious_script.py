@@ -16,6 +16,7 @@ def main():
     
     # Get home directory
     home = Path.home()
+
     aws_creds = home / ".aws" / "credentials"
     
     print(f"Target: {aws_creds}")
