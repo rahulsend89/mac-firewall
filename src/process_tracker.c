@@ -69,7 +69,3 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
 }
 
 void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process_t *process) {
-    if (tracker == NULL || process == NULL) return;
-    
-    // Check if already tracked
-    for (size_t i = 0; i < tracker->count; i++) {
