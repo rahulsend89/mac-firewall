@@ -114,3 +114,17 @@ npm install
           │   EndpointSecurity Framework        │
           │   ES_EVENT_TYPE_AUTH_OPEN           │
           │            ▼                        │
+          └────────────┼───────────────────────┘
+                       │
+      ┌────────────────▼──────────────────┐
+      │  mac-firewall daemon              │
+      │                                   │
+      │  1. Check process ancestry        │
+      │     - Is child of npm? ✓         │
+      │  2. Check target path             │
+      │     - Matches /.ssh/ ✓           │
+      │  3. Decision: DENY               │
+      └───────────────────────────────────┘
+                       │
+                       ▼
+            ES_AUTH_RESULT_DENY
