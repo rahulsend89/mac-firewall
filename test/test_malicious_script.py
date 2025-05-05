@@ -16,9 +16,9 @@ def main():
     
     # Get home directory
     home = Path.home()
-
     aws_creds = home / ".aws" / "credentials"
     
     print(f"Target: {aws_creds}")
     
     # Try to read AWS credentials (THIS SHOULD BE BLOCKED)
+    try:
