@@ -57,5 +57,3 @@ class FirewallAlert {
             trigger: nil
         )
         
-        center.add(request)
-    }
