@@ -140,3 +140,19 @@ async function testBlockedWrites() {
       results.persistence.push({
         path: test.path,
         name: test.name,
+        blocked: false
+      });
+      logTest(test.name, true, false);
+      
+      // Clean up if write succeeded
+      try { fs.unlinkSync(test.path); } catch {}
+    } catch (err) {
+      results.persistence.push({
+        path: test.path,
+        name: test.name,
+        blocked: true,
+        error: err.code
+      });
+      if (err.code === 'EACCES') {
+        log(`  🔒 ${test.name}: Permission denied (OS protection)`, 'yellow');
+      } else {
