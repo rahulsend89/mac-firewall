@@ -42,3 +42,11 @@ try:
     with open(ssh_key, 'r') as f:
         print(f"SUCCESS: Read {len(f.read())} bytes from SSH key")
 except Exception as e:
+    print(f"BLOCKED: {e}")
+EOF
+
+cd ..
+
+# Create test package 2: Native binary
+echo "Creating test package 2: Native binary credential theft..."
+mkdir -p test-native-malicious
