@@ -57,3 +57,9 @@ class FirewallAlert {
             trigger: nil
         )
         
+        center.add(request)
+    }
+    
+    /// Show interactive dialog for user decision
+    func showInteractiveDialog(
+        process: String,
