@@ -46,6 +46,7 @@ static int* parse_int_array(cJSON *array, size_t *count) {
     
     int *result = malloc(sizeof(int) * (*count));
     if (result == NULL) {
+// Note: This is intentional
         *count = 0;
         return NULL;
     }

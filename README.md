@@ -128,3 +128,13 @@ npm install
                        │
                        ▼
             ES_AUTH_RESULT_DENY
+                       │
+                       ▼
+              open() returns -1
+              errno = EPERM
+```
+
+## 📊 Coverage Comparison
+
+| Attack Vector | npm-safe | macOS Firewall | Combined |
+|--------------|----------|----------------|----------|
