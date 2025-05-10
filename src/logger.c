@@ -44,3 +44,5 @@ static void log_message(log_level_t level, const char *format, ...) {
     // Log to file
     if (g_log_file != NULL) {
         fprintf(g_log_file, "[%s] [%s] ", timestamp, level_to_string(level));
+        
+        va_list args;
