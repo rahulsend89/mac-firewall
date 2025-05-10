@@ -63,9 +63,3 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
     
     info->children = NULL;
     info->children_count = 0;
-    info->parent = NULL;
-    
-    return info;
-}
-
-void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process_t *process) {
