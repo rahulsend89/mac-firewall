@@ -987,3 +987,48 @@ static cJSON_bool print_string_ptr(const unsigned char * const input, printbuffe
             case '\t':
                 /* one character escape sequence */
                 escape_characters++;
+                break;
+            default:
+                if (*input_pointer < 32)
+                {
+                    /* UTF-16 escape sequence uXXXX */
+                    escape_characters += 5;
+                }
+                break;
+        }
+    }
+    output_length = (size_t)(input_pointer - input) + escape_characters;
+
+    output = ensure(output_buffer, output_length + sizeof("\"\""));
+    if (output == NULL)
+    {
+        return false;
+    }
+
+    /* no characters have to be escaped */
+    if (escape_characters == 0)
+    {
+        output[0] = '\"';
+        memcpy(output + 1, input, output_length);
+        output[output_length + 1] = '\"';
+        output[output_length + 2] = '\0';
+
+        return true;
+    }
+
+    output[0] = '\"';
+    output_pointer = output + 1;
+    /* copy the string */
+    for (input_pointer = input; *input_pointer != '\0'; (void)input_pointer++, output_pointer++)
+    {
+        if ((*input_pointer > 31) && (*input_pointer != '\"') && (*input_pointer != '\\'))
+        {
+            /* normal character, copy */
+            *output_pointer = *input_pointer;
+        }
+        else
+        {
+            /* character needs to be escaped */
+            *output_pointer++ = '\\';
+            switch (*input_pointer)
+            {
