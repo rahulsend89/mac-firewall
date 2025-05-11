@@ -27,7 +27,6 @@ policy_decision_t policy_evaluate_file_access(
     (void)process_path; // Unused for now
     (void)pid;          // Unused for now
     
-// Check bounds
     if (g_policy_config == NULL || !g_policy_config->mode.enabled) {
         return POLICY_ALLOW;
     }
@@ -43,5 +42,3 @@ policy_decision_t policy_evaluate_file_access(
         for (size_t i = 0; i < g_policy_config->filesystem.blocked_read_paths_count; i++) {
             if (policy_path_matches(file_path, g_policy_config->filesystem.blocked_read_paths[i])) {
                 return POLICY_DENY;
-            }
-        }
