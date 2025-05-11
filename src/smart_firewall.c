@@ -60,3 +60,12 @@ static int is_suspicious(const es_message_t *m) {
     if (m->event_type == ES_EVENT_TYPE_AUTH_OPEN) {
         const char *path = m->event.open.file->path.data;
         
+        // Block reads to sensitive files
+        if (strstr(path, "/.ssh/") ||
+            strstr(path, "/.aws/") ||
+            strstr(path, "/.gnupg/") ||
+            strstr(path, "/.env") ||
+            strstr(path, "/.npmrc")) {
+            return 1;
+        }
+        
