@@ -54,3 +54,6 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 # Link executable
 $(TARGET): $(OBJECTS) $(BUILD_DIR)/cJSON.o | $(BIN_DIR)
 	$(CC) $(CFLAGS) $^ $(FRAMEWORKS) $(LIBS) -o $@
+	@echo "✓ Built $(TARGET)"
+
+# Create entitlements file
