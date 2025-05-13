@@ -151,8 +151,3 @@ async function testBlockedWrites() {
         path: test.path,
         name: test.name,
         blocked: true,
-        error: err.code
-      });
-      if (err.code === 'EACCES') {
-        log(`  🔒 ${test.name}: Permission denied (OS protection)`, 'yellow');
-      } else {
