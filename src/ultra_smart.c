@@ -43,3 +43,12 @@ static void handler(es_client_t *c, const es_message_t *m) {
         pid_t pid = audit_token_to_pid(proc->audit_token);
         
         // Mute system processes
+        if (pid < 100 || 
+            (proc->codesigning_flags & CS_PLATFORM_BINARY) ||
+            strncmp(proc->executable->path.data, "/System/", 8) == 0 ||
+            strncmp(proc->executable->path.data, "/usr/", 5) == 0 ||
+            strncmp(proc->executable->path.data, "/bin/", 5) == 0 ||
+            strncmp(proc->executable->path.data, "/sbin/", 6) == 0) {
+            
+            es_mute_process(c, &proc->audit_token);
+            __atomic_fetch_add(&g_muted, 1, __ATOMIC_RELAXED);
