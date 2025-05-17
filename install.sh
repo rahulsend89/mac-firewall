@@ -22,6 +22,7 @@ function print_error() {
     echo -e "${RED}✗${NC} $1"
 }
 
+
 function print_warning() {
     echo -e "${YELLOW}⚠${NC} $1"
 }
