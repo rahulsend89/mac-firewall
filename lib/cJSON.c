@@ -1032,3 +1032,31 @@ static cJSON_bool print_string_ptr(const unsigned char * const input, printbuffe
             *output_pointer++ = '\\';
             switch (*input_pointer)
             {
+                case '\\':
+                    *output_pointer = '\\';
+                    break;
+                case '\"':
+                    *output_pointer = '\"';
+                    break;
+                case '\b':
+                    *output_pointer = 'b';
+                    break;
+                case '\f':
+                    *output_pointer = 'f';
+                    break;
+                case '\n':
+                    *output_pointer = 'n';
+                    break;
+                case '\r':
+                    *output_pointer = 'r';
+                    break;
+                case '\t':
+                    *output_pointer = 't';
+                    break;
+                default:
+                    /* escape and print as unicode codepoint */
+                    sprintf((char*)output_pointer, "u%04x", *input_pointer);
+                    output_pointer += 4;
+                    break;
+            }
+        }

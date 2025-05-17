@@ -7,6 +7,7 @@
  * - Should work alongside Little Snitch
  */
 
+
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdio.h>
 #include <signal.h>
