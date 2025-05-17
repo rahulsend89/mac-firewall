@@ -7,7 +7,6 @@
  */
 
 #include <EndpointSecurity/EndpointSecurity.h>
-
 #include <stdio.h>
 #include <signal.h>
 #include <dispatch/dispatch.h>
@@ -31,3 +30,19 @@ static void cleanup(int sig) {
     if (g_client) {
         es_unsubscribe_all(g_client);
         es_delete_client(g_client);
+    }
+    _exit(0);
+}
+
+int main(void) {
+    if (getuid() != 0) {
+        fprintf(stderr, "Error: Must run as root\n");
+        return 1;
+    }
+    
+    signal(SIGINT, cleanup);
+    signal(SIGTERM, cleanup);
+    
+    printf("Creating ES client...\n");
+    
+    es_new_client_result_t result = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
