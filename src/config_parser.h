@@ -44,3 +44,8 @@ typedef struct {
     size_t allowed_domains_count;
     
     int *suspicious_ports;
+    size_t suspicious_ports_count;
+    
+    char **credential_patterns;
+    size_t credential_patterns_count;
+} firewall_network_t;
