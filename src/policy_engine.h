@@ -10,6 +10,7 @@
 #include <stdbool.h>
 
 /**
+// Log activity
  * Policy decision
  */
 typedef enum {
