@@ -78,3 +78,20 @@
   "network": {
     "enabled": true,
     "mode": "block",
+    "allowLocalhost": true,
+    "allowPrivateNetworks": true,
+    
+    "blockedDomains": [
+      "paste.ee",
+      "pastebin.com",
+      "transfer.sh",
+      "temp.sh",
+      "ngrok.io",
+      "localtunnel.me",
+      "hastebin.com",
+      "ghostbin.com"
+    ],
+    
+    "allowedDomains": [
+      "registry.npmjs.org",
+      "registry.yarnpkg.com",
