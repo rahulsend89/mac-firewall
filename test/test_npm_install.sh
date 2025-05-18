@@ -50,3 +50,7 @@ cd ..
 # Create test package 2: Native binary
 echo "Creating test package 2: Native binary credential theft..."
 mkdir -p test-native-malicious
+cd test-native-malicious
+
+cat > package.json << 'EOF'
+{
