@@ -61,3 +61,11 @@ class FirewallAlert {
     }
     
     /// Show interactive dialog for user decision
+    func showInteractiveDialog(
+        process: String,
+        pid: Int,
+        operation: String,
+        target: String,
+        completion: @escaping (Bool) -> Void
+    ) {
+        DispatchQueue.main.async {
