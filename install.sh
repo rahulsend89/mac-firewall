@@ -22,7 +22,6 @@ function print_error() {
     echo -e "${RED}✗${NC} $1"
 }
 
-
 function print_warning() {
     echo -e "${YELLOW}⚠${NC} $1"
 }
@@ -78,3 +77,26 @@ function check_sip() {
     else
         print_success "SIP is disabled (required for development)"
     fi
+}
+
+function download_cjson() {
+    echo ""
+    echo "Setting up cJSON library..."
+    
+    if [[ ! -d "lib" ]]; then
+        mkdir -p lib
+    fi
+    
+    if [[ ! -f "lib/cJSON.c" ]]; then
+        echo "Downloading cJSON..."
+        curl -L https://raw.githubusercontent.com/DaveGamble/cJSON/master/cJSON.c -o lib/cJSON.c
+        curl -L https://raw.githubusercontent.com/DaveGamble/cJSON/master/cJSON.h -o lib/cJSON.h
+        print_success "cJSON downloaded"
+    else
+        print_success "cJSON already present"
+    fi
+}
+
+function build_firewall() {
+    echo ""
+    echo "Building macOS Firewall..."
