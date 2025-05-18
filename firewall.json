@@ -92,6 +92,3 @@
       "ghostbin.com"
     ],
     
-    "allowedDomains": [
-      "registry.npmjs.org",
-      "registry.yarnpkg.com",
