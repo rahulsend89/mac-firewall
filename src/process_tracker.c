@@ -63,3 +63,16 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
     
     info->children = NULL;
     info->children_count = 0;
+    info->parent = NULL;
+    
+    return info;
+}
+
+void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process_t *process) {
+    if (tracker == NULL || process == NULL) return;
+    
+    // Check if already tracked
+    for (size_t i = 0; i < tracker->count; i++) {
+        if (tracker->processes[i] && tracker->processes[i]->pid == pid) {
+            return; // Already tracking
+        }
