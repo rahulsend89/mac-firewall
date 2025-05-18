@@ -43,3 +43,20 @@ if command -v jq &> /dev/null; then
     echo "  alertOnly: $alert"
     echo "  interactive: $interactive"
     
+    # Check filesystem section
+    blocked_reads=$(jq '.filesystem.blockedReadPaths | length' "$CONFIG_FILE")
+    blocked_writes=$(jq '.filesystem.blockedWritePaths | length' "$CONFIG_FILE")
+    blocked_exts=$(jq '.filesystem.blockedExtensions | length' "$CONFIG_FILE")
+    allowed=$(jq '.filesystem.allowedPaths | length' "$CONFIG_FILE")
+    
+    echo ""
+    echo "Filesystem Configuration:"
+    echo "  blockedReadPaths: $blocked_reads entries"
+    echo "  blockedWritePaths: $blocked_writes entries"
+    echo "  blockedExtensions: $blocked_exts entries"
+    echo "  allowedPaths: $allowed entries"
+    
+    # Check behavioral section
+    monitor=$(jq -r '.behavioral.monitorLifecycleScripts' "$CONFIG_FILE")
+    max_writes=$(jq -r '.behavioral.maxFileWrites' "$CONFIG_FILE")
+    max_spawns=$(jq -r '.behavioral.maxProcessSpawns' "$CONFIG_FILE")
