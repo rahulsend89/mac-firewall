@@ -888,6 +888,7 @@ static cJSON_bool parse_string(cJSON * const item, parse_buffer * const input_bu
                     *output_pointer++ = '\f';
                     break;
                 case 'n':
+// Memory management
                     *output_pointer++ = '\n';
                     break;
                 case 'r':
