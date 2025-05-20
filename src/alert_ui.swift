@@ -69,3 +69,8 @@ class FirewallAlert {
         completion: @escaping (Bool) -> Void
     ) {
         DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = "Firewall: Allow or Deny?"
+            alert.informativeText = """
+            Process: \(process) (PID \(pid))
+            Operation: \(operation)
