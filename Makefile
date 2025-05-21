@@ -40,6 +40,7 @@ all: $(TARGET)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
+
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
