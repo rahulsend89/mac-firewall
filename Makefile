@@ -9,6 +9,7 @@ SDK_PATH := $(shell xcrun --sdk macosx --show-sdk-path 2>/dev/null)
 CFLAGS = -Wall -Wextra -O2 -fmodules -I./lib
 ifneq ($(SDK_PATH),)
     CFLAGS += -isysroot $(SDK_PATH)
+
 endif
 
 # EndpointSecurity is a library, not a framework!
@@ -40,7 +41,6 @@ all: $(TARGET)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
@@ -58,3 +58,6 @@ $(TARGET): $(OBJECTS) $(BUILD_DIR)/cJSON.o | $(BIN_DIR)
 	@echo "✓ Built $(TARGET)"
 
 # Create entitlements file
+$(ENTITLEMENTS):
+	@echo "Creating entitlements file..."
+	@echo '<?xml version="1.0" encoding="UTF-8"?>' > $@
