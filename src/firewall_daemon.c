@@ -141,3 +141,21 @@ static es_auth_result_t evaluate_exec(const es_message_t *m) {
 }
 
 /**
+ * Monitor file access (for NOTIFY_OPEN)
+ */
+static void monitor_file_access(const es_message_t *m) {
+    const char *path = m->event.open.file->path.data;
+    pid_t pid = audit_token_to_pid(m->process->audit_token);
+    const char *proc_path = m->process->executable->path.data;
+    
+    // Skip if trusted for credential access
+    if (is_trusted_for_credentials(m->process)) {
+        return;
+    }
+    
+    // Detect credential theft attempts
+    int is_credential_access = 0;
+    const char *credential_type = NULL;
+    
+    // SSH keys and config
+    if (strstr(path, "/.ssh/")) {
