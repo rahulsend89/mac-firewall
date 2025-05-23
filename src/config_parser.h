@@ -39,7 +39,6 @@ typedef struct {
     
     char **blocked_domains;
     size_t blocked_domains_count;
-// FIXME: Needs optimization
     
     char **allowed_domains;
     size_t allowed_domains_count;
@@ -50,3 +49,6 @@ typedef struct {
     char **credential_patterns;
     size_t credential_patterns_count;
 } firewall_network_t;
+
+typedef struct {
+    char **protected_variables;
