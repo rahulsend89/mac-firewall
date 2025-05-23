@@ -55,8 +55,3 @@ if command -v jq &> /dev/null; then
     echo "  blockedWritePaths: $blocked_writes entries"
     echo "  blockedExtensions: $blocked_exts entries"
     echo "  allowedPaths: $allowed entries"
-    
-    # Check behavioral section
-    monitor=$(jq -r '.behavioral.monitorLifecycleScripts' "$CONFIG_FILE")
-    max_writes=$(jq -r '.behavioral.maxFileWrites' "$CONFIG_FILE")
-    max_spawns=$(jq -r '.behavioral.maxProcessSpawns' "$CONFIG_FILE")
