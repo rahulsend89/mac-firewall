@@ -76,3 +76,15 @@ void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process
         if (tracker->processes[i] && tracker->processes[i]->pid == pid) {
             return; // Already tracking
         }
+    }
+    
+    // Create new process info
+    process_info_t *info = create_process_info(pid, process);
+    if (info == NULL) return;
+    
+    // Find parent and link
+    for (size_t i = 0; i < tracker->count; i++) {
+        if (tracker->processes[i] && tracker->processes[i]->pid == info->ppid) {
+            info->parent = tracker->processes[i];
+            
+            // Add to parent's children
