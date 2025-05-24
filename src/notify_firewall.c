@@ -58,8 +58,3 @@ static void handler(es_client_t *c, const es_message_t *m) {
     // Skip trusted processes
     if (is_trusted(m->process)) return;
     
-    pid_t pid = audit_token_to_pid(m->process->audit_token);
-    const char *proc_path = m->process->executable->path.data;
-    
-    // Check for suspicious file access
-    if (m->event_type == ES_EVENT_TYPE_NOTIFY_OPEN) {
