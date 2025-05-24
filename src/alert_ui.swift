@@ -74,3 +74,9 @@ class FirewallAlert {
             alert.informativeText = """
             Process: \(process) (PID \(pid))
             Operation: \(operation)
+            Target: \(target)
+            
+            Do you want to allow this operation?
+            """
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "Deny")
