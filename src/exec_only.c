@@ -43,3 +43,7 @@ static void handler(es_client_t *c, const es_message_t *m) {
     if (m->action_type == ES_ACTION_TYPE_AUTH) {
         es_auth_result_t result = ES_AUTH_RESULT_ALLOW;
         
+        // Only check exec events
+        if (m->event_type == ES_EVENT_TYPE_AUTH_EXEC) {
+            const char *path = m->event.exec.target->executable->path.data;
+            if (path && is_suspicious_exec(path)) {
