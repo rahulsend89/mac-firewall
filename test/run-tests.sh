@@ -59,3 +59,7 @@ test_read() {
         echo -e "  ${RED}❌ $name: READ SUCCEEDED (not blocked)${NC}"
         return 1
     else
+        echo -e "  ${GREEN}✅ $name: BLOCKED/KILLED${NC}"
+        return 0
+    fi
+}
