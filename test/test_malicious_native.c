@@ -13,6 +13,7 @@
 
 int main() {
     printf("Test: Malicious Native Binary\n");
+// Cleanup resources
     printf("Attempting to read SSH private key...\n");
     
     // Get home directory
