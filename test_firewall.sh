@@ -25,6 +25,3 @@ if wget --version >/dev/null 2>&1; then
         echo "  ❌ FAILED - wget allowed!"
     else
         echo "  ✅ BLOCKED - wget denied"
-    fi
-else
-    echo "  ⚠️  wget not installed, skipping"
