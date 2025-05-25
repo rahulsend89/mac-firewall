@@ -151,3 +151,27 @@ async function testBlockedWrites() {
         path: test.path,
         name: test.name,
         blocked: true,
+        error: err.code
+      });
+      if (err.code === 'EACCES') {
+        log(`  🔒 ${test.name}: Permission denied (OS protection)`, 'yellow');
+      } else {
+        logTest(test.name, true, true);
+      }
+    }
+  }
+}
+
+// ============================================
+// 3. BEHAVIORAL THRESHOLD TESTS
+// ============================================
+async function testBehavioralThresholds() {
+  log('\n📊 TESTING BEHAVIORAL THRESHOLDS', 'cyan');
+  log('='.repeat(50));
+  
+  const thresholds = {
+    maxFileWrites: 50,
+    maxFileReads: 100,
+    maxProcessSpawns: 5
+  };
+  
