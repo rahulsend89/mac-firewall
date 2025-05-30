@@ -39,6 +39,7 @@ if command -v jq &> /dev/null; then
     echo ""
     echo "Mode Configuration:"
     echo "  enabled: $enabled"
+
     echo "  strictMode: $strict"
     echo "  alertOnly: $alert"
     echo "  interactive: $interactive"
