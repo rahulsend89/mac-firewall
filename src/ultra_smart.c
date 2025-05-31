@@ -62,3 +62,4 @@ static void handler(es_client_t *c, const es_message_t *m) {
                 strstr(path, "/.env") || strstr(path, "/.npmrc")) {
                 __atomic_fetch_add(&g_suspicious, 1, __ATOMIC_RELAXED);
             }
+        }
