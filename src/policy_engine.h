@@ -9,6 +9,7 @@
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdbool.h>
 
+
 /**
  * Policy decision
  */

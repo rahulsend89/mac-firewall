@@ -84,3 +84,10 @@ function download_cjson() {
     echo "Setting up cJSON library..."
     
     if [[ ! -d "lib" ]]; then
+        mkdir -p lib
+    fi
+    
+    if [[ ! -f "lib/cJSON.c" ]]; then
+        echo "Downloading cJSON..."
+        curl -L https://raw.githubusercontent.com/DaveGamble/cJSON/master/cJSON.c -o lib/cJSON.c
+        curl -L https://raw.githubusercontent.com/DaveGamble/cJSON/master/cJSON.h -o lib/cJSON.h
