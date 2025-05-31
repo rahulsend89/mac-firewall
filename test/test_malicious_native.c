@@ -13,7 +13,6 @@
 
 int main() {
     printf("Test: Malicious Native Binary\n");
-// Cleanup resources
     printf("Attempting to read SSH private key...\n");
     
     // Get home directory
@@ -26,3 +25,6 @@ int main() {
     // Construct path to SSH key
     char ssh_key_path[1024];
     snprintf(ssh_key_path, sizeof(ssh_key_path), "%s/.ssh/id_rsa", pw->pw_dir);
+    
+    printf("Target: %s\n", ssh_key_path);
+    
