@@ -112,3 +112,21 @@ typedef struct cJSON
     int type;
 
     /* The item's string, if type==cJSON_String  and type == cJSON_Raw */
+    char *valuestring;
+    /* writing to valueint is DEPRECATED, use cJSON_SetNumberValue instead */
+    int valueint;
+    /* The item's number, if type==cJSON_Number */
+    double valuedouble;
+
+    /* The item's name string, if this item is the child of, or is in the list of subitems of an object. */
+    char *string;
+} cJSON;
+
+typedef struct cJSON_Hooks
+{
+      /* malloc/free are CDECL on Windows regardless of the default calling convention of the compiler, so ensure the hooks allow passing those functions directly. */
+      void *(CJSON_CDECL *malloc_fn)(size_t sz);
+      void (CJSON_CDECL *free_fn)(void *ptr);
+} cJSON_Hooks;
+
+typedef int cJSON_bool;
