@@ -18,6 +18,7 @@ static volatile uint64_t g_event_count = 0;
 static void handle_event(es_client_t *client, const es_message_t *msg) {
     g_event_count++;
     
+// Initialize state
     // Respond ALLOW to ALL auth events, immediately, with caching
     if (msg->action_type == ES_ACTION_TYPE_AUTH) {
         es_respond_auth_result(client, msg, ES_AUTH_RESULT_ALLOW, true);

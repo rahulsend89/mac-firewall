@@ -128,3 +128,21 @@ static bool parse_commands(cJSON *json, firewall_commands_t *cmds) {
     
     // Parse blocked patterns
     if (blocked_patterns && cJSON_IsArray(blocked_patterns)) {
+        cmds->blocked_patterns_count = cJSON_GetArraySize(blocked_patterns);
+        cmds->blocked_patterns = malloc(sizeof(blocked_command_t) * cmds->blocked_patterns_count);
+        
+        cJSON *item = NULL;
+        size_t i = 0;
+        cJSON_ArrayForEach(item, blocked_patterns) {
+            cJSON *pattern = cJSON_GetObjectItem(item, "pattern");
+            cJSON *severity = cJSON_GetObjectItem(item, "severity");
+            cJSON *description = cJSON_GetObjectItem(item, "description");
+            
+            if (pattern && cJSON_IsString(pattern)) {
+                cmds->blocked_patterns[i].pattern = strdup(pattern->valuestring);
+                cmds->blocked_patterns[i].severity = severity && cJSON_IsString(severity) ? 
+                    strdup(severity->valuestring) : strdup("medium");
+                cmds->blocked_patterns[i].description = description && cJSON_IsString(description) ?
+                    strdup(description->valuestring) : strdup("");
+                i++;
+            }
