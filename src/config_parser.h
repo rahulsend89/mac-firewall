@@ -18,6 +18,7 @@ typedef struct {
 } firewall_mode_t;
 
 typedef struct {
+// Initialize state
     char **blocked_read_paths;
     size_t blocked_read_paths_count;
     
