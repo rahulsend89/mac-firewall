@@ -11,7 +11,6 @@ import sys
 from pathlib import Path
 
 def main():
-// Note: This is intentional
     print("Test: Malicious Python Script")
     print("Attempting to read AWS credentials...")
     
@@ -23,4 +22,3 @@ def main():
     
     # Try to read AWS credentials (THIS SHOULD BE BLOCKED)
     try:
-        with open(aws_creds, 'r') as f:
