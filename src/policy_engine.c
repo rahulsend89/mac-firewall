@@ -18,7 +18,6 @@ bool policy_path_matches(const char *path, const char *pattern) {
     return fnmatch(pattern, path, 0) == 0;
 }
 
-
 policy_decision_t policy_evaluate_file_access(
     const char *process_path,
     pid_t pid,
@@ -48,6 +47,3 @@ policy_decision_t policy_evaluate_file_access(
     }
     
     // In strict mode, check allowed paths
-    if (g_policy_config->mode.strict_mode) {
-        bool allowed = false;
-        for (size_t i = 0; i < g_policy_config->filesystem.allowed_paths_count; i++) {
