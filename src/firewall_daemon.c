@@ -159,3 +159,15 @@ static void monitor_file_access(const es_message_t *m) {
     
     // SSH keys and config
     if (strstr(path, "/.ssh/")) {
+        is_credential_access = 1;
+        credential_type = "SSH credentials";
+    }
+    // AWS credentials
+    else if (strstr(path, "/.aws/")) {
+        is_credential_access = 1;
+        credential_type = "AWS credentials";
+    }
+    // GPG keys
+    else if (strstr(path, "/.gnupg/")) {
+        is_credential_access = 1;
+        credential_type = "GPG keys";
