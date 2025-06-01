@@ -55,3 +55,8 @@ static void handler(es_client_t *c, const es_message_t *m) {
             return;
         }
         
+        // Check for suspicious activity (just count for now, don't block)
+        if (m->event_type == ES_EVENT_TYPE_AUTH_OPEN) {
+            const char *path = m->event.open.file->path.data;
+            if (strstr(path, "/.ssh/") || strstr(path, "/.aws/") || 
+                strstr(path, "/.env") || strstr(path, "/.npmrc")) {
