@@ -43,6 +43,7 @@ int main(void) {
     
     signal(SIGINT, sig_handler);
     signal(SIGTERM, sig_handler);
+
     
     printf("Creating ES client (coexistence mode)...\n");
     
