@@ -39,7 +39,6 @@ if command -v jq &> /dev/null; then
     echo ""
     echo "Mode Configuration:"
     echo "  enabled: $enabled"
-
     echo "  strictMode: $strict"
     echo "  alertOnly: $alert"
     echo "  interactive: $interactive"
@@ -56,3 +55,19 @@ if command -v jq &> /dev/null; then
     echo "  blockedWritePaths: $blocked_writes entries"
     echo "  blockedExtensions: $blocked_exts entries"
     echo "  allowedPaths: $allowed entries"
+    
+    # Check behavioral section
+    monitor=$(jq -r '.behavioral.monitorLifecycleScripts' "$CONFIG_FILE")
+    max_writes=$(jq -r '.behavioral.maxFileWrites' "$CONFIG_FILE")
+    max_spawns=$(jq -r '.behavioral.maxProcessSpawns' "$CONFIG_FILE")
+    
+    echo ""
+    echo "Behavioral Configuration:"
+    echo "  monitorLifecycleScripts: $monitor"
+    echo "  maxFileWrites: $max_writes"
+    echo "  maxProcessSpawns: $max_spawns"
+    
+    # Check trusted modules
+    trusted=$(jq '.trustedModules | length' "$CONFIG_FILE")
+    echo ""
+    echo "Trusted Modules: $trusted entries"
