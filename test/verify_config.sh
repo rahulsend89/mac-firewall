@@ -60,6 +60,7 @@ if command -v jq &> /dev/null; then
     monitor=$(jq -r '.behavioral.monitorLifecycleScripts' "$CONFIG_FILE")
     max_writes=$(jq -r '.behavioral.maxFileWrites' "$CONFIG_FILE")
     max_spawns=$(jq -r '.behavioral.maxProcessSpawns' "$CONFIG_FILE")
+
     
     echo ""
     echo "Behavioral Configuration:"
