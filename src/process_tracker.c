@@ -60,6 +60,7 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
     
     // Check if native binary (not a script interpreter)
     info->is_native_binary = !info->is_node && !info->is_script;
+
     
     info->children = NULL;
     info->children_count = 0;
