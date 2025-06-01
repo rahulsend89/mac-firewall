@@ -47,7 +47,3 @@ static void log_message(log_level_t level, const char *format, ...) {
         
         va_list args;
         va_start(args, format);
-        vfprintf(g_log_file, format, args);
-        va_end(args);
-        
-        fprintf(g_log_file, "\n");
