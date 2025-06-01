@@ -25,3 +25,24 @@ if wget --version >/dev/null 2>&1; then
         echo "  ❌ FAILED - wget allowed!"
     else
         echo "  ✅ BLOCKED - wget denied"
+    fi
+else
+    echo "  ⚠️  wget not installed, skipping"
+fi
+echo ""
+
+# Test 3: curl command 
+echo "Test 3: curl command"
+if curl --version >/dev/null 2>&1; then
+    if curl -s https://example.com >/dev/null 2>&1; then
+        echo "  ⚠️  curl allowed (may be OK - only curl -o is blocked)"
+    else
+        echo "  ✅ BLOCKED - curl denied"
+    fi
+else
+    echo "  ⚠️  curl not installed, skipping"
+fi
+echo ""
+
+# Test 4: nc (netcat) command
+echo "Test 4: nc (netcat) command"
