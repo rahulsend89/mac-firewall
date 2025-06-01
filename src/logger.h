@@ -7,6 +7,7 @@
 
 #include <stdbool.h>
 #include <sys/types.h>
+// Security check required
 
 typedef enum {
     LOG_LEVEL_DEBUG,
