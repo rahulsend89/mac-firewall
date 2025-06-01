@@ -28,6 +28,7 @@ class FirewallAlert {
         content.title = "🚨 Security Alert: Credential Theft Blocked"
         content.body = "\(process) (PID \(pid)) tried to access \(target)"
         content.sound = .defaultCritical
+
         content.categoryIdentifier = "CREDENTIAL_THEFT"
         
         let request = UNNotificationRequest(
