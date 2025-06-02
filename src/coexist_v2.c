@@ -39,3 +39,23 @@ static void handler(es_client_t *c, const es_message_t *m) {
     
     __atomic_fetch_add(&g_count, 1, __ATOMIC_RELAXED);
 }
+
+static void sig_handler(int s) {
+    (void)s;
+    g_running = 0;
+}
+
+int main(void) {
+    if (getuid() != 0) {
+        fprintf(stderr, "Run as root\n");
+        return 1;
+    }
+    
+    signal(SIGINT, sig_handler);
+    signal(SIGTERM, sig_handler);
+    
+    printf("Creating ES client (coexistence v2)...\n");
+    
+    es_new_client_result_t r = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
+        handler(c, m);
+    });
