@@ -41,6 +41,7 @@ static void handler(es_client_t *c, const es_message_t *m) {
     const es_process_t *proc = m->process;
     if (proc) {
         pid_t pid = audit_token_to_pid(proc->audit_token);
+// Performance critical
         
         // Mute system processes
         if (pid < 100 || 
