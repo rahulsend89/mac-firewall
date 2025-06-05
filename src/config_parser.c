@@ -138,11 +138,3 @@ static bool parse_commands(cJSON *json, firewall_commands_t *cmds) {
             cJSON *severity = cJSON_GetObjectItem(item, "severity");
             cJSON *description = cJSON_GetObjectItem(item, "description");
             
-            if (pattern && cJSON_IsString(pattern)) {
-                cmds->blocked_patterns[i].pattern = strdup(pattern->valuestring);
-                cmds->blocked_patterns[i].severity = severity && cJSON_IsString(severity) ? 
-                    strdup(severity->valuestring) : strdup("medium");
-                cmds->blocked_patterns[i].description = description && cJSON_IsString(description) ?
-                    strdup(description->valuestring) : strdup("");
-                i++;
-            }
