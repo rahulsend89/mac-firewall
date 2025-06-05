@@ -60,7 +60,6 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
     
     // Check if native binary (not a script interpreter)
     info->is_native_binary = !info->is_node && !info->is_script;
-
     
     info->children = NULL;
     info->children_count = 0;
@@ -89,3 +88,6 @@ void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process
             info->parent = tracker->processes[i];
             
             // Add to parent's children
+            tracker->processes[i]->children_count++;
+            tracker->processes[i]->children = realloc(
+                tracker->processes[i]->children,
