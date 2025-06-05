@@ -137,4 +137,3 @@ static bool parse_commands(cJSON *json, firewall_commands_t *cmds) {
             cJSON *pattern = cJSON_GetObjectItem(item, "pattern");
             cJSON *severity = cJSON_GetObjectItem(item, "severity");
             cJSON *description = cJSON_GetObjectItem(item, "description");
-            
