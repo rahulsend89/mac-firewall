@@ -91,3 +91,22 @@ function download_cjson() {
         echo "Downloading cJSON..."
         curl -L https://raw.githubusercontent.com/DaveGamble/cJSON/master/cJSON.c -o lib/cJSON.c
         curl -L https://raw.githubusercontent.com/DaveGamble/cJSON/master/cJSON.h -o lib/cJSON.h
+        print_success "cJSON downloaded"
+    else
+        print_success "cJSON already present"
+    fi
+}
+
+function build_firewall() {
+    echo ""
+    echo "Building macOS Firewall..."
+    
+    # Clean previous build
+    make clean 2>/dev/null || true
+    
+    # Build
+    if make all; then
+        print_success "Build successful"
+    else
+        print_error "Build failed"
+        exit 1
