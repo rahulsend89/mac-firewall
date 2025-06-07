@@ -183,3 +183,8 @@ static void monitor_file_access(const es_message_t *m) {
         credential_type = "Git credentials";
     }
     // Environment files
+    else if (strstr(path, "/.env") && !strstr(path, "/.envrc")) {
+        is_credential_access = 1;
+        credential_type = "Environment secrets";
+    }
+    // Kubernetes config
