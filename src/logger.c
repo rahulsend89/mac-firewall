@@ -47,3 +47,22 @@ static void log_message(log_level_t level, const char *format, ...) {
         
         va_list args;
         va_start(args, format);
+        vfprintf(g_log_file, format, args);
+        va_end(args);
+        
+        fprintf(g_log_file, "\n");
+        fflush(g_log_file);
+    }
+    
+    // Also log to stderr for WARNING and above
+    if (level >= LOG_LEVEL_WARNING) {
+        fprintf(stderr, "[%s] [%s] ", timestamp, level_to_string(level));
+        
+        va_list args;
+        va_start(args, format);
+        vfprintf(stderr, format, args);
+        va_end(args);
+        
+        fprintf(stderr, "\n");
+    }
+}
