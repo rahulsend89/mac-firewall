@@ -18,6 +18,7 @@ This firewall operates at the **macOS kernel level** using the EndpointSecurity 
 
 ### File Access Protection
 - ✅ Blocks access to SSH keys (`~/.ssh/`)
+
 - ✅ Blocks access to AWS credentials (`~/.aws/`)
 - ✅ Blocks access to GPG keys (`~/.gnupg/`)
 - ✅ Blocks reading `/etc/passwd`, `/etc/shadow`

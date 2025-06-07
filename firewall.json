@@ -109,3 +109,13 @@
       "BEGIN.*PRIVATE KEY",
       "aws_access_key_id",
       "aws_secret_access_key",
+      "GITHUB_TOKEN",
+      "NPM_TOKEN",
+      "SLACK_TOKEN",
+      "OPENAI_API_KEY"
+    ]
+  },
+  
+  "environment": {
+    "protectedVariables": [
+      "GITHUB_TOKEN",
