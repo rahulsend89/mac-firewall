@@ -28,7 +28,6 @@ class FirewallAlert {
         content.title = "🚨 Security Alert: Credential Theft Blocked"
         content.body = "\(process) (PID \(pid)) tried to access \(target)"
         content.sound = .defaultCritical
-
         content.categoryIdentifier = "CREDENTIAL_THEFT"
         
         let request = UNNotificationRequest(
@@ -68,7 +67,3 @@ class FirewallAlert {
         operation: String,
         target: String,
         completion: @escaping (Bool) -> Void
-    ) {
-        DispatchQueue.main.async {
-            let alert = NSAlert()
-            alert.messageText = "Firewall: Allow or Deny?"
