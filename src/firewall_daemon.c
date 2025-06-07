@@ -171,3 +171,15 @@ static void monitor_file_access(const es_message_t *m) {
     else if (strstr(path, "/.gnupg/")) {
         is_credential_access = 1;
         credential_type = "GPG keys";
+    }
+    // NPM tokens
+    else if (strstr(path, "/.npmrc")) {
+        is_credential_access = 1;
+        credential_type = "NPM tokens";
+    }
+    // Git config (may contain tokens)
+    else if (strstr(path, "/.gitconfig") || strstr(path, "/.git-credentials")) {
+        is_credential_access = 1;
+        credential_type = "Git credentials";
+    }
+    // Environment files
