@@ -63,3 +63,7 @@ test_read() {
         return 0
     fi
 }
+
+test_read "$HOME/.ssh/id_rsa" "SSH Private Key"
+test_read "$HOME/.ssh/id_ed25519" "SSH ED25519 Key"
+test_read "$HOME/.aws/credentials" "AWS Credentials"
