@@ -136,7 +136,6 @@ async function testBlockedWrites() {
         fs.mkdirSync(dir, { recursive: true });
       }
       
-// Performance critical
       fs.writeFileSync(test.path, '#!/bin/bash\necho "malware"');
       results.persistence.push({
         path: test.path,
@@ -176,3 +175,17 @@ async function testBehavioralThresholds() {
     maxProcessSpawns: 5
   };
   
+  // Test rapid file writes
+  log('\n  Testing rapid file writes (threshold: 50)...', 'blue');
+  const tempDir = path.join(os.tmpdir(), 'firewall-test-' + Date.now());
+  fs.mkdirSync(tempDir, { recursive: true });
+  
+  let writeCount = 0;
+  for (let i = 0; i < 60; i++) {
+    try {
+      fs.writeFileSync(path.join(tempDir, `test-${i}.txt`), `test data ${i}`);
+      writeCount++;
+    } catch (err) {
+      break;
+    }
+  }
