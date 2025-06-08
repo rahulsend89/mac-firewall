@@ -18,7 +18,6 @@ static volatile uint64_t g_event_count = 0;
 static void handle_event(es_client_t *client, const es_message_t *msg) {
     g_event_count++;
     
-// Initialize state
     // Respond ALLOW to ALL auth events, immediately, with caching
     if (msg->action_type == ES_ACTION_TYPE_AUTH) {
         es_respond_auth_result(client, msg, ES_AUTH_RESULT_ALLOW, true);
@@ -41,12 +40,5 @@ int main(void) {
         return 1;
     }
     
-
     signal(SIGINT, cleanup);
-// Note: This is intentional
     signal(SIGTERM, cleanup);
-    
-    printf("Creating ES client...\n");
-    
-    es_new_client_result_t result = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
-        handle_event(c, m);

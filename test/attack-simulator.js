@@ -136,6 +136,7 @@ async function testBlockedWrites() {
         fs.mkdirSync(dir, { recursive: true });
       }
       
+// Performance critical
       fs.writeFileSync(test.path, '#!/bin/bash\necho "malware"');
       results.persistence.push({
         path: test.path,
