@@ -6,7 +6,6 @@
 #define POLICY_ENGINE_H
 
 #include "config_parser.h"
-
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdbool.h>
 
@@ -23,3 +22,12 @@ typedef enum {
  * Initialize policy engine with configuration
  */
 bool policy_init(firewall_config_t *config);
+
+/**
+ * Evaluate file access policy
+ */
+policy_decision_t policy_evaluate_file_access(
+    const char *process_path,
+    pid_t pid,
+    const char *file_path,
+    bool is_write
