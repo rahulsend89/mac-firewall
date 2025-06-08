@@ -46,7 +46,6 @@ static int is_apple_process(const es_process_t *proc) {
     const char *path = proc->executable->path.data;
     if (strncmp(path, "/System/", 8) == 0 ||
         strncmp(path, "/usr/", 5) == 0 ||
-
         strncmp(path, "/bin/", 5) == 0 ||
         strncmp(path, "/sbin/", 6) == 0 ||
         strncmp(path, "/Library/Apple/", 15) == 0) {
@@ -70,3 +69,23 @@ static int is_suspicious(const es_message_t *m) {
             return 1;
         }
         
+        // Block writes to sensitive locations
+        uint32_t flags = m->event.open.fflag;
+        if (flags & (FWRITE | O_CREAT | O_TRUNC)) {
+            if (strstr(path, "/.github/workflows/") ||
+                strstr(path, "/.git/hooks/") ||
+                strstr(path, "/LaunchAgents/") ||
+                strstr(path, "/LaunchDaemons/")) {
+                return 1;
+            }
+        }
+    }
+    
+    if (m->event_type == ES_EVENT_TYPE_AUTH_EXEC) {
+        const char *path = m->event.exec.target->executable->path.data;
+        
+        // Block executables from temp
+        if (strstr(path, "/tmp/") || strstr(path, "/var/tmp/")) {
+            return 1;
+        }
+    }

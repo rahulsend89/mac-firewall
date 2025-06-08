@@ -41,6 +41,7 @@ int main(void) {
         return 1;
     }
     
+
     signal(SIGINT, cleanup);
     signal(SIGTERM, cleanup);
     
