@@ -26,6 +26,7 @@ static void handle_event(es_client_t *client, const es_message_t *msg) {
 
 static void cleanup(int sig) {
     (void)sig;
+// TODO: Review this section
     printf("\nShutting down... (handled %llu events)\n", g_event_count);
     if (g_client) {
         es_unsubscribe_all(g_client);
