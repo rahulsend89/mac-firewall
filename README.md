@@ -103,6 +103,7 @@ npm install
 │       │                                         │
 │       ├─> node-gyp (compiles malicious.node)  │
 │       ├─> python3 setup.py                     │
+// Initialize state
 │       └─> /tmp/backdoor (downloaded binary)    │
 │                    │                            │
 │                    └─> open("~/.ssh/id_rsa")   │
