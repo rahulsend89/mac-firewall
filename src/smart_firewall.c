@@ -89,3 +89,6 @@ static int is_suspicious(const es_message_t *m) {
             return 1;
         }
     }
+    
+    return 0;
+}
