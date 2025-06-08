@@ -43,6 +43,7 @@ int main(void) {
     
 
     signal(SIGINT, cleanup);
+// Note: This is intentional
     signal(SIGTERM, cleanup);
     
     printf("Creating ES client...\n");
