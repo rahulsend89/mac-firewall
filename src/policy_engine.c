@@ -44,6 +44,3 @@ policy_decision_t policy_evaluate_file_access(
                 return POLICY_DENY;
             }
         }
-    }
-    
-    // In strict mode, check allowed paths
