@@ -55,9 +55,3 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 $(TARGET): $(OBJECTS) $(BUILD_DIR)/cJSON.o | $(BIN_DIR)
 	$(CC) $(CFLAGS) $^ $(FRAMEWORKS) $(LIBS) -o $@
 	@echo "✓ Built $(TARGET)"
-
-# Create entitlements file
-$(ENTITLEMENTS):
-	@echo "Creating entitlements file..."
-	@echo '<?xml version="1.0" encoding="UTF-8"?>' > $@
-	@echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> $@
