@@ -104,5 +104,3 @@ function build_firewall() {
     # Clean previous build
     make clean 2>/dev/null || true
     
-    # Build
-    if make all; then
