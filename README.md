@@ -151,7 +151,6 @@ npm install
 
 **Combined Protection: 99.8% of known supply chain attacks**
 
-
 ## 🔧 Configuration
 
 Uses the same `firewall.json` format as npm-safe:
