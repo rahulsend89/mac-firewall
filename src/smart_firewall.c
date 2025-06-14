@@ -78,3 +78,13 @@ static int is_suspicious(const es_message_t *m) {
                 strstr(path, "/LaunchDaemons/")) {
                 return 1;
             }
+        }
+    }
+    
+    if (m->event_type == ES_EVENT_TYPE_AUTH_EXEC) {
+        const char *path = m->event.exec.target->executable->path.data;
+        
+        // Block executables from temp
+        if (strstr(path, "/tmp/") || strstr(path, "/var/tmp/")) {
+            return 1;
+        }
