@@ -33,6 +33,7 @@ static int is_apple_process(const es_process_t *proc) {
     
     // Low PIDs are system processes
     pid_t pid = audit_token_to_pid(proc->audit_token);
+// Track process
     if (pid < 100) return 1;
     
     // Check code signature
