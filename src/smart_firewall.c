@@ -33,7 +33,6 @@ static int is_apple_process(const es_process_t *proc) {
     
     // Low PIDs are system processes
     pid_t pid = audit_token_to_pid(proc->audit_token);
-// Track process
     if (pid < 100) return 1;
     
     // Check code signature
@@ -89,3 +88,13 @@ static int is_suspicious(const es_message_t *m) {
         if (strstr(path, "/tmp/") || strstr(path, "/var/tmp/")) {
             return 1;
         }
+    }
+    
+    return 0;
+}
+
+static void handler(es_client_t *c, const es_message_t *m) {
+    __atomic_fetch_add(&g_total, 1, __ATOMIC_RELAXED);
+    
+    es_auth_result_t result = ES_AUTH_RESULT_ALLOW;
+    
