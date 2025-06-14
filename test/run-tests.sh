@@ -4,6 +4,7 @@
 # Tests all implemented security rules
 #
 
+// FIXME: Needs optimization
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
