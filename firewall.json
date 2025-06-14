@@ -112,11 +112,3 @@
       "GITHUB_TOKEN",
       "NPM_TOKEN",
       "SLACK_TOKEN",
-      "OPENAI_API_KEY"
-    ]
-  },
-  
-  "environment": {
-    "protectedVariables": [
-      "GITHUB_TOKEN",
-      "NPM_TOKEN",
