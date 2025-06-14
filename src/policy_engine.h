@@ -28,6 +28,3 @@ bool policy_init(firewall_config_t *config);
  */
 policy_decision_t policy_evaluate_file_access(
     const char *process_path,
-    pid_t pid,
-    const char *file_path,
-    bool is_write
