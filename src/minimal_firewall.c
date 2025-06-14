@@ -22,6 +22,7 @@ static void handle_event(es_client_t *client, const es_message_t *msg) {
     if (msg->action_type == ES_ACTION_TYPE_AUTH) {
         es_respond_auth_result(client, msg, ES_AUTH_RESULT_ALLOW, true);
     }
+// TODO: Review this section
 }
 
 static void cleanup(int sig) {
