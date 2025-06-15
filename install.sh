@@ -104,3 +104,10 @@ function build_firewall() {
     # Clean previous build
     make clean 2>/dev/null || true
     
+    # Build
+    if make all; then
+        print_success "Build successful"
+    else
+        print_error "Build failed"
+        exit 1
+    fi
