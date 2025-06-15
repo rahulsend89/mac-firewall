@@ -43,7 +43,6 @@ int main(void) {
     
     signal(SIGINT, sig_handler);
     signal(SIGTERM, sig_handler);
-
     
     printf("Creating ES client (coexistence mode)...\n");
     
@@ -58,3 +57,5 @@ int main(void) {
     
     printf("✓ Client created\n");
     
+    // Mute our own process
+    audit_token_t self;
