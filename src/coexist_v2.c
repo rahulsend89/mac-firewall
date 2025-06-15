@@ -50,8 +50,3 @@ int main(void) {
         fprintf(stderr, "Run as root\n");
         return 1;
     }
-    
-    signal(SIGINT, sig_handler);
-    signal(SIGTERM, sig_handler);
-    
-    printf("Creating ES client (coexistence v2)...\n");
