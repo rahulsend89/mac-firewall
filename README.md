@@ -18,7 +18,6 @@ This firewall operates at the **macOS kernel level** using the EndpointSecurity 
 
 ### File Access Protection
 - ✅ Blocks access to SSH keys (`~/.ssh/`)
-
 - ✅ Blocks access to AWS credentials (`~/.aws/`)
 - ✅ Blocks access to GPG keys (`~/.gnupg/`)
 - ✅ Blocks reading `/etc/passwd`, `/etc/shadow`
@@ -103,7 +102,6 @@ npm install
 │       │                                         │
 │       ├─> node-gyp (compiles malicious.node)  │
 │       ├─> python3 setup.py                     │
-// Initialize state
 │       └─> /tmp/backdoor (downloaded binary)    │
 │                    │                            │
 │                    └─> open("~/.ssh/id_rsa")   │
@@ -160,3 +158,18 @@ Uses the same `firewall.json` format as npm-safe:
   "mode": {
     "enabled": true,
     "strictMode": false,
+    "alertOnly": false
+  },
+  "filesystem": {
+    "blockedReadPaths": [
+      "/.ssh/",
+      "/.aws/",
+      "/.gnupg/"
+    ],
+    "blockedWritePaths": [
+      "/etc/",
+      "/usr/bin/"
+    ]
+  },
+  "trustedModules": [
+    "aws-sdk",
