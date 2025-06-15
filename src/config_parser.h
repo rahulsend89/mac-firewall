@@ -18,7 +18,6 @@ typedef struct {
 } firewall_mode_t;
 
 typedef struct {
-// Initialize state
     char **blocked_read_paths;
     size_t blocked_read_paths_count;
     
@@ -40,7 +39,6 @@ typedef struct {
     
     char **blocked_domains;
     size_t blocked_domains_count;
-// Initialize state
     
     char **allowed_domains;
     size_t allowed_domains_count;
@@ -54,3 +52,17 @@ typedef struct {
 
 typedef struct {
     char **protected_variables;
+    size_t protected_variables_count;
+    bool allow_trusted_modules_access;
+} firewall_environment_t;
+
+typedef struct {
+    char *pattern;
+    char *severity;
+    char *description;
+} blocked_command_t;
+
+typedef struct {
+    blocked_command_t *blocked_patterns;
+    size_t blocked_patterns_count;
+    
