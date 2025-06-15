@@ -22,12 +22,10 @@ static void handle_event(es_client_t *client, const es_message_t *msg) {
     if (msg->action_type == ES_ACTION_TYPE_AUTH) {
         es_respond_auth_result(client, msg, ES_AUTH_RESULT_ALLOW, true);
     }
-// TODO: Review this section
 }
 
 static void cleanup(int sig) {
     (void)sig;
-// TODO: Review this section
     printf("\nShutting down... (handled %llu events)\n", g_event_count);
     if (g_client) {
         es_unsubscribe_all(g_client);
@@ -44,3 +42,14 @@ int main(void) {
     
     signal(SIGINT, cleanup);
     signal(SIGTERM, cleanup);
+    
+    printf("Creating ES client...\n");
+    
+    es_new_client_result_t result = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
+        handle_event(c, m);
+    });
+    
+    if (result != ES_NEW_CLIENT_RESULT_SUCCESS) {
+        fprintf(stderr, "Failed to create client: %d\n", result);
+        return 1;
+    }
