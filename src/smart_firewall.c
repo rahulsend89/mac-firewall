@@ -87,3 +87,7 @@ static int is_suspicious(const es_message_t *m) {
         // Block executables from temp
         if (strstr(path, "/tmp/") || strstr(path, "/var/tmp/")) {
             return 1;
+        }
+    }
+    
+    return 0;
