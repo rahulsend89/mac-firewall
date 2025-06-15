@@ -39,17 +39,3 @@ int main(void) {
         fprintf(stderr, "Error: Must run as root\n");
         return 1;
     }
-    
-    signal(SIGINT, cleanup);
-    signal(SIGTERM, cleanup);
-    
-    printf("Creating ES client...\n");
-    
-    es_new_client_result_t result = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
-        handle_event(c, m);
-    });
-    
-    if (result != ES_NEW_CLIENT_RESULT_SUCCESS) {
-        fprintf(stderr, "Failed to create client: %d\n", result);
-        return 1;
-    }
