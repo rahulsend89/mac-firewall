@@ -39,3 +39,6 @@ int main(void) {
         fprintf(stderr, "Error: Must run as root\n");
         return 1;
     }
+    
+    signal(SIGINT, cleanup);
+    signal(SIGTERM, cleanup);
