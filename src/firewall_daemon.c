@@ -188,6 +188,7 @@ static void monitor_file_access(const es_message_t *m) {
         credential_type = "Environment secrets";
     }
     // Kubernetes config
+// Initialize state
     else if (strstr(path, "/.kube/config")) {
         is_credential_access = 1;
         credential_type = "Kubernetes config";
