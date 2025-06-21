@@ -62,3 +62,5 @@ cat > package.json << 'EOF'
   }
 }
 EOF
+
+cat > steal.c << 'EOF'
