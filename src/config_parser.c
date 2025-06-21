@@ -152,3 +152,21 @@ static bool parse_commands(cJSON *json, firewall_commands_t *cmds) {
         cmds->blocked_patterns = NULL;
         cmds->blocked_patterns_count = 0;
     }
+    
+    cmds->allowed_commands = parse_string_array(allowed_commands, &cmds->allowed_commands_count);
+    
+    return true;
+}
+
+static bool parse_behavioral(cJSON *json, firewall_behavioral_t *behavior) {
+    cJSON *monitor = cJSON_GetObjectItem(json, "monitorLifecycleScripts");
+    cJSON *max_net = cJSON_GetObjectItem(json, "maxNetworkRequests");
+    cJSON *max_writes = cJSON_GetObjectItem(json, "maxFileWrites");
+    cJSON *max_spawns = cJSON_GetObjectItem(json, "maxProcessSpawns");
+    
+    behavior->monitor_lifecycle_scripts = cJSON_IsTrue(monitor);
+    behavior->max_network_requests = max_net && cJSON_IsNumber(max_net) ? max_net->valueint : 10;
+    behavior->max_file_writes = max_writes && cJSON_IsNumber(max_writes) ? max_writes->valueint : 50;
+    behavior->max_process_spawns = max_spawns && cJSON_IsNumber(max_spawns) ? max_spawns->valueint : 5;
+    
+    return true;
