@@ -30,7 +30,6 @@ static int is_suspicious_exec(const char *path) {
     if (strstr(path, "node_modules/.bin/") != NULL) return 0;  // Allow normal bin
     if (strstr(path, "node_modules/") != NULL && 
         (strstr(path, ".sh") || strstr(path, ".py") || strstr(path, ".rb"))) {
-
         return 1;  // Block scripts in node_modules
     }
     
@@ -49,3 +48,12 @@ static void handler(es_client_t *c, const es_message_t *m) {
             const char *path = m->event.exec.target->executable->path.data;
             if (path && is_suspicious_exec(path)) {
                 result = ES_AUTH_RESULT_DENY;
+                __atomic_fetch_add(&g_blocked, 1, __ATOMIC_RELAXED);
+            }
+        }
+        
+        es_respond_auth_result(c, m, result, true);
+    }
+}
+
+static void sig_handler(int s) {
