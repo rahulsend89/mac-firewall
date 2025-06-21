@@ -1312,3 +1312,109 @@ CJSON_PUBLIC(char *) cJSON_PrintUnformatted(const cJSON *item)
 CJSON_PUBLIC(char *) cJSON_PrintBuffered(const cJSON *item, int prebuffer, cJSON_bool fmt)
 {
     printbuffer p = { 0, 0, 0, 0, 0, 0, { 0, 0, 0 } };
+
+    if (prebuffer < 0)
+    {
+        return NULL;
+    }
+
+    p.buffer = (unsigned char*)global_hooks.allocate((size_t)prebuffer);
+    if (!p.buffer)
+    {
+        return NULL;
+    }
+
+    p.length = (size_t)prebuffer;
+    p.offset = 0;
+    p.noalloc = false;
+    p.format = fmt;
+    p.hooks = global_hooks;
+
+    if (!print_value(item, &p))
+    {
+        global_hooks.deallocate(p.buffer);
+        p.buffer = NULL;
+        return NULL;
+    }
+
+    return (char*)p.buffer;
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_PrintPreallocated(cJSON *item, char *buffer, const int length, const cJSON_bool format)
+{
+    printbuffer p = { 0, 0, 0, 0, 0, 0, { 0, 0, 0 } };
+
+    if ((length < 0) || (buffer == NULL))
+    {
+        return false;
+    }
+
+    p.buffer = (unsigned char*)buffer;
+    p.length = (size_t)length;
+    p.offset = 0;
+    p.noalloc = true;
+    p.format = format;
+    p.hooks = global_hooks;
+
+    return print_value(item, &p);
+}
+
+/* Parser core - when encountering text, process appropriately. */
+static cJSON_bool parse_value(cJSON * const item, parse_buffer * const input_buffer)
+{
+    if ((input_buffer == NULL) || (input_buffer->content == NULL))
+    {
+        return false; /* no input */
+    }
+
+    /* parse the different types of values */
+    /* null */
+    if (can_read(input_buffer, 4) && (strncmp((const char*)buffer_at_offset(input_buffer), "null", 4) == 0))
+    {
+        item->type = cJSON_NULL;
+        input_buffer->offset += 4;
+        return true;
+    }
+    /* false */
+    if (can_read(input_buffer, 5) && (strncmp((const char*)buffer_at_offset(input_buffer), "false", 5) == 0))
+    {
+        item->type = cJSON_False;
+        input_buffer->offset += 5;
+        return true;
+    }
+    /* true */
+    if (can_read(input_buffer, 4) && (strncmp((const char*)buffer_at_offset(input_buffer), "true", 4) == 0))
+    {
+        item->type = cJSON_True;
+        item->valueint = 1;
+        input_buffer->offset += 4;
+        return true;
+    }
+    /* string */
+    if (can_access_at_index(input_buffer, 0) && (buffer_at_offset(input_buffer)[0] == '\"'))
+    {
+        return parse_string(item, input_buffer);
+    }
+    /* number */
+    if (can_access_at_index(input_buffer, 0) && ((buffer_at_offset(input_buffer)[0] == '-') || ((buffer_at_offset(input_buffer)[0] >= '0') && (buffer_at_offset(input_buffer)[0] <= '9'))))
+    {
+        return parse_number(item, input_buffer);
+    }
+    /* array */
+    if (can_access_at_index(input_buffer, 0) && (buffer_at_offset(input_buffer)[0] == '['))
+    {
+        return parse_array(item, input_buffer);
+    }
+    /* object */
+    if (can_access_at_index(input_buffer, 0) && (buffer_at_offset(input_buffer)[0] == '{'))
+    {
+        return parse_object(item, input_buffer);
+    }
+
+    return false;
+}
+
+/* Render a value to text. */
+static cJSON_bool print_value(const cJSON * const item, printbuffer * const output_buffer)
+{
+    unsigned char *output = NULL;
