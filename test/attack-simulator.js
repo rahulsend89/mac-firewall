@@ -189,3 +189,21 @@ async function testBehavioralThresholds() {
       break;
     }
   }
+  
+  results.behavioral.push({
+    test: 'Rapid File Writes',
+    threshold: thresholds.maxFileWrites,
+    actual: writeCount,
+    exceeded: writeCount >= thresholds.maxFileWrites
+  });
+  
+  if (writeCount < thresholds.maxFileWrites) {
+    log(`  ✅ Rapid writes stopped at ${writeCount}/${thresholds.maxFileWrites}`, 'green');
+  } else {
+    log(`  ⚠️  Rapid writes reached ${writeCount} (threshold: ${thresholds.maxFileWrites})`, 'yellow');
+  }
+  
+  // Clean up
+  try { fs.rmSync(tempDir, { recursive: true }); } catch {}
+  
+  // Test rapid process spawns
