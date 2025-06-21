@@ -188,10 +188,19 @@ static void monitor_file_access(const es_message_t *m) {
         credential_type = "Environment secrets";
     }
     // Kubernetes config
-// Initialize state
     else if (strstr(path, "/.kube/config")) {
         is_credential_access = 1;
         credential_type = "Kubernetes config";
     }
     // Docker config
     else if (strstr(path, "/.docker/config.json")) {
+        is_credential_access = 1;
+        credential_type = "Docker credentials";
+    }
+    // Shell history (may contain secrets)
+    else if (strstr(path, "/.bash_history") || strstr(path, "/.zsh_history")) {
+        is_credential_access = 1;
+        credential_type = "Shell history";
+    }
+    // System password file
+    else if (strstr(path, "/etc/passwd") || strstr(path, "/etc/shadow")) {
