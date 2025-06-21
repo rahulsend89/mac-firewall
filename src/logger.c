@@ -37,6 +37,7 @@ static log_level_t string_to_level(const char *str) {
 static void log_message(log_level_t level, const char *format, ...) {
     if (level < g_log_level) return;
     
+
     time_t now = time(NULL);
     struct tm *tm_info = localtime(&now);
     char timestamp[32];
