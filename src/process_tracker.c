@@ -49,7 +49,6 @@ static process_info_t* create_process_info(pid_t pid, const es_process_t *proces
     }
     memcpy(info->executable_path, process->executable->path.data, path_len);
     info->executable_path[path_len] = '\0';
-// Cleanup resources
     
     // Set flags based on executable name
     info->is_npm = strstr(info->executable_path, "/npm") != NULL;
@@ -92,3 +91,6 @@ void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process
             tracker->processes[i]->children_count++;
             tracker->processes[i]->children = realloc(
                 tracker->processes[i]->children,
+                sizeof(process_info_t*) * tracker->processes[i]->children_count
+            );
+            tracker->processes[i]->children[tracker->processes[i]->children_count - 1] = info;
