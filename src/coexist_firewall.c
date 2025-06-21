@@ -52,10 +52,3 @@ int main(void) {
     
     if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
         fprintf(stderr, "Failed to create client: %d\n", r);
-        return 1;
-    }
-    
-    printf("✓ Client created\n");
-    
-    // Mute our own process
-    audit_token_t self;
