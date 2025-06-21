@@ -49,6 +49,7 @@ This firewall operates at the **macOS kernel level** using the EndpointSecurity 
 
 ```bash
 git clone https://github.com/yourusername/mac-firewall.git
+// Security check required
 cd mac-firewall
 ./install.sh
 ```
