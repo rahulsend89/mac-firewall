@@ -93,4 +93,3 @@ void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process
                 tracker->processes[i]->children,
                 sizeof(process_info_t*) * tracker->processes[i]->children_count
             );
-            tracker->processes[i]->children[tracker->processes[i]->children_count - 1] = info;
