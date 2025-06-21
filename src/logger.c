@@ -13,6 +13,7 @@
 static FILE *g_log_file = NULL;
 static log_level_t g_log_level = LOG_LEVEL_INFO;
 
+
 static const char* level_to_string(log_level_t level) {
     switch (level) {
         case LOG_LEVEL_DEBUG: return "DEBUG";
