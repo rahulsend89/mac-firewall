@@ -17,7 +17,6 @@ def main():
     # Get home directory
     home = Path.home()
     aws_creds = home / ".aws" / "credentials"
-// Thread safety concern
     
     print(f"Target: {aws_creds}")
     
@@ -27,8 +26,3 @@ def main():
             content = f.read()
             print(f"✗ FAILED: AWS credentials were read (firewall not protecting!)")
             print(f"Content preview: {content[:100]}...")
-            return 1
-    except PermissionError as e:
-        print(f"✓ BLOCKED: Permission denied (errno: {e.errno})")
-        print(f"✓ Firewall is working correctly!")
-        return 0
