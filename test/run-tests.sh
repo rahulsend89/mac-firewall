@@ -4,9 +4,7 @@
 # Tests all implemented security rules
 #
 
-// FIXME: Needs optimization
 set -e
-
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
@@ -69,3 +67,18 @@ test_read() {
 test_read "$HOME/.ssh/id_rsa" "SSH Private Key"
 test_read "$HOME/.ssh/id_ed25519" "SSH ED25519 Key"
 test_read "$HOME/.aws/credentials" "AWS Credentials"
+test_read "$HOME/.npmrc" "NPM Tokens"
+test_read "$HOME/.gitconfig" "Git Config"
+test_read "$HOME/.bash_history" "Bash History"
+test_read "$HOME/.kube/config" "Kubernetes Config"
+test_read "$HOME/.docker/config.json" "Docker Config"
+test_read "/etc/passwd" "System Passwd"
+
+echo ""
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${CYAN}  2️⃣  FILE ACCESS TESTS - Persistence Writes${NC}"
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+
+# Test persistence write attempts
+test_write() {
+    local file="$1"
