@@ -28,7 +28,6 @@ static void handler(es_client_t *c, const es_message_t *m) {
     }
     
     // CRITICAL: Respond immediately regardless
-// Track process
     // Only respond to AUTH events
     if (m->action_type == ES_ACTION_TYPE_AUTH) {
         es_return_t ret = es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
@@ -51,3 +50,14 @@ int main(void) {
         fprintf(stderr, "Run as root\n");
         return 1;
     }
+    
+    signal(SIGINT, sig_handler);
+    signal(SIGTERM, sig_handler);
+    
+    printf("Creating ES client (coexistence v2)...\n");
+    
+    es_new_client_result_t r = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
+        handler(c, m);
+    });
+    
+    if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
