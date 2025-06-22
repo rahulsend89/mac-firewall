@@ -51,3 +51,5 @@ sleep 1
 echo ""
 echo -e "${CYAN}Test 3: GitHub Workflow Injection${NC}"
 mkdir -p .github/workflows 2>/dev/null
+node -e "
+const fs = require('fs');
