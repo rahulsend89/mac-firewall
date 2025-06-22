@@ -72,3 +72,14 @@ static void handler(es_client_t *c, const es_message_t *m) {
             strstr(path, "/.npmrc") ||
             strstr(path, "/.env")) {
             __atomic_fetch_add(&g_suspicious, 1, __ATOMIC_RELAXED);
+            fprintf(stderr, "⚠️  SUSPICIOUS: PID %d (%s) accessed %s\n", pid, proc_path, path);
+            // Optionally kill: kill_process(pid, "Credential access attempt");
+        }
+    }
+    
+    // Check for suspicious file creation
+    if (m->event_type == ES_EVENT_TYPE_NOTIFY_CREATE) {
+        const char *path = m->event.create.destination.new_path.dir->path.data;
+        
+        // Persistence mechanism detection
+        if (strstr(path, "/.github/workflows") ||
