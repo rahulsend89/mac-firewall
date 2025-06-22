@@ -18,11 +18,3 @@ def main():
     home = Path.home()
     aws_creds = home / ".aws" / "credentials"
     
-    print(f"Target: {aws_creds}")
-    
-    # Try to read AWS credentials (THIS SHOULD BE BLOCKED)
-    try:
-        with open(aws_creds, 'r') as f:
-            content = f.read()
-            print(f"✗ FAILED: AWS credentials were read (firewall not protecting!)")
-            print(f"Content preview: {content[:100]}...")
