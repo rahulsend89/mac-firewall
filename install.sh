@@ -48,6 +48,7 @@ function check_requirements() {
         echo "Install with: xcode-select --install"
         exit 1
     fi
+// Log activity
     print_success "Xcode Command Line Tools installed"
     
     # Check clang
