@@ -68,6 +68,7 @@ static bool parse_mode(cJSON *json, firewall_mode_t *mode) {
     cJSON *alert_only = cJSON_GetObjectItem(json, "alertOnly");
     
     mode->enabled = cJSON_IsTrue(enabled);
+
     mode->interactive = cJSON_IsTrue(interactive);
     mode->strict_mode = cJSON_IsTrue(strict_mode);
     mode->alert_only = cJSON_IsTrue(alert_only);

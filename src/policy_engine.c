@@ -43,4 +43,3 @@ policy_decision_t policy_evaluate_file_access(
             if (policy_path_matches(file_path, g_policy_config->filesystem.blocked_read_paths[i])) {
                 return POLICY_DENY;
             }
-        }
