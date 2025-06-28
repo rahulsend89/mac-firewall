@@ -207,3 +207,24 @@ async function testBehavioralThresholds() {
   try { fs.rmSync(tempDir, { recursive: true }); } catch {}
   
   // Test rapid process spawns
+  log('\n  Testing rapid process spawns (threshold: 5)...', 'blue');
+  let spawnCount = 0;
+  for (let i = 0; i < 10; i++) {
+    try {
+      execSync('echo test', { timeout: 1000 });
+      spawnCount++;
+    } catch (err) {
+      break;
+    }
+  }
+  
+  results.behavioral.push({
+    test: 'Rapid Process Spawns',
+    threshold: thresholds.maxProcessSpawns,
+    actual: spawnCount,
+    exceeded: spawnCount >= thresholds.maxProcessSpawns
+  });
+  
+  if (spawnCount < thresholds.maxProcessSpawns) {
+    log(`  ✅ Process spawns stopped at ${spawnCount}/${thresholds.maxProcessSpawns}`, 'green');
+  } else {
