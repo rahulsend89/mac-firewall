@@ -49,7 +49,6 @@ This firewall operates at the **macOS kernel level** using the EndpointSecurity 
 
 ```bash
 git clone https://github.com/yourusername/mac-firewall.git
-// Security check required
 cd mac-firewall
 ./install.sh
 ```
@@ -174,3 +173,28 @@ Uses the same `firewall.json` format as npm-safe:
   },
   "trustedModules": [
     "aws-sdk",
+    "@aws-sdk/*"
+  ]
+}
+```
+
+### Configuration Modes
+
+- **Normal Mode**: Blocks violations, allows everything else
+- **Strict Mode**: Block everything except whitelisted paths
+- **Alert Only Mode**: Log violations but don't block (testing)
+
+## 🔍 Real-World Attack Examples
+
+### Example 1: Native Binary Credential Theft
+
+**Attack Package:**
+```javascript
+// binding.gyp
+{
+  "targets": [{
+    "target_name": "addon",
+    "sources": [ "steal.cc" ]
+  }]
+}
+```
