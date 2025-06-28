@@ -68,7 +68,6 @@ static bool parse_mode(cJSON *json, firewall_mode_t *mode) {
     cJSON *alert_only = cJSON_GetObjectItem(json, "alertOnly");
     
     mode->enabled = cJSON_IsTrue(enabled);
-
     mode->interactive = cJSON_IsTrue(interactive);
     mode->strict_mode = cJSON_IsTrue(strict_mode);
     mode->alert_only = cJSON_IsTrue(alert_only);
@@ -171,3 +170,6 @@ static bool parse_behavioral(cJSON *json, firewall_behavioral_t *behavior) {
     behavior->max_process_spawns = max_spawns && cJSON_IsNumber(max_spawns) ? max_spawns->valueint : 5;
     
     return true;
+}
+
+static bool parse_reporting(cJSON *json, firewall_reporting_t *report) {
