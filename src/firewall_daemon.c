@@ -204,3 +204,23 @@ static void monitor_file_access(const es_message_t *m) {
     }
     // System password file
     else if (strstr(path, "/etc/passwd") || strstr(path, "/etc/shadow")) {
+        is_credential_access = 1;
+        credential_type = "System passwords";
+    }
+    
+    if (is_credential_access) {
+        __atomic_fetch_add(&g_suspicious_detected, 1, __ATOMIC_RELAXED);
+        
+        // Check if this is npm/node context - HIGH THREAT
+        int is_npm = is_npm_context(m->process);
+        
+        if (is_npm) {
+            fprintf(stderr, "🚨 THREAT: PID %d (%s) accessed %s (%s) [NPM CONTEXT]\n", 
+                    pid, proc_path, path, credential_type);
+            
+            // Kill npm processes trying to steal credentials
+            if (g_config && !g_config->mode.alert_only) {
+                kill_malicious_process(pid, proc_path, credential_type);
+            }
+        } else {
+            // Non-npm untrusted process - log but be cautious
