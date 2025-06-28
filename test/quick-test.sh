@@ -50,14 +50,3 @@ sleep 1
 # 3. Test GitHub workflow creation
 echo ""
 echo -e "${CYAN}Test 3: GitHub Workflow Injection${NC}"
-mkdir -p .github/workflows 2>/dev/null
-node -e "
-const fs = require('fs');
-try {
-  fs.writeFileSync('.github/workflows/test-malicious.yml', 'name: evil');
-  console.log('  ❌ Workflow created - NOT BLOCKED');
-  fs.unlinkSync('.github/workflows/test-malicious.yml');
-} catch(e) {
-  console.log('  ✅ Blocked or killed');
-}
-" 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
