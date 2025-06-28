@@ -91,3 +91,19 @@ static int is_suspicious(const es_message_t *m) {
     }
     
     return 0;
+}
+
+static void handler(es_client_t *c, const es_message_t *m) {
+    __atomic_fetch_add(&g_total, 1, __ATOMIC_RELAXED);
+    
+    es_auth_result_t result = ES_AUTH_RESULT_ALLOW;
+    
+    if (m->action_type == ES_ACTION_TYPE_AUTH) {
+        // Check if process is Apple-signed
+        if (is_apple_process(m->process)) {
+            // Respond ALLOW immediately
+            es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
+            
+            // Mute this process for ALL future events - massive performance gain!
+            es_mute_process(c, &m->process->audit_token);
+            __atomic_fetch_add(&g_muted_procs, 1, __ATOMIC_RELAXED);
