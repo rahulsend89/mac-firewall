@@ -54,4 +54,3 @@ policy_decision_t policy_evaluate_file_access(
                 allowed = true;
                 break;
             }
-        }
