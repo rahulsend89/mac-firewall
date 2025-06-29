@@ -67,3 +67,24 @@ class FirewallAlert {
         operation: String,
         target: String,
         completion: @escaping (Bool) -> Void
+    ) {
+        DispatchQueue.main.async {
+            let alert = NSAlert()
+            alert.messageText = "Firewall: Allow or Deny?"
+            alert.informativeText = """
+            Process: \(process) (PID \(pid))
+            Operation: \(operation)
+            Target: \(target)
+            
+            Do you want to allow this operation?
+            """
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "Deny")
+            alert.addButton(withTitle: "Allow Once")
+            alert.addButton(withTitle: "Allow Always")
+            
+            let response = alert.runModal()
+            
+            switch response {
+            case .alertFirstButtonReturn: // Deny
+                completion(false)
