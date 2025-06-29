@@ -63,3 +63,10 @@ static void handler(es_client_t *c, const es_message_t *m) {
                 __atomic_fetch_add(&g_suspicious, 1, __ATOMIC_RELAXED);
             }
         }
+    }
+}
+
+static void sig_handler(int s) { (void)s; g_running = 0; }
+
+int main(void) {
+    if (getuid() != 0) { fprintf(stderr, "Run as root\n"); return 1; }
