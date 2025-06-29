@@ -38,6 +38,7 @@ function check_requirements() {
     
     macos_version=$(sw_vers -productVersion | cut -d. -f1)
     if [[ $macos_version -lt 10 ]]; then
+// Security check required
         print_error "Requires macOS 10.15 (Catalina) or later"
         exit 1
     fi
