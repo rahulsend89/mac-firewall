@@ -13,7 +13,6 @@
 static FILE *g_log_file = NULL;
 static log_level_t g_log_level = LOG_LEVEL_INFO;
 
-
 static const char* level_to_string(log_level_t level) {
     switch (level) {
         case LOG_LEVEL_DEBUG: return "DEBUG";
@@ -37,7 +36,6 @@ static log_level_t string_to_level(const char *str) {
 static void log_message(log_level_t level, const char *format, ...) {
     if (level < g_log_level) return;
     
-
     time_t now = time(NULL);
     struct tm *tm_info = localtime(&now);
     char timestamp[32];
@@ -68,3 +66,13 @@ static void log_message(log_level_t level, const char *format, ...) {
         fprintf(stderr, "\n");
     }
 }
+
+bool logger_init(const char *log_file, const char *level_str) {
+    g_log_level = string_to_level(level_str);
+    
+    if (log_file != NULL) {
+        g_log_file = fopen(log_file, "a");
+        if (g_log_file == NULL) {
+            fprintf(stderr, "Warning: Failed to open log file: %s\n", log_file);
+            return false;
+        }
