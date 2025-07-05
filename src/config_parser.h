@@ -55,5 +55,3 @@ typedef struct {
     size_t protected_variables_count;
     bool allow_trusted_modules_access;
 } firewall_environment_t;
-
-typedef struct {
