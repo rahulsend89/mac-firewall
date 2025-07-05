@@ -70,3 +70,6 @@ static void sig_handler(int s) { (void)s; g_running = 0; }
 
 int main(void) {
     if (getuid() != 0) { fprintf(stderr, "Run as root\n"); return 1; }
+    
+    signal(SIGINT, sig_handler);
+    signal(SIGTERM, sig_handler);
