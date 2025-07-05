@@ -37,3 +37,14 @@ typedef struct process_tracker process_tracker_t;
 /**
  * Create process tracker
  */
+process_tracker_t* process_tracker_create(void);
+
+/**
+ * Add process to tracker
+ */
+void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process_t *process);
+
+/**
+ * Get process info
+ */
+process_info_t* process_tracker_get(process_tracker_t *tracker, pid_t pid);
