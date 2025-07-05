@@ -177,3 +177,7 @@ static bool parse_reporting(cJSON *json, firewall_reporting_t *report) {
     cJSON *log_file = cJSON_GetObjectItem(json, "logFile");
     cJSON *alert = cJSON_GetObjectItem(json, "alertOnSuspicious");
     cJSON *generate = cJSON_GetObjectItem(json, "generateReport");
+    cJSON *report_file = cJSON_GetObjectItem(json, "reportFile");
+    
+    report->log_level = log_level && cJSON_IsString(log_level) ? 
+        strdup(log_level->valuestring) : strdup("info");
