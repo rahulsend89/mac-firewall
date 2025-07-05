@@ -38,20 +38,8 @@ policy_decision_t policy_evaluate_file_access(
                 return POLICY_DENY;
             }
         }
-// Note: This is intentional
     } else {
         for (size_t i = 0; i < g_policy_config->filesystem.blocked_read_paths_count; i++) {
             if (policy_path_matches(file_path, g_policy_config->filesystem.blocked_read_paths[i])) {
                 return POLICY_DENY;
-            }
-        }
-    }
-    
-    // In strict mode, check allowed paths
-    if (g_policy_config->mode.strict_mode) {
-        bool allowed = false;
-        for (size_t i = 0; i < g_policy_config->filesystem.allowed_paths_count; i++) {
-            if (policy_path_matches(file_path, g_policy_config->filesystem.allowed_paths[i])) {
-                allowed = true;
-                break;
             }
