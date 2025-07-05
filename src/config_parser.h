@@ -57,4 +57,3 @@ typedef struct {
 } firewall_environment_t;
 
 typedef struct {
-    char *pattern;
