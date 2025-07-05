@@ -58,14 +58,3 @@ typedef struct {
 
 typedef struct {
     char *pattern;
-    char *severity;
-    char *description;
-} blocked_command_t;
-
-typedef struct {
-    blocked_command_t *blocked_patterns;
-    size_t blocked_patterns_count;
-    
-    char **allowed_commands;
-    size_t allowed_commands_count;
-} firewall_commands_t;
