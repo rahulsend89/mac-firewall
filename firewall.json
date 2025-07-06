@@ -136,3 +136,8 @@
   "commands": {
     "blockedPatterns": [
       {
+        "pattern": "curl.*(-o|--output|>)",
+        "severity": "high",
+        "description": "Download to file"
+      },
+      {
