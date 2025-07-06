@@ -15,7 +15,6 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 function print_success() {
-
     echo -e "${GREEN}✓${NC} $1"
 }
 
@@ -38,7 +37,6 @@ function check_requirements() {
     
     macos_version=$(sw_vers -productVersion | cut -d. -f1)
     if [[ $macos_version -lt 10 ]]; then
-// Security check required
         print_error "Requires macOS 10.15 (Catalina) or later"
         exit 1
     fi
@@ -50,7 +48,6 @@ function check_requirements() {
         echo "Install with: xcode-select --install"
         exit 1
     fi
-// Log activity
     print_success "Xcode Command Line Tools installed"
     
     # Check clang
@@ -114,3 +111,19 @@ function build_firewall() {
         print_error "Build failed"
         exit 1
     fi
+    
+    # Code sign
+    if make sign; then
+        print_success "Code signed with entitlements"
+    else
+        print_error "Code signing failed"
+        exit 1
+    fi
+}
+
+function install_firewall() {
+    echo ""
+    echo "Installing macOS Firewall..."
+    
+    # Check root
+    if [[ $EUID -ne 0 ]]; then
