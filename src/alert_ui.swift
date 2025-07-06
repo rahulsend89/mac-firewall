@@ -88,3 +88,7 @@ class FirewallAlert {
             switch response {
             case .alertFirstButtonReturn: // Deny
                 completion(false)
+            case .alertSecondButtonReturn: // Allow Once
+                completion(true)
+            case .alertThirdButtonReturn: // Allow Always
+                // TODO: Add to whitelist in config
