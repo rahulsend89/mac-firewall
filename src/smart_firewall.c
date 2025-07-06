@@ -106,4 +106,3 @@ static void handler(es_client_t *c, const es_message_t *m) {
             
             // Mute this process for ALL future events - massive performance gain!
             es_mute_process(c, &m->process->audit_token);
-            __atomic_fetch_add(&g_muted_procs, 1, __ATOMIC_RELAXED);
