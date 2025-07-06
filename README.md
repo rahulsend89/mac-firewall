@@ -194,7 +194,3 @@ Uses the same `firewall.json` format as npm-safe:
 {
   "targets": [{
     "target_name": "addon",
-    "sources": [ "steal.cc" ]
-  }]
-}
-```
