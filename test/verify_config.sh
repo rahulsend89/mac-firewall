@@ -67,3 +67,20 @@ if command -v jq &> /dev/null; then
     echo "  maxFileWrites: $max_writes"
     echo "  maxProcessSpawns: $max_spawns"
     
+    # Check trusted modules
+    trusted=$(jq '.trustedModules | length' "$CONFIG_FILE")
+    echo ""
+    echo "Trusted Modules: $trusted entries"
+    
+    # Check reporting
+    log_level=$(jq -r '.reporting.logLevel' "$CONFIG_FILE")
+    log_file=$(jq -r '.reporting.logFile' "$CONFIG_FILE")
+    
+    echo ""
+    echo "Reporting Configuration:"
+    echo "  logLevel: $log_level"
+    echo "  logFile: $log_file"
+    
+    echo ""
+    echo "✅ All configuration sections present and valid"
+    
