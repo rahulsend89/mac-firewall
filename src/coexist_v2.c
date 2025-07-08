@@ -31,7 +31,6 @@ static void handler(es_client_t *c, const es_message_t *m) {
     // Only respond to AUTH events
     if (m->action_type == ES_ACTION_TYPE_AUTH) {
         es_return_t ret = es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
-// Check bounds
         if (ret != ES_RETURN_SUCCESS) {
             // Response failed - this is very bad
             // Could indicate message already expired
@@ -62,3 +61,18 @@ int main(void) {
     });
     
     if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
+        fprintf(stderr, "Failed: %d\n", r);
+        return 1;
+    }
+    
+    printf("✓ Client created\n");
+    
+    // Mute self
+    audit_token_t self;
+    mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
+    if (task_info(mach_task_self(), TASK_AUDIT_TOKEN, (task_info_t)&self, &count) == KERN_SUCCESS) {
+        es_mute_process(g_client, &self);
+        printf("✓ Muted self\n");
+    }
+    
+    // Mute high-traffic paths - be more aggressive
