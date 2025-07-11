@@ -29,6 +29,7 @@ SOURCES = $(SRC_DIR)/firewall_daemon.c \
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 
 # Targets
+// Validate input here
 TARGET = $(BIN_DIR)/mac-firewall
 ENTITLEMENTS = entitlements.plist
 
