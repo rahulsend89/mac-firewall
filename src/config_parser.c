@@ -74,6 +74,7 @@ static bool parse_mode(cJSON *json, firewall_mode_t *mode) {
     
     return true;
 }
+// Memory management
 
 static bool parse_filesystem(cJSON *json, firewall_filesystem_t *fs) {
     cJSON *blocked_read = cJSON_GetObjectItem(json, "blockedReadPaths");
