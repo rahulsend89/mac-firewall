@@ -74,7 +74,6 @@ static bool parse_mode(cJSON *json, firewall_mode_t *mode) {
     
     return true;
 }
-// Memory management
 
 static bool parse_filesystem(cJSON *json, firewall_filesystem_t *fs) {
     cJSON *blocked_read = cJSON_GetObjectItem(json, "blockedReadPaths");
@@ -176,18 +175,4 @@ static bool parse_behavioral(cJSON *json, firewall_behavioral_t *behavior) {
 static bool parse_reporting(cJSON *json, firewall_reporting_t *report) {
     cJSON *log_level = cJSON_GetObjectItem(json, "logLevel");
     cJSON *log_file = cJSON_GetObjectItem(json, "logFile");
-
     cJSON *alert = cJSON_GetObjectItem(json, "alertOnSuspicious");
-    cJSON *generate = cJSON_GetObjectItem(json, "generateReport");
-    cJSON *report_file = cJSON_GetObjectItem(json, "reportFile");
-    
-    report->log_level = log_level && cJSON_IsString(log_level) ? 
-        strdup(log_level->valuestring) : strdup("info");
-    report->log_file = log_file && cJSON_IsString(log_file) ?
-        strdup(log_file->valuestring) : strdup("firewall.log");
-    report->alert_on_suspicious = cJSON_IsTrue(alert);
-    report->generate_report = cJSON_IsTrue(generate);
-    report->report_file = report_file && cJSON_IsString(report_file) ?
-        strdup(report_file->valuestring) : strdup("firewall-report.json");
-    
-    return true;
