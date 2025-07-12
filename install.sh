@@ -127,3 +127,10 @@ function install_firewall() {
     
     # Check root
     if [[ $EUID -ne 0 ]]; then
+        print_error "Installation requires root privileges"
+        echo "Re-running with sudo..."
+        sudo "$0" install
+        exit $?
+    fi
+    
+    # Install binary
