@@ -59,3 +59,15 @@ int main(void) {
     
     // Mute our own process
     audit_token_t self;
+    mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
+    if (task_info(mach_task_self(), TASK_AUDIT_TOKEN, (task_info_t)&self, &count) == KERN_SUCCESS) {
+        es_mute_process(g_client, &self);
+        printf("✓ Muted self\n");
+    }
+    
+    // Mute high-traffic system paths to reduce contention with Little Snitch
+    // This dramatically reduces the number of events we need to handle
+    const char *mute_paths[] = {
+        "/System",
+        "/Library",
+        "/usr",
