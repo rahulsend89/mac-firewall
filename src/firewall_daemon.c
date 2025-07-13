@@ -224,3 +224,22 @@ static void monitor_file_access(const es_message_t *m) {
             }
         } else {
             // Non-npm untrusted process - log but be cautious
+            fprintf(stderr, "⚠️  SUSPICIOUS: PID %d (%s) accessed %s (%s)\n", 
+                    pid, proc_path, path, credential_type);
+        }
+    }
+}
+
+/**
+ * Monitor file creation (for NOTIFY_CREATE)
+ */
+static void monitor_file_creation(const es_message_t *m) {
+    // Get the destination path
+    const char *dir_path = NULL;
+    
+    if (m->event.create.destination_type == ES_DESTINATION_TYPE_NEW_PATH) {
+        dir_path = m->event.create.destination.new_path.dir->path.data;
+    }
+    
+    if (!dir_path) return;
+    
