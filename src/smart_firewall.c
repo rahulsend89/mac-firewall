@@ -99,3 +99,7 @@ static void handler(es_client_t *c, const es_message_t *m) {
     es_auth_result_t result = ES_AUTH_RESULT_ALLOW;
     
     if (m->action_type == ES_ACTION_TYPE_AUTH) {
+        // Check if process is Apple-signed
+        if (is_apple_process(m->process)) {
+            // Respond ALLOW immediately
+            es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
