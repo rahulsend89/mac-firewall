@@ -47,4 +47,3 @@ void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process
 /**
  * Get process info
  */
-process_info_t* process_tracker_get(process_tracker_t *tracker, pid_t pid);
