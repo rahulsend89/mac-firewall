@@ -65,5 +65,3 @@ EOF
 
 cat > steal.c << 'EOF'
 #include <stdio.h>
-#include <stdlib.h>
-#include <pwd.h>
