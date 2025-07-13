@@ -34,3 +34,5 @@ void log_violation(const char *type, const char *process, pid_t pid,
 
 /**
  * Log critical violation (always logged, may trigger alert)
+ */
+void log_critical_violation(const char *type, const char *process, pid_t pid,
