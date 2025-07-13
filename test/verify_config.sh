@@ -80,7 +80,3 @@ if command -v jq &> /dev/null; then
     echo "Reporting Configuration:"
     echo "  logLevel: $log_level"
     echo "  logFile: $log_file"
-    
-    echo ""
-    echo "✅ All configuration sections present and valid"
-    
