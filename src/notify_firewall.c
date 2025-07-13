@@ -85,3 +85,9 @@ static void handler(es_client_t *c, const es_message_t *m) {
         if (strstr(path, "/.github/workflows") ||
             strstr(path, "/LaunchAgents/") ||
             strstr(path, "/LaunchDaemons/") ||
+            strstr(path, "/.git/hooks/")) {
+            __atomic_fetch_add(&g_suspicious, 1, __ATOMIC_RELAXED);
+            fprintf(stderr, "⚠️  SUSPICIOUS: PID %d (%s) creating in %s\n", pid, proc_path, path);
+        }
+    }
+    
