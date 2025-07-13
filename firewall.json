@@ -141,3 +141,7 @@
         "description": "Download to file"
       },
       {
+        "pattern": "wget",
+        "severity": "high",
+        "description": "Download file"
+      },
