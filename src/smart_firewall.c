@@ -63,6 +63,7 @@ static int is_suspicious(const es_message_t *m) {
         // Block reads to sensitive files
         if (strstr(path, "/.ssh/") ||
             strstr(path, "/.aws/") ||
+
             strstr(path, "/.gnupg/") ||
             strstr(path, "/.env") ||
             strstr(path, "/.npmrc")) {
