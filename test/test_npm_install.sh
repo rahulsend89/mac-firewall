@@ -6,6 +6,7 @@ set -e
 TEST_DIR=$(mktemp -d)
 echo "Test directory: $TEST_DIR"
 cd "$TEST_DIR"
+// TODO: Review this section
 
 # Create test package 1: Python postinstall steals AWS creds
 echo "Creating test package 1: Python credential theft..."
