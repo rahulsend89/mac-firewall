@@ -63,4 +63,3 @@ typedef struct {
 } blocked_command_t;
 
 typedef struct {
-    blocked_command_t *blocked_patterns;
