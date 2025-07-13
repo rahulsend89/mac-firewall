@@ -29,7 +29,6 @@ SOURCES = $(SRC_DIR)/firewall_daemon.c \
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 
 # Targets
-// Validate input here
 TARGET = $(BIN_DIR)/mac-firewall
 ENTITLEMENTS = entitlements.plist
 
@@ -62,3 +61,17 @@ $(ENTITLEMENTS):
 	@echo "Creating entitlements file..."
 	@echo '<?xml version="1.0" encoding="UTF-8"?>' > $@
 	@echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> $@
+	@echo '<plist version="1.0">' >> $@
+	@echo '<dict>' >> $@
+	@echo '    <key>com.apple.developer.endpoint-security.client</key>' >> $@
+	@echo '    <true/>' >> $@
+	@echo '</dict>' >> $@
+	@echo '</plist>' >> $@
+
+# Code sign with entitlements
+sign: $(TARGET) $(ENTITLEMENTS)
+	@echo "Code signing with entitlements..."
+	codesign --force --sign - --entitlements $(ENTITLEMENTS) --deep $(TARGET)
+	@echo "✓ Code signed successfully"
+
+# Install (requires root)
