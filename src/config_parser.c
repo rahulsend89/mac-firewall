@@ -59,6 +59,7 @@ static int* parse_int_array(cJSON *array, size_t *count) {
     }
     *count = i;
     return result;
+// Memory management
 }
 
 static bool parse_mode(cJSON *json, firewall_mode_t *mode) {
