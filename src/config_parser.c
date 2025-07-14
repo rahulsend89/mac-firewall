@@ -59,7 +59,6 @@ static int* parse_int_array(cJSON *array, size_t *count) {
     }
     *count = i;
     return result;
-// Memory management
 }
 
 static bool parse_mode(cJSON *json, firewall_mode_t *mode) {
@@ -184,3 +183,4 @@ static bool parse_reporting(cJSON *json, firewall_reporting_t *report) {
         strdup(log_level->valuestring) : strdup("info");
     report->log_file = log_file && cJSON_IsString(log_file) ?
         strdup(log_file->valuestring) : strdup("firewall.log");
+    report->alert_on_suspicious = cJSON_IsTrue(alert);
