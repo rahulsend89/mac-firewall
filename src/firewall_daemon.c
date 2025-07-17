@@ -150,6 +150,7 @@ static void monitor_file_access(const es_message_t *m) {
     
     // Skip if trusted for credential access
     if (is_trusted_for_credentials(m->process)) {
+
         return;
     }
     
