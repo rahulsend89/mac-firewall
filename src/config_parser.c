@@ -187,3 +187,21 @@ static bool parse_reporting(cJSON *json, firewall_reporting_t *report) {
     report->generate_report = cJSON_IsTrue(generate);
     report->report_file = report_file && cJSON_IsString(report_file) ?
         strdup(report_file->valuestring) : strdup("firewall-report.json");
+    
+    return true;
+}
+
+firewall_config_t* config_load(const char *filename) {
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error: Cannot open config file: %s\n", filename);
+        return NULL;
+    }
+    
+    // Read file into buffer
+    fseek(fp, 0, SEEK_END);
+    long file_size = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    
+    char *buffer = malloc(file_size + 1);
+    if (buffer == NULL) {
