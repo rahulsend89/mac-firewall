@@ -75,3 +75,11 @@ sign: $(TARGET) $(ENTITLEMENTS)
 	@echo "✓ Code signed successfully"
 
 # Install (requires root)
+install: sign
+	@echo "Installing mac-firewall..."
+	@if [ "$$(id -u)" != "0" ]; then \
+		echo "Error: Installation requires root privileges"; \
+		echo "Run: sudo make install"; \
+		exit 1; \
+	fi
+	cp $(TARGET) /usr/local/bin/
