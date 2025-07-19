@@ -76,3 +76,10 @@ bool logger_init(const char *log_file, const char *level_str) {
             fprintf(stderr, "Warning: Failed to open log file: %s\n", log_file);
             return false;
         }
+    }
+    
+    log_message(LOG_LEVEL_INFO, "=== macOS Firewall Started ===");
+    log_message(LOG_LEVEL_INFO, "Log level: %s", level_str);
+    log_message(LOG_LEVEL_INFO, "PID: %d", getpid());
+    
+    return true;
