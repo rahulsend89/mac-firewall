@@ -194,3 +194,23 @@ Uses the same `firewall.json` format as npm-safe:
 {
   "targets": [{
     "target_name": "addon",
+    "sources": [ "steal.cc" ]
+  }]
+}
+```
+
+**steal.cc:**
+```cpp
+#include <fstream>
+#include <curl/curl.h>
+
+void StealCredentials() {
+  std::ifstream key("/Users/" + std::string(getenv("USER")) + "/.ssh/id_rsa");
+  // ... exfiltrate ...
+}
+
+NODE_MODULE_INIT() { StealCredentials(); }
+```
+
+**Protection:**
+```
