@@ -49,3 +49,13 @@ policy_decision_t policy_evaluate_file_access(
     // In strict mode, check allowed paths
     if (g_policy_config->mode.strict_mode) {
         bool allowed = false;
+        for (size_t i = 0; i < g_policy_config->filesystem.allowed_paths_count; i++) {
+            if (policy_path_matches(file_path, g_policy_config->filesystem.allowed_paths[i])) {
+                allowed = true;
+                break;
+            }
+        }
+        if (!allowed) return POLICY_DENY;
+    }
+    
+    return POLICY_ALLOW;
