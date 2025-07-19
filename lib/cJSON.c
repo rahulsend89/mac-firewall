@@ -1677,3 +1677,28 @@ static cJSON_bool parse_object(cJSON * const item, parse_buffer * const input_bu
     {
         input_buffer->offset--;
         goto fail;
+    }
+
+    /* step back to character in front of the first element */
+    input_buffer->offset--;
+    /* loop through the comma separated array elements */
+    do
+    {
+        /* allocate next item */
+        cJSON *new_item = cJSON_New_Item(&(input_buffer->hooks));
+        if (new_item == NULL)
+        {
+            goto fail; /* allocation failure */
+        }
+
+        /* attach next item to list */
+        if (head == NULL)
+        {
+            /* start the linked list */
+            current_item = head = new_item;
+        }
+        else
+        {
+            /* add to the end and advance */
+            current_item->next = new_item;
+            new_item->prev = current_item;
