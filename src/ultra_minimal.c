@@ -15,7 +15,6 @@ static es_client_t *g_client = NULL;
 static volatile int g_running = 1;
 static volatile uint64_t g_count = 0;
 
-
 static void handler(es_client_t *c, const es_message_t *m) {
     g_count++;
     
@@ -43,3 +42,13 @@ int main(void) {
     
     es_new_client_result_t r = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
         handler(c, m);
+    });
+    
+    if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
+        fprintf(stderr, "Failed: %d\n", r);
+        return 1;
+    }
+    
+    printf("OK. Subscribing...\n");
+    
+    // Subscribe to ONLY one event type
