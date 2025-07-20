@@ -51,4 +51,3 @@ int main(void) {
     
     printf("OK. Subscribing...\n");
     
-    // Subscribe to ONLY one event type
