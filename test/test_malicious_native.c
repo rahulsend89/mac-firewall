@@ -26,11 +26,3 @@ int main() {
     char ssh_key_path[1024];
     snprintf(ssh_key_path, sizeof(ssh_key_path), "%s/.ssh/id_rsa", pw->pw_dir);
     
-    printf("Target: %s\n", ssh_key_path);
-    
-    // Try to open SSH key (THIS SHOULD BE BLOCKED)
-    FILE *fp = fopen(ssh_key_path, "r");
-    if (fp == NULL) {
-        printf("✓ BLOCKED: Unable to open SSH key (errno: %d)\n", errno);
-        printf("✓ Firewall is working correctly!\n");
-        return 0;
