@@ -48,6 +48,7 @@ class FirewallAlert {
         let content = UNMutableNotificationContent()
         content.title = "⚠️ Suspicious Process Blocked"
         content.body = "\(process) tried to execute \(executable)"
+
         content.sound = .default
         content.categoryIdentifier = "SUSPICIOUS_EXEC"
         
