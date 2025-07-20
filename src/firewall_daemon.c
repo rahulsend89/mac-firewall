@@ -241,3 +241,8 @@ static void monitor_file_creation(const es_message_t *m) {
         dir_path = m->event.create.destination.new_path.dir->path.data;
     }
     
+    if (!dir_path) return;
+    
+    pid_t pid = audit_token_to_pid(m->process->audit_token);
+    const char *proc_path = m->process->executable->path.data;
+    
