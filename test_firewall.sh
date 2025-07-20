@@ -40,3 +40,6 @@ if curl --version >/dev/null 2>&1; then
         echo "  ✅ BLOCKED - curl denied"
     fi
 else
+    echo "  ⚠️  curl not installed, skipping"
+fi
+echo ""
