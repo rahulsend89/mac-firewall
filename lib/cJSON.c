@@ -1738,3 +1738,18 @@ static cJSON_bool parse_object(cJSON * const item, parse_buffer * const input_bu
         buffer_skip_whitespace(input_buffer);
     }
     while (can_access_at_index(input_buffer, 0) && (buffer_at_offset(input_buffer)[0] == ','));
+
+    if (cannot_access_at_index(input_buffer, 0) || (buffer_at_offset(input_buffer)[0] != '}'))
+    {
+        goto fail; /* expected end of object */
+    }
+
+success:
+    input_buffer->depth--;
+
+    if (head != NULL) {
+        head->prev = current_item;
+    }
+
+    item->type = cJSON_Object;
+    item->child = head;
