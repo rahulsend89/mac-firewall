@@ -133,4 +133,3 @@ function install_firewall() {
         exit $?
     fi
     
-    # Install binary
