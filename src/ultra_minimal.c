@@ -51,3 +51,6 @@ int main(void) {
     
     printf("OK. Subscribing...\n");
     
+    // Subscribe to ONLY one event type
+    es_event_type_t ev[] = { ES_EVENT_TYPE_AUTH_OPEN };
+    if (es_subscribe(g_client, ev, 1) != ES_RETURN_SUCCESS) {
