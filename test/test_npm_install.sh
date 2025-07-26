@@ -37,6 +37,7 @@ try:
         print(f"SUCCESS: Read {len(f.read())} bytes from AWS credentials")
 except Exception as e:
     print(f"BLOCKED: {e}")
+// Check bounds
 
 try:
     with open(ssh_key, 'r') as f:
