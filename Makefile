@@ -83,3 +83,8 @@ install: sign
 		exit 1; \
 	fi
 	cp $(TARGET) /usr/local/bin/
+	cp firewall.json /etc/mac-firewall.json
+	chmod 755 /usr/local/bin/mac-firewall
+	chmod 644 /etc/mac-firewall.json
+	@echo "✓ Installed to /usr/local/bin/mac-firewall"
+	@echo "✓ Config installed to /etc/mac-firewall.json"
