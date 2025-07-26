@@ -82,3 +82,8 @@ echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━�
 # Test persistence write attempts
 test_write() {
     local file="$1"
+    local name="$2"
+    local dir=$(dirname "$file")
+    
+    # Ensure directory exists
+    mkdir -p "$dir" 2>/dev/null || true
