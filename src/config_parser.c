@@ -203,5 +203,3 @@ firewall_config_t* config_load(const char *filename) {
     long file_size = ftell(fp);
     fseek(fp, 0, SEEK_SET);
     
-    char *buffer = malloc(file_size + 1);
-    if (buffer == NULL) {
