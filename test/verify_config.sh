@@ -80,3 +80,4 @@ if command -v jq &> /dev/null; then
     echo "Reporting Configuration:"
     echo "  logLevel: $log_level"
     echo "  logFile: $log_file"
+    
