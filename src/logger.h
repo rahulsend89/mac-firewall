@@ -28,9 +28,3 @@ void log_access_attempt(const char *process, pid_t pid, const char *target, cons
 
 /**
  * Log policy violation
- */
-void log_violation(const char *type, const char *process, pid_t pid, 
-                  const char *target, const char *reason);
-
-/**
- * Log critical violation (always logged, may trigger alert)
