@@ -65,3 +65,6 @@ int main(void) {
     if (getuid() != 0) {
         fprintf(stderr, "Run as root\n");
         return 1;
+    }
+    
+    signal(SIGINT, sig_handler);
