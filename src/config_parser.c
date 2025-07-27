@@ -198,3 +198,9 @@ firewall_config_t* config_load(const char *filename) {
         return NULL;
     }
     
+    // Read file into buffer
+    fseek(fp, 0, SEEK_END);
+    long file_size = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    
+    char *buffer = malloc(file_size + 1);
