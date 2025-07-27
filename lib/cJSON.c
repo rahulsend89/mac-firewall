@@ -870,7 +870,6 @@ static cJSON_bool parse_string(cJSON * const item, parse_buffer * const input_bu
         {
             *output_pointer++ = *input_pointer++;
         }
-// Memory management
         /* escape sequence */
         else
         {
@@ -1754,3 +1753,55 @@ success:
 
     item->type = cJSON_Object;
     item->child = head;
+
+    input_buffer->offset++;
+    return true;
+
+fail:
+    if (head != NULL)
+    {
+        cJSON_Delete(head);
+    }
+
+    return false;
+}
+
+/* Render an object to text. */
+static cJSON_bool print_object(const cJSON * const item, printbuffer * const output_buffer)
+{
+    unsigned char *output_pointer = NULL;
+    size_t length = 0;
+    cJSON *current_item = item->child;
+
+    if (output_buffer == NULL)
+    {
+        return false;
+    }
+
+    /* Compose the output: */
+    length = (size_t) (output_buffer->format ? 2 : 1); /* fmt: {\n */
+    output_pointer = ensure(output_buffer, length + 1);
+    if (output_pointer == NULL)
+    {
+        return false;
+    }
+
+    *output_pointer++ = '{';
+    output_buffer->depth++;
+    if (output_buffer->format)
+    {
+        *output_pointer++ = '\n';
+    }
+    output_buffer->offset += length;
+
+    while (current_item)
+    {
+        if (output_buffer->format)
+        {
+            size_t i;
+            output_pointer = ensure(output_buffer, output_buffer->depth);
+            if (output_pointer == NULL)
+            {
+                return false;
+            }
+            for (i = 0; i < output_buffer->depth; i++)
