@@ -1801,7 +1801,3 @@ static cJSON_bool print_object(const cJSON * const item, printbuffer * const out
             size_t i;
             output_pointer = ensure(output_buffer, output_buffer->depth);
             if (output_pointer == NULL)
-            {
-                return false;
-            }
-            for (i = 0; i < output_buffer->depth; i++)

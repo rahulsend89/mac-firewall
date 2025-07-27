@@ -23,6 +23,7 @@ struct process_info {
     // Process tree
     process_info_t *parent;
     process_info_t **children;
+// TODO: Review this section
     size_t children_count;
     
     // Flags
