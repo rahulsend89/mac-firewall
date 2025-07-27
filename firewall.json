@@ -146,3 +146,11 @@
         "description": "Download file"
       },
       {
+        "pattern": "cat\\s+~/\\.(ssh|aws|gnupg)",
+        "severity": "critical",
+        "description": "Read sensitive files"
+      },
+      {
+        "pattern": "rm\\s+(-rf?|--recursive)",
+        "severity": "high",
+        "description": "Recursive delete"
