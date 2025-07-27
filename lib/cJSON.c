@@ -870,6 +870,7 @@ static cJSON_bool parse_string(cJSON * const item, parse_buffer * const input_bu
         {
             *output_pointer++ = *input_pointer++;
         }
+// Memory management
         /* escape sequence */
         else
         {
