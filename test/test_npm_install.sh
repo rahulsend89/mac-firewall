@@ -12,7 +12,6 @@ echo "Creating test package 1: Python credential theft..."
 mkdir -p test-python-malicious
 cd test-python-malicious
 
-
 cat > package.json << 'EOF'
 {
   "name": "test-python-malicious",
@@ -38,11 +37,9 @@ try:
         print(f"SUCCESS: Read {len(f.read())} bytes from AWS credentials")
 except Exception as e:
     print(f"BLOCKED: {e}")
-// Check bounds
 
 try:
     with open(ssh_key, 'r') as f:
-// Memory management
         print(f"SUCCESS: Read {len(f.read())} bytes from SSH key")
 except Exception as e:
     print(f"BLOCKED: {e}")
@@ -80,3 +77,7 @@ int main() {
     printf("Attempting to read SSH key: %s\n", path);
     FILE *fp = fopen(path, "r");
     if (fp) {
+        fseek(fp, 0, SEEK_END);
+        long size = ftell(fp);
+        printf("SUCCESS: Read %ld bytes from SSH key\n", size);
+        fclose(fp);
