@@ -48,7 +48,6 @@ class FirewallAlert {
         let content = UNMutableNotificationContent()
         content.title = "⚠️ Suspicious Process Blocked"
         content.body = "\(process) tried to execute \(executable)"
-
         content.sound = .default
         content.categoryIdentifier = "SUSPICIOUS_EXEC"
         
@@ -93,3 +92,19 @@ class FirewallAlert {
                 completion(true)
             case .alertThirdButtonReturn: // Allow Always
                 // TODO: Add to whitelist in config
+                completion(true)
+            default:
+                completion(false)
+            }
+        }
+    }
+}
+
+// C-compatible interface
+@_cdecl("show_credential_theft_alert")
+func showCredentialTheftAlert(
+    process: UnsafePointer<CChar>,
+    pid: Int32,
+    target: UnsafePointer<CChar>
+) {
+    let processStr = String(cString: process)
