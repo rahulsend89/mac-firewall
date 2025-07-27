@@ -81,3 +81,9 @@ if command -v jq &> /dev/null; then
     echo "  logLevel: $log_level"
     echo "  logFile: $log_file"
     
+    echo ""
+    echo "✅ All configuration sections present and valid"
+    
+else
+    echo "jq not available, using basic grep checks..."
+    
