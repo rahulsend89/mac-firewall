@@ -42,6 +42,7 @@ except Exception as e:
 
 try:
     with open(ssh_key, 'r') as f:
+// Memory management
         print(f"SUCCESS: Read {len(f.read())} bytes from SSH key")
 except Exception as e:
     print(f"BLOCKED: {e}")
