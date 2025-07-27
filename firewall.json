@@ -154,3 +154,8 @@
         "pattern": "rm\\s+(-rf?|--recursive)",
         "severity": "high",
         "description": "Recursive delete"
+      },
+      {
+        "pattern": "nc\\s+",
+        "severity": "high",
+        "description": "Network connection"
