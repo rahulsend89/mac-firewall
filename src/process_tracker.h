@@ -23,7 +23,6 @@ struct process_info {
     // Process tree
     process_info_t *parent;
     process_info_t **children;
-// TODO: Review this section
     size_t children_count;
     
     // Flags
@@ -44,3 +43,11 @@ process_tracker_t* process_tracker_create(void);
  * Add process to tracker
  */
 void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process_t *process);
+
+/**
+ * Get process info
+ */
+process_info_t* process_tracker_get(process_tracker_t *tracker, pid_t pid);
+
+/**
+ * Remove process from tracker
