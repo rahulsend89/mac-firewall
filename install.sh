@@ -133,3 +133,12 @@ function install_firewall() {
         exit $?
     fi
     
+    # Install binary
+    cp "bin/$BINARY_NAME" "$INSTALL_DIR/"
+    chmod 755 "$INSTALL_DIR/$BINARY_NAME"
+    print_success "Installed binary to $INSTALL_DIR/$BINARY_NAME"
+    
+    # Install config (don't overwrite existing)
+    if [[ ! -f "$CONFIG_DIR/$CONFIG_NAME" ]]; then
+        cp firewall.json "$CONFIG_DIR/$CONFIG_NAME"
+        chmod 644 "$CONFIG_DIR/$CONFIG_NAME"
