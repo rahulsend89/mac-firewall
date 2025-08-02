@@ -107,4 +107,3 @@ func showCredentialTheftAlert(
     pid: Int32,
     target: UnsafePointer<CChar>
 ) {
-    let processStr = String(cString: process)
