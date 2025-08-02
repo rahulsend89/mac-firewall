@@ -120,3 +120,10 @@ void process_tracker_remove(process_tracker_t *tracker, pid_t pid) {
     if (tracker == NULL) return;
     
     for (size_t i = 0; i < tracker->count; i++) {
+        if (tracker->processes[i] && tracker->processes[i]->pid == pid) {
+            process_info_t *info = tracker->processes[i];
+            
+            // Remove from parent's children
+            if (info->parent) {
+                for (size_t j = 0; j < info->parent->children_count; j++) {
+                    if (info->parent->children[j] == info) {
