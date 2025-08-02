@@ -270,4 +270,3 @@ async function testBlockedCommands() {
             log(`  ✅ ${test.name}: Blocked`, 'green');
           }
           resolve();
-        });
