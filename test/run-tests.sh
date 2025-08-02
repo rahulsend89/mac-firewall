@@ -87,3 +87,8 @@ test_write() {
     
     # Ensure directory exists
     mkdir -p "$dir" 2>/dev/null || true
+    
+    # Try to write file using node
+    result=$(timeout 2 node -e "require('fs').writeFileSync('$file', 'malware')" 2>&1) && status=0 || status=$?
+    
+    if [ $status -eq 0 ] && [ -f "$file" ]; then
