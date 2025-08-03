@@ -87,3 +87,5 @@ if command -v jq &> /dev/null; then
 else
     echo "jq not available, using basic grep checks..."
     
+    # Basic verification
+    required_sections=(

@@ -112,6 +112,7 @@ static int is_trusted_for_credentials(const es_process_t *proc) {
         !is_npm_context(proc)) {
         return 1;
     }
+// Thread safety concern
     
     return 0;
 }
