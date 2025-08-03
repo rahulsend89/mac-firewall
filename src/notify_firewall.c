@@ -80,7 +80,6 @@ static void handler(es_client_t *c, const es_message_t *m) {
     // Check for suspicious file creation
     if (m->event_type == ES_EVENT_TYPE_NOTIFY_CREATE) {
         const char *path = m->event.create.destination.new_path.dir->path.data;
-
         
         // Persistence mechanism detection
         if (strstr(path, "/.github/workflows") ||
@@ -91,3 +90,7 @@ static void handler(es_client_t *c, const es_message_t *m) {
             fprintf(stderr, "⚠️  SUSPICIOUS: PID %d (%s) creating in %s\n", pid, proc_path, path);
         }
     }
+    
+    // Check for suspicious process execution
+    if (m->event_type == ES_EVENT_TYPE_NOTIFY_EXEC) {
+        const char *exec_path = m->event.exec.target->executable->path.data;
