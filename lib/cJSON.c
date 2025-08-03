@@ -1801,3 +1801,24 @@ static cJSON_bool print_object(const cJSON * const item, printbuffer * const out
             size_t i;
             output_pointer = ensure(output_buffer, output_buffer->depth);
             if (output_pointer == NULL)
+            {
+                return false;
+            }
+            for (i = 0; i < output_buffer->depth; i++)
+            {
+                *output_pointer++ = '\t';
+            }
+            output_buffer->offset += output_buffer->depth;
+        }
+
+        /* print key */
+        if (!print_string_ptr((unsigned char*)current_item->string, output_buffer))
+        {
+            return false;
+        }
+        update_offset(output_buffer);
+
+        length = (size_t) (output_buffer->format ? 2 : 1);
+        output_pointer = ensure(output_buffer, length);
+        if (output_pointer == NULL)
+        {
