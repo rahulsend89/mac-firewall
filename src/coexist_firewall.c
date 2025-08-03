@@ -71,13 +71,3 @@ int main(void) {
         "/System",
         "/Library",
         "/usr",
-        "/bin",
-        "/sbin",
-        "/private/var/db",
-        "/private/var/folders",
-        "/dev",
-        "/Applications",  // We don't care about app reads
-    };
-    
-    for (size_t i = 0; i < sizeof(mute_paths)/sizeof(mute_paths[0]); i++) {
-        es_return_t mr = es_mute_path(g_client, mute_paths[i], ES_MUTE_PATH_TYPE_TARGET_PREFIX);
