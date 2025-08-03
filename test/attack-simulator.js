@@ -270,3 +270,10 @@ async function testBlockedCommands() {
             log(`  ✅ ${test.name}: Blocked`, 'green');
           }
           resolve();
+        });
+        child.on('error', (err) => {
+          results.commands.push({
+            command: test.name,
+            blocked: true,
+            error: err.message
+          });
