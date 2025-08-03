@@ -89,3 +89,14 @@ else
     
     # Basic verification
     required_sections=(
+        "mode"
+        "filesystem"
+        "network"
+        "environment"
+        "commands"
+        "behavioral"
+        "reporting"
+        "trustedModules"
+    )
+    
+    for section in "${required_sections[@]}"; do
