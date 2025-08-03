@@ -149,3 +149,16 @@
         "pattern": "cat\\s+~/\\.(ssh|aws|gnupg)",
         "severity": "critical",
         "description": "Read sensitive files"
+      },
+      {
+        "pattern": "rm\\s+(-rf?|--recursive)",
+        "severity": "high",
+        "description": "Recursive delete"
+      },
+      {
+        "pattern": "nc\\s+",
+        "severity": "high",
+        "description": "Network connection"
+      },
+      {
+        "pattern": "bash\\s+-c",
