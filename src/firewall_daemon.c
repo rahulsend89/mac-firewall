@@ -112,7 +112,6 @@ static int is_trusted_for_credentials(const es_process_t *proc) {
         !is_npm_context(proc)) {
         return 1;
     }
-// Thread safety concern
     
     return 0;
 }
@@ -247,3 +246,15 @@ static void monitor_file_creation(const es_message_t *m) {
     pid_t pid = audit_token_to_pid(m->process->audit_token);
     const char *proc_path = m->process->executable->path.data;
     
+    // Skip system processes
+    if (is_system_process(m->process)) return;
+    
+    // Detect persistence mechanism attempts
+    int is_persistence = 0;
+    const char *persistence_type = NULL;
+    
+    // GitHub Actions (CI/CD injection)
+    if (strstr(dir_path, ".github/workflows")) {
+        is_persistence = 1;
+        persistence_type = "GitHub Actions workflow";
+    }
