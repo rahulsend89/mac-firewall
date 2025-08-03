@@ -20,7 +20,6 @@ echo ""
 
 # Test 2: wget command (should be BLOCKED based on pattern)
 echo "Test 2: wget command"
-
 if wget --version >/dev/null 2>&1; then
     if wget -q -O /dev/null https://example.com 2>/dev/null; then
         echo "  ❌ FAILED - wget allowed!"
@@ -44,3 +43,18 @@ else
     echo "  ⚠️  curl not installed, skipping"
 fi
 echo ""
+
+# Test 4: nc (netcat) command
+echo "Test 4: nc (netcat) command"
+if nc -h 2>&1 | grep -q "usage"; then
+    echo "  ⚠️  nc available - would need actual connection to test blocking"
+else
+    echo "  ⚠️  nc not available"
+fi
+echo ""
+
+# Test 5: Python execution
+echo "Test 5: Python execution"
+if python3 -c "print('Python OK')" 2>/dev/null; then
+    echo "  ⚠️  Python allowed (firewall only blocks specific paths)"
+else
