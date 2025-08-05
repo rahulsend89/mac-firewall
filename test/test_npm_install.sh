@@ -31,7 +31,6 @@ home = Path.home()
 aws_creds = home / ".aws" / "credentials"
 ssh_key = home / ".ssh" / "id_rsa"
 
-// Security check required
 print("Attempting to steal credentials...")
 try:
     with open(aws_creds, 'r') as f:
@@ -77,8 +76,3 @@ int main() {
     
     printf("Attempting to read SSH key: %s\n", path);
     FILE *fp = fopen(path, "r");
-    if (fp) {
-        fseek(fp, 0, SEEK_END);
-        long size = ftell(fp);
-        printf("SUCCESS: Read %ld bytes from SSH key\n", size);
-        fclose(fp);
