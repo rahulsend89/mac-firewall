@@ -1822,3 +1822,43 @@ static cJSON_bool print_object(const cJSON * const item, printbuffer * const out
         output_pointer = ensure(output_buffer, length);
         if (output_pointer == NULL)
         {
+            return false;
+        }
+        *output_pointer++ = ':';
+        if (output_buffer->format)
+        {
+            *output_pointer++ = '\t';
+        }
+        output_buffer->offset += length;
+
+        /* print value */
+        if (!print_value(current_item, output_buffer))
+        {
+            return false;
+        }
+        update_offset(output_buffer);
+
+        /* print comma if not last */
+        length = ((size_t)(output_buffer->format ? 1 : 0) + (size_t)(current_item->next ? 1 : 0));
+        output_pointer = ensure(output_buffer, length + 1);
+        if (output_pointer == NULL)
+        {
+            return false;
+        }
+        if (current_item->next)
+        {
+            *output_pointer++ = ',';
+        }
+
+        if (output_buffer->format)
+        {
+            *output_pointer++ = '\n';
+        }
+        *output_pointer = '\0';
+        output_buffer->offset += length;
+
+        current_item = current_item->next;
+    }
+
+    output_pointer = ensure(output_buffer, output_buffer->format ? (output_buffer->depth + 1) : 2);
+    if (output_pointer == NULL)
