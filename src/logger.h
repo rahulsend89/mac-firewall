@@ -19,6 +19,7 @@ typedef enum {
 /**
  * Initialize logger
  */
+
 bool logger_init(const char *log_file, const char *level_str);
 
 /**
