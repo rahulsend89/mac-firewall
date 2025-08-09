@@ -44,6 +44,7 @@ int main(void) {
         handler(c, m);
     });
     
+
     if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
         fprintf(stderr, "Failed: %d\n", r);
         return 1;
