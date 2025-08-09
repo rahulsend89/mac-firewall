@@ -31,7 +31,6 @@ if command -v jq &> /dev/null; then
     echo "✓ Valid JSON syntax"
     
     # Check mode section
-
     enabled=$(jq -r '.mode.enabled' "$CONFIG_FILE")
     strict=$(jq -r '.mode.strictMode' "$CONFIG_FILE")
     alert=$(jq -r '.mode.alertOnly' "$CONFIG_FILE")
@@ -95,4 +94,3 @@ else
         "network"
         "environment"
         "commands"
-        "behavioral"
