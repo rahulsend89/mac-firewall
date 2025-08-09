@@ -1864,3 +1864,37 @@ static cJSON_bool print_object(const cJSON * const item, printbuffer * const out
     if (output_pointer == NULL)
     {
         return false;
+    }
+    if (output_buffer->format)
+    {
+        size_t i;
+        for (i = 0; i < (output_buffer->depth - 1); i++)
+        {
+            *output_pointer++ = '\t';
+        }
+    }
+    *output_pointer++ = '}';
+    *output_pointer = '\0';
+    output_buffer->depth--;
+
+    return true;
+}
+
+/* Get Array size/item / object item. */
+CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array)
+{
+    cJSON *child = NULL;
+    size_t size = 0;
+
+    if (array == NULL)
+    {
+        return 0;
+    }
+
+    child = array->child;
+
+    while(child != NULL)
+    {
+        size++;
+        child = child->next;
+    }
