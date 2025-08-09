@@ -91,3 +91,10 @@ test_write() {
     # Try to write file using node
     result=$(timeout 2 node -e "require('fs').writeFileSync('$file', 'malware')" 2>&1) && status=0 || status=$?
     
+    if [ $status -eq 0 ] && [ -f "$file" ]; then
+        echo -e "  ${RED}❌ $name: WRITE SUCCEEDED (not blocked)${NC}"
+        rm -f "$file" 2>/dev/null
+        return 1
+    else
+        echo -e "  ${GREEN}✅ $name: BLOCKED/KILLED${NC}"
+        return 0
