@@ -138,3 +138,21 @@ function install_firewall() {
     chmod 755 "$INSTALL_DIR/$BINARY_NAME"
     print_success "Installed binary to $INSTALL_DIR/$BINARY_NAME"
     
+    # Install config (don't overwrite existing)
+    if [[ ! -f "$CONFIG_DIR/$CONFIG_NAME" ]]; then
+        cp firewall.json "$CONFIG_DIR/$CONFIG_NAME"
+        chmod 644 "$CONFIG_DIR/$CONFIG_NAME"
+        print_success "Installed config to $CONFIG_DIR/$CONFIG_NAME"
+    else
+        print_warning "Config already exists at $CONFIG_DIR/$CONFIG_NAME (not overwriting)"
+    fi
+    
+    echo ""
+    print_success "Installation complete!"
+    echo ""
+    echo "To start the firewall:"
+    echo "  sudo $BINARY_NAME /etc/$CONFIG_NAME"
+    echo ""
+    echo "Or run in current directory:"
+    echo "  sudo $BINARY_NAME firewall.json"
+}
