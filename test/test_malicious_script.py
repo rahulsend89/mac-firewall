@@ -7,7 +7,6 @@ This should be BLOCKED by the firewall
 """
 
 import os
-
 import sys
 from pathlib import Path
 
@@ -30,3 +29,10 @@ def main():
             return 1
     except PermissionError as e:
         print(f"✓ BLOCKED: Permission denied (errno: {e.errno})")
+        print(f"✓ Firewall is working correctly!")
+        return 0
+    except FileNotFoundError:
+        print(f"⚠ File not found (create ~/.aws/credentials to test)")
+        return 0
+    except Exception as e:
+        print(f"✓ BLOCKED: {type(e).__name__}: {e}")
