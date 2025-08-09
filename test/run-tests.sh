@@ -70,7 +70,6 @@ test_read "$HOME/.aws/credentials" "AWS Credentials"
 test_read "$HOME/.npmrc" "NPM Tokens"
 test_read "$HOME/.gitconfig" "Git Config"
 test_read "$HOME/.bash_history" "Bash History"
-
 test_read "$HOME/.kube/config" "Kubernetes Config"
 test_read "$HOME/.docker/config.json" "Docker Config"
 test_read "/etc/passwd" "System Passwd"
@@ -92,4 +91,3 @@ test_write() {
     # Try to write file using node
     result=$(timeout 2 node -e "require('fs').writeFileSync('$file', 'malware')" 2>&1) && status=0 || status=$?
     
-    if [ $status -eq 0 ] && [ -f "$file" ]; then
