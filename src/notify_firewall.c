@@ -94,3 +94,13 @@ static void handler(es_client_t *c, const es_message_t *m) {
     // Check for suspicious process execution
     if (m->event_type == ES_EVENT_TYPE_NOTIFY_EXEC) {
         const char *exec_path = m->event.exec.target->executable->path.data;
+        
+        // Temp directory execution - KILL IT!
+        if (strstr(exec_path, "/tmp/") || strstr(exec_path, "/var/tmp/")) {
+            kill_process(pid, "Execution from temp directory");
+        }
+        
+        // Suspicious script execution from node_modules
+        if (strstr(exec_path, "node_modules/") && 
+            (strstr(exec_path, ".sh") || strstr(exec_path, ".py") || strstr(exec_path, ".rb"))) {
+            kill_process(pid, "Script execution from node_modules");
