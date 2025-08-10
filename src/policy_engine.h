@@ -32,21 +32,3 @@ policy_decision_t policy_evaluate_file_access(
     const char *file_path,
     bool is_write
 );
-
-/**
- * Evaluate process execution policy
- */
-policy_decision_t policy_evaluate_exec(
-    const char *parent_path,
-    pid_t ppid,
-    const char *exec_path
-);
-
-/**
- * Check if path matches pattern (supports wildcards)
- */
-bool policy_path_matches(const char *path, const char *pattern);
-
-/**
- * Clean up policy engine
- */
