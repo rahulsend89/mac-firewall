@@ -209,3 +209,15 @@ firewall_config_t* config_load(const char *filename) {
         return NULL;
     }
     
+    size_t read_size = fread(buffer, 1, file_size, fp);
+    buffer[read_size] = '\0';
+    fclose(fp);
+    
+    // Parse JSON
+    cJSON *json = cJSON_Parse(buffer);
+    free(buffer);
+    
+    if (json == NULL) {
+        const char *error_ptr = cJSON_GetErrorPtr();
+        if (error_ptr != NULL) {
+            fprintf(stderr, "JSON parse error: %s\n", error_ptr);
