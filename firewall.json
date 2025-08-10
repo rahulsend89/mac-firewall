@@ -162,3 +162,5 @@
       },
       {
         "pattern": "bash\\s+-c",
+        "severity": "medium",
+        "description": "Shell command execution"
