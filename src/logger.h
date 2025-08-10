@@ -19,7 +19,6 @@ typedef enum {
 /**
  * Initialize logger
  */
-
 bool logger_init(const char *log_file, const char *level_str);
 
 /**
@@ -35,10 +34,4 @@ void log_violation(const char *type, const char *process, pid_t pid,
 
 /**
  * Log critical violation (always logged, may trigger alert)
- */
-void log_critical_violation(const char *type, const char *process, pid_t pid,
-                           const char *target, const char *reason);
-
-/**
- * Write security report
  */
