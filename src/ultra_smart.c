@@ -76,9 +76,3 @@ int main(void) {
     
     printf("Creating Ultra Smart Firewall...\n");
     
-    es_new_client_result_t r = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
-        handler(c, m);
-    });
-    
-    if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
-        fprintf(stderr, "Failed: %d\n", r);
