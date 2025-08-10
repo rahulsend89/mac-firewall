@@ -3,6 +3,7 @@
 # Run this WHILE the firewall is running in another terminal
 
 echo "=== Firewall Blocking Test ==="
+
 echo ""
 
 # Test 1: Execute from /tmp/ (should be BLOCKED)
