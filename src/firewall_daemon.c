@@ -263,10 +263,3 @@ static void monitor_file_creation(const es_message_t *m) {
         is_persistence = 1;
         persistence_type = "Launch Agent/Daemon";
     }
-    // Git hooks
-    else if (strstr(dir_path, ".git/hooks")) {
-        is_persistence = 1;
-        persistence_type = "Git hook";
-    }
-    // Shell RC files
-    else if (strstr(dir_path, ".bashrc") || strstr(dir_path, ".zshrc") || 
