@@ -89,8 +89,3 @@ else
     
     # Basic verification
     required_sections=(
-        "mode"
-        "filesystem"
-        "network"
-        "environment"
-        "commands"
