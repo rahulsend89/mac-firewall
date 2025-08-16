@@ -63,3 +63,26 @@ typedef struct {
 } blocked_command_t;
 
 typedef struct {
+    blocked_command_t *blocked_patterns;
+    size_t blocked_patterns_count;
+    
+    char **allowed_commands;
+    size_t allowed_commands_count;
+} firewall_commands_t;
+
+typedef struct {
+    bool monitor_lifecycle_scripts;
+    int max_network_requests;
+    int max_file_writes;
+    int max_process_spawns;
+} firewall_behavioral_t;
+
+typedef struct {
+    char *log_level;
+    char *log_file;
+    bool alert_on_suspicious;
+    bool generate_report;
+    char *report_file;
+} firewall_reporting_t;
+
+typedef struct {
