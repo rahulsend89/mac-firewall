@@ -86,6 +86,7 @@ cat > /tmp/test-malicious/package.json << 'EOF'
 EOF
 
 # With firewall running, try to install
+
 cd /tmp/test-malicious
 npm install
 ```

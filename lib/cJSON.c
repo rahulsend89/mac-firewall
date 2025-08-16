@@ -1898,3 +1898,68 @@ CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array)
         size++;
         child = child->next;
     }
+
+    /* FIXME: Can overflow here. Cannot be fixed without breaking the API */
+
+    return (int)size;
+}
+
+static cJSON* get_array_item(const cJSON *array, size_t index)
+{
+    cJSON *current_child = NULL;
+
+    if (array == NULL)
+    {
+        return NULL;
+    }
+
+    current_child = array->child;
+    while ((current_child != NULL) && (index > 0))
+    {
+        index--;
+        current_child = current_child->next;
+    }
+
+    return current_child;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_GetArrayItem(const cJSON *array, int index)
+{
+    if (index < 0)
+    {
+        return NULL;
+    }
+
+    return get_array_item(array, (size_t)index);
+}
+
+static cJSON *get_object_item(const cJSON * const object, const char * const name, const cJSON_bool case_sensitive)
+{
+    cJSON *current_element = NULL;
+
+    if ((object == NULL) || (name == NULL))
+    {
+        return NULL;
+    }
+
+    current_element = object->child;
+    if (case_sensitive)
+    {
+        while ((current_element != NULL) && (current_element->string != NULL) && (strcmp(name, current_element->string) != 0))
+        {
+            current_element = current_element->next;
+        }
+    }
+    else
+    {
+        while ((current_element != NULL) && (case_insensitive_strcmp((const unsigned char*)name, (const unsigned char*)(current_element->string)) != 0))
+        {
+            current_element = current_element->next;
+        }
+    }
+
+    if ((current_element == NULL) || (current_element->string == NULL)) {
+        return NULL;
+    }
+
+    return current_element;
