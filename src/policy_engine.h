@@ -32,3 +32,5 @@ policy_decision_t policy_evaluate_file_access(
     const char *file_path,
     bool is_write
 );
+
+/**
