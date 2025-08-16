@@ -156,3 +156,15 @@ function install_firewall() {
     echo "Or run in current directory:"
     echo "  sudo $BINARY_NAME firewall.json"
 }
+
+function uninstall_firewall() {
+    echo ""
+    echo "Uninstalling macOS Firewall..."
+    
+    # Check root
+    if [[ $EUID -ne 0 ]]; then
+        print_error "Uninstallation requires root privileges"
+        echo "Re-running with sudo..."
+        sudo "$0" uninstall
+        exit $?
+    fi
