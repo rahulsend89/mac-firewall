@@ -44,7 +44,6 @@ int main(void) {
         handler(c, m);
     });
     
-
     if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
         fprintf(stderr, "Failed: %d\n", r);
         return 1;
@@ -59,4 +58,3 @@ int main(void) {
         es_delete_client(g_client);
         return 1;
     }
-    
