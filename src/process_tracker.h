@@ -29,6 +29,7 @@ struct process_info {
     bool is_npm;
     bool is_node;
     bool is_script;
+
     bool is_native_binary;
 };
 
