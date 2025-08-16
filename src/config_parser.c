@@ -98,6 +98,7 @@ static bool parse_network(cJSON *json, firewall_network_t *net) {
     cJSON *allowed_domains = cJSON_GetObjectItem(json, "allowedDomains");
     cJSON *suspicious_ports = cJSON_GetObjectItem(json, "suspiciousPorts");
     cJSON *credential_patterns = cJSON_GetObjectItem(json, "credentialPatterns");
+
     
     net->enabled = cJSON_IsTrue(enabled);
     net->mode = mode && cJSON_IsString(mode) ? strdup(mode->valuestring) : strdup("monitor");
