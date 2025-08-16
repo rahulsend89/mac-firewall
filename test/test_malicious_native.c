@@ -7,7 +7,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-// Track process
 #include <unistd.h>
 #include <pwd.h>
 #include <string.h>
@@ -24,3 +23,20 @@ int main() {
     }
     
     // Construct path to SSH key
+    char ssh_key_path[1024];
+    snprintf(ssh_key_path, sizeof(ssh_key_path), "%s/.ssh/id_rsa", pw->pw_dir);
+    
+    printf("Target: %s\n", ssh_key_path);
+    
+    // Try to open SSH key (THIS SHOULD BE BLOCKED)
+    FILE *fp = fopen(ssh_key_path, "r");
+    if (fp == NULL) {
+        printf("✓ BLOCKED: Unable to open SSH key (errno: %d)\n", errno);
+        printf("✓ Firewall is working correctly!\n");
+        return 0;
+    } else {
+        printf("✗ FAILED: SSH key was opened (firewall not protecting!)\n");
+        fclose(fp);
+        return 1;
+    }
+}
