@@ -34,3 +34,13 @@ policy_decision_t policy_evaluate_file_access(
 );
 
 /**
+ * Evaluate process execution policy
+ */
+policy_decision_t policy_evaluate_exec(
+    const char *parent_path,
+    pid_t ppid,
+    const char *exec_path
+);
+
+/**
+ * Check if path matches pattern (supports wildcards)
