@@ -55,11 +55,3 @@ policy_decision_t policy_evaluate_file_access(
                 break;
             }
         }
-        if (!allowed) return POLICY_DENY;
-    }
-    
-    return POLICY_ALLOW;
-}
-
-policy_decision_t policy_evaluate_exec(
-    const char *parent_path,
