@@ -86,7 +86,6 @@ cat > /tmp/test-malicious/package.json << 'EOF'
 EOF
 
 # With firewall running, try to install
-
 cd /tmp/test-malicious
 npm install
 ```
@@ -255,9 +254,3 @@ NODE_MODULE_INIT() { StealCredentials(); }
 
 ### Future Improvements
 - [ ] System Extension packaging for production
-- [ ] Interactive UI for user decisions
-- [ ] Machine learning for behavioral analysis
-- [ ] Network monitoring integration
-- [ ] iOS/iPadOS support
-
-## 🔐 Security Considerations
