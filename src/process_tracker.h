@@ -52,8 +52,3 @@ process_info_t* process_tracker_get(process_tracker_t *tracker, pid_t pid);
 /**
  * Remove process from tracker
  */
-void process_tracker_remove(process_tracker_t *tracker, pid_t pid);
-
-/**
- * Check if process is descendant of another
- */
