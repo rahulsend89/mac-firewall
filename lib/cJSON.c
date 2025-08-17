@@ -1963,3 +1963,18 @@ static cJSON *get_object_item(const cJSON * const object, const char * const nam
     }
 
     return current_element;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_GetObjectItem(const cJSON * const object, const char * const string)
+{
+    return get_object_item(object, string, false);
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_GetObjectItemCaseSensitive(const cJSON * const object, const char * const string)
+{
+    return get_object_item(object, string, true);
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_HasObjectItem(const cJSON *object, const char *string)
+{
+    return cJSON_GetObjectItem(object, string) ? 1 : 0;
