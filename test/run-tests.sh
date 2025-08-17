@@ -98,3 +98,17 @@ test_write() {
     else
         echo -e "  ${GREEN}✅ $name: BLOCKED/KILLED${NC}"
         return 0
+    fi
+}
+
+test_write "$HOME/.github/workflows/malicious.yml" "GitHub Workflow"
+test_write "$HOME/Library/LaunchAgents/com.test.plist" "Launch Agent"
+test_write "$(pwd)/.git/hooks/pre-commit-test" "Git Hook"
+test_write "/tmp/backdoor.sh" "Temp Backdoor Script"
+
+echo ""
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${CYAN}  3️⃣  BEHAVIORAL THRESHOLD TESTS${NC}"
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+
+# Test rapid file operations
