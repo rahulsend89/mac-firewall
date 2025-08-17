@@ -76,3 +76,6 @@ int main(void) {
     }
     
     // Mute high-traffic paths - be more aggressive
+    const char *mute_paths[] = {
+        "/System",
+        "/Library", 
