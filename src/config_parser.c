@@ -98,7 +98,6 @@ static bool parse_network(cJSON *json, firewall_network_t *net) {
     cJSON *allowed_domains = cJSON_GetObjectItem(json, "allowedDomains");
     cJSON *suspicious_ports = cJSON_GetObjectItem(json, "suspiciousPorts");
     cJSON *credential_patterns = cJSON_GetObjectItem(json, "credentialPatterns");
-
     
     net->enabled = cJSON_IsTrue(enabled);
     net->mode = mode && cJSON_IsString(mode) ? strdup(mode->valuestring) : strdup("monitor");
@@ -222,3 +221,14 @@ firewall_config_t* config_load(const char *filename) {
         const char *error_ptr = cJSON_GetErrorPtr();
         if (error_ptr != NULL) {
             fprintf(stderr, "JSON parse error: %s\n", error_ptr);
+        }
+        return NULL;
+    }
+    
+    // Allocate config
+    firewall_config_t *config = calloc(1, sizeof(firewall_config_t));
+    if (config == NULL) {
+        cJSON_Delete(json);
+        return NULL;
+    }
+    
