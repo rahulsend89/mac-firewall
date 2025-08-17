@@ -52,3 +52,7 @@ int main(void) {
     if (result != ES_NEW_CLIENT_RESULT_SUCCESS) {
         fprintf(stderr, "Failed to create client: %d\n", result);
         return 1;
+    }
+    
+    printf("✓ Client created\n");
+    
