@@ -77,3 +77,19 @@ bool logger_init(const char *log_file, const char *level_str) {
             return false;
         }
     }
+    
+    log_message(LOG_LEVEL_INFO, "=== macOS Firewall Started ===");
+    log_message(LOG_LEVEL_INFO, "Log level: %s", level_str);
+    log_message(LOG_LEVEL_INFO, "PID: %d", getpid());
+    
+    return true;
+}
+
+void log_access_attempt(const char *process, pid_t pid, const char *target, const char *operation) {
+    log_message(LOG_LEVEL_DEBUG, "ACCESS: %s (PID %d) -> %s [%s]", 
+               process, pid, target, operation);
+}
+
+void log_violation(const char *type, const char *process, pid_t pid, 
+                  const char *target, const char *reason) {
+    log_message(LOG_LEVEL_WARNING, "VIOLATION: %s | %s (PID %d) -> %s | Reason: %s",
