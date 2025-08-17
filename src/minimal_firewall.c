@@ -52,17 +52,3 @@ int main(void) {
     if (result != ES_NEW_CLIENT_RESULT_SUCCESS) {
         fprintf(stderr, "Failed to create client: %d\n", result);
         return 1;
-    }
-    
-    printf("✓ Client created\n");
-    
-    // Subscribe to ONLY AUTH_OPEN (most common, most likely to cause issues)
-    es_event_type_t events[] = { ES_EVENT_TYPE_AUTH_OPEN };
-    
-    if (es_subscribe(g_client, events, 1) != ES_RETURN_SUCCESS) {
-        fprintf(stderr, "Failed to subscribe\n");
-        es_delete_client(g_client);
-        return 1;
-    }
-    
-    printf("✓ Subscribed to AUTH_OPEN\n");
