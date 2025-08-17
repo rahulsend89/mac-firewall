@@ -137,3 +137,6 @@ void process_tracker_remove(process_tracker_t *tracker, pid_t pid) {
                 }
             }
             
+            // Free process info
+            free(info->arguments);
+            free(info->children);
