@@ -71,3 +71,5 @@ int main(void) {
         "/System",
         "/Library",
         "/usr",
+        "/bin",
+        "/sbin",
