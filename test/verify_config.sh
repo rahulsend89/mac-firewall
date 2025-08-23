@@ -94,6 +94,3 @@ else
         "network"
         "environment"
         "commands"
-        "behavioral"
-        "reporting"
-        "trustedModules"
