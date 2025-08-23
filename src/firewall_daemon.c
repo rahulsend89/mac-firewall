@@ -263,3 +263,27 @@ static void monitor_file_creation(const es_message_t *m) {
         is_persistence = 1;
         persistence_type = "Launch Agent/Daemon";
     }
+    // Git hooks
+    else if (strstr(dir_path, ".git/hooks")) {
+        is_persistence = 1;
+        persistence_type = "Git hook";
+    }
+    // Shell RC files
+    else if (strstr(dir_path, ".bashrc") || strstr(dir_path, ".zshrc") || 
+             strstr(dir_path, ".profile")) {
+        is_persistence = 1;
+        persistence_type = "Shell profile";
+    }
+    
+    if (is_persistence && is_npm_context(m->process)) {
+        fprintf(stderr, "🚨 PERSISTENCE: PID %d (%s) creating %s (%s)\n", 
+                pid, proc_path, dir_path, persistence_type);
+        __atomic_fetch_add(&g_suspicious_detected, 1, __ATOMIC_RELAXED);
+        
+        if (g_config && !g_config->mode.alert_only) {
+            kill_malicious_process(pid, proc_path, persistence_type);
+        }
+    }
+}
+
+/**
