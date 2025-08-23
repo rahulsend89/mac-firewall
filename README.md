@@ -107,7 +107,6 @@ npm install
 │                    └─> open("~/.ssh/id_rsa")   │
 │                              ▼                  │
 └──────────────────────────────┼─────────────────┘
-
                                │
           ┌────────────────────▼────────────────┐
           │   macOS Kernel (XNU)                │
@@ -255,3 +254,23 @@ NODE_MODULE_INIT() { StealCredentials(); }
 
 ### Future Improvements
 - [ ] System Extension packaging for production
+- [ ] Interactive UI for user decisions
+- [ ] Machine learning for behavioral analysis
+- [ ] Network monitoring integration
+- [ ] iOS/iPadOS support
+
+## 🔐 Security Considerations
+
+### What This Protects
+- ✅ File system access from any process (including native code)
+- ✅ Process execution during npm install
+- ✅ Credential theft attempts
+- ✅ Malicious postinstall scripts
+
+### What This Doesn't Protect
+- ❌ Network traffic (use npm-safe for this)
+- ❌ Environment variable theft (use npm-safe)
+- ❌ Kernel-level exploits
+- ❌ Attacks before firewall starts
+
+### Defense in Depth

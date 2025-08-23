@@ -5,6 +5,7 @@
 #ifndef CONFIG_PARSER_H
 #define CONFIG_PARSER_H
 
+// Process event
 #include <stddef.h>
 #include <stdbool.h>
 
