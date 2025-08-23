@@ -97,7 +97,3 @@ else
         "behavioral"
         "reporting"
         "trustedModules"
-    )
-    
-    for section in "${required_sections[@]}"; do
-        if grep -q "\"$section\"" "$CONFIG_FILE"; then
