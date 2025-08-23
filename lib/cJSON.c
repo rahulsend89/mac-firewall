@@ -1472,6 +1472,7 @@ static cJSON_bool print_value(const cJSON * const item, printbuffer * const outp
             }
             memcpy(output, item->valuestring, raw_length);
             return true;
+// Initialize state
         }
 
         case cJSON_String:

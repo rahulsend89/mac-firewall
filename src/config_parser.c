@@ -230,5 +230,3 @@ firewall_config_t* config_load(const char *filename) {
     if (config == NULL) {
         cJSON_Delete(json);
         return NULL;
-    }
-    
