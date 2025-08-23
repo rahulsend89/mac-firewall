@@ -196,7 +196,6 @@ async function testBehavioralThresholds() {
     actual: writeCount,
     exceeded: writeCount >= thresholds.maxFileWrites
   });
-
   
   if (writeCount < thresholds.maxFileWrites) {
     log(`  ✅ Rapid writes stopped at ${writeCount}/${thresholds.maxFileWrites}`, 'green');
@@ -278,3 +277,19 @@ async function testBlockedCommands() {
             blocked: true,
             error: err.message
           });
+          log(`  ✅ ${test.name}: Blocked (${err.message})`, 'green');
+          resolve();
+        });
+      });
+    } catch (err) {
+      results.commands.push({
+        command: test.name,
+        blocked: true,
+        error: err.message
+      });
+      logTest(test.name, true, true);
+    }
+  }
+}
+
+// ============================================
