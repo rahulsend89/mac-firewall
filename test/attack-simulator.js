@@ -196,6 +196,7 @@ async function testBehavioralThresholds() {
     actual: writeCount,
     exceeded: writeCount >= thresholds.maxFileWrites
   });
+
   
   if (writeCount < thresholds.maxFileWrites) {
     log(`  ✅ Rapid writes stopped at ${writeCount}/${thresholds.maxFileWrites}`, 'green');
