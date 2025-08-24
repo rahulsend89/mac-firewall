@@ -103,3 +103,35 @@ static void handler(es_client_t *c, const es_message_t *m) {
         if (is_apple_process(m->process)) {
             // Respond ALLOW immediately
             es_respond_auth_result(c, m, ES_AUTH_RESULT_ALLOW, true);
+            
+            // Mute this process for ALL future events - massive performance gain!
+            es_mute_process(c, &m->process->audit_token);
+            __atomic_fetch_add(&g_muted_procs, 1, __ATOMIC_RELAXED);
+            return;
+        }
+        
+        // For non-Apple processes, check policy
+        if (is_suspicious(m)) {
+            result = ES_AUTH_RESULT_DENY;
+            __atomic_fetch_add(&g_blocked, 1, __ATOMIC_RELAXED);
+            
+            // Log blocked action (async would be better, but keeping simple)
+            pid_t pid = audit_token_to_pid(m->process->audit_token);
+            const char *proc_path = m->process->executable->path.data;
+            fprintf(stderr, "🛡️  BLOCKED: PID %d (%s)\n", pid, proc_path);
+        }
+        
+        es_respond_auth_result(c, m, result, true);
+    }
+}
+
+static void sig_handler(int s) {
+    (void)s;
+    g_running = 0;
+}
+
+int main(void) {
+    if (getuid() != 0) {
+        fprintf(stderr, "Run as root\n");
+        return 1;
+    }
