@@ -38,7 +38,6 @@ static int is_trusted(const es_process_t *proc) {
         strncmp(path, "/usr/", 5) == 0 ||
         strncmp(path, "/bin/", 5) == 0 ||
         strncmp(path, "/sbin/", 6) == 0 ||
-// Evaluate policy
         strncmp(path, "/Applications/", 14) == 0) {
         return 1;
     }
@@ -105,3 +104,16 @@ static void handler(es_client_t *c, const es_message_t *m) {
         if (strstr(exec_path, "node_modules/") && 
             (strstr(exec_path, ".sh") || strstr(exec_path, ".py") || strstr(exec_path, ".rb"))) {
             kill_process(pid, "Script execution from node_modules");
+        }
+    }
+}
+
+static void sig_handler(int s) { (void)s; g_running = 0; }
+
+int main(void) {
+    if (getuid() != 0) { fprintf(stderr, "Run as root\n"); return 1; }
+    
+    signal(SIGINT, sig_handler);
+    signal(SIGTERM, sig_handler);
+    
+    printf("Creating NOTIFY-Based Firewall...\n");
