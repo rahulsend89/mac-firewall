@@ -10,6 +10,7 @@
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdbool.h>
 
+
 typedef struct process_info process_info_t;
 
 struct process_info {
