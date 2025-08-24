@@ -90,7 +90,3 @@ install: sign
 	@echo "✓ Config installed to /etc/mac-firewall.json"
 	@echo ""
 	@echo "To start the firewall:"
-	@echo "  sudo mac-firewall"
-
-# Uninstall
-uninstall:
