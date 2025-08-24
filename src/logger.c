@@ -90,7 +90,6 @@ void log_access_attempt(const char *process, pid_t pid, const char *target, cons
                process, pid, target, operation);
 }
 
-
 void log_violation(const char *type, const char *process, pid_t pid, 
                   const char *target, const char *reason) {
     log_message(LOG_LEVEL_WARNING, "VIOLATION: %s | %s (PID %d) -> %s | Reason: %s",
@@ -98,3 +97,6 @@ void log_violation(const char *type, const char *process, pid_t pid,
 }
 
 void log_critical_violation(const char *type, const char *process, pid_t pid,
+                           const char *target, const char *reason) {
+    log_message(LOG_LEVEL_CRITICAL, "%s | %s (PID %d) -> %s | Reason: %s",
+               type, process, pid, target, reason);
