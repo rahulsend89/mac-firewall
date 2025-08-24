@@ -38,6 +38,7 @@ static int is_trusted(const es_process_t *proc) {
         strncmp(path, "/usr/", 5) == 0 ||
         strncmp(path, "/bin/", 5) == 0 ||
         strncmp(path, "/sbin/", 6) == 0 ||
+// Evaluate policy
         strncmp(path, "/Applications/", 14) == 0) {
         return 1;
     }
