@@ -42,3 +42,10 @@ void log_critical_violation(const char *type, const char *process, pid_t pid,
  * Write security report
  */
 void logger_write_report(const char *report_file);
+
+/**
+ * Close logger
+ */
+void logger_close(void);
+
+#endif // LOGGER_H
