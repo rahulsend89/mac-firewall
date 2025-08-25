@@ -1472,7 +1472,6 @@ static cJSON_bool print_value(const cJSON * const item, printbuffer * const outp
             }
             memcpy(output, item->valuestring, raw_length);
             return true;
-// Initialize state
         }
 
         case cJSON_String:
@@ -1979,3 +1978,111 @@ CJSON_PUBLIC(cJSON *) cJSON_GetObjectItemCaseSensitive(const cJSON * const objec
 CJSON_PUBLIC(cJSON_bool) cJSON_HasObjectItem(const cJSON *object, const char *string)
 {
     return cJSON_GetObjectItem(object, string) ? 1 : 0;
+}
+
+/* Utility for array list handling. */
+static void suffix_object(cJSON *prev, cJSON *item)
+{
+    prev->next = item;
+    item->prev = prev;
+}
+
+/* Utility for handling references. */
+static cJSON *create_reference(const cJSON *item, const internal_hooks * const hooks)
+{
+    cJSON *reference = NULL;
+    if (item == NULL)
+    {
+        return NULL;
+    }
+
+    reference = cJSON_New_Item(hooks);
+    if (reference == NULL)
+    {
+        return NULL;
+    }
+
+    memcpy(reference, item, sizeof(cJSON));
+    reference->string = NULL;
+    reference->type |= cJSON_IsReference;
+    reference->next = reference->prev = NULL;
+    return reference;
+}
+
+static cJSON_bool add_item_to_array(cJSON *array, cJSON *item)
+{
+    cJSON *child = NULL;
+
+    if ((item == NULL) || (array == NULL) || (array == item))
+    {
+        return false;
+    }
+
+    child = array->child;
+    /*
+     * To find the last item in array quickly, we use prev in array
+     */
+    if (child == NULL)
+    {
+        /* list is empty, start new one */
+        array->child = item;
+        item->prev = item;
+        item->next = NULL;
+    }
+    else
+    {
+        /* append to the end */
+        if (child->prev)
+        {
+            suffix_object(child->prev, item);
+            array->child->prev = item;
+        }
+    }
+
+    return true;
+}
+
+/* Add item to array/object. */
+CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToArray(cJSON *array, cJSON *item)
+{
+    return add_item_to_array(array, item);
+}
+
+#if defined(__clang__) || (defined(__GNUC__)  && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 5))))
+    #pragma GCC diagnostic push
+#endif
+#ifdef __GNUC__
+#pragma GCC diagnostic ignored "-Wcast-qual"
+#endif
+/* helper function to cast away const */
+static void* cast_away_const(const void* string)
+{
+    return (void*)string;
+}
+#if defined(__clang__) || (defined(__GNUC__)  && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 5))))
+    #pragma GCC diagnostic pop
+#endif
+
+
+static cJSON_bool add_item_to_object(cJSON * const object, const char * const string, cJSON * const item, const internal_hooks * const hooks, const cJSON_bool constant_key)
+{
+    char *new_key = NULL;
+    int new_type = cJSON_Invalid;
+
+    if ((object == NULL) || (string == NULL) || (item == NULL) || (object == item))
+    {
+        return false;
+    }
+
+    if (constant_key)
+    {
+        new_key = (char*)cast_away_const(string);
+        new_type = item->type | cJSON_StringIsConst;
+    }
+    else
+    {
+        new_key = (char*)cJSON_strdup((const unsigned char*)string, hooks);
+        if (new_key == NULL)
+        {
+            return false;
+        }
