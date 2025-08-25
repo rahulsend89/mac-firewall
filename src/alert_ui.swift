@@ -114,11 +114,3 @@ func showCredentialTheftAlert(
         process: processStr,
         pid: Int(pid),
         target: targetStr
-    )
-}
-
-@_cdecl("show_suspicious_exec_alert")
-func showSuspiciousExecAlert(
-    process: UnsafePointer<CChar>,
-    pid: Int32,
-    executable: UnsafePointer<CChar>
