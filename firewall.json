@@ -156,3 +156,25 @@
         "description": "Recursive delete"
       },
       {
+        "pattern": "nc\\s+",
+        "severity": "high",
+        "description": "Network connection"
+      },
+      {
+        "pattern": "bash\\s+-c",
+        "severity": "medium",
+        "description": "Shell command execution"
+      },
+      {
+        "pattern": "eval\\s+",
+        "severity": "high",
+        "description": "Code evaluation"
+      }
+    ],
+    
+    "allowedCommands": [
+      "npm",
+      "node",
+      "git",
+      "make",
+      "cmake",
