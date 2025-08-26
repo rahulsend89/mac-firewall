@@ -50,4 +50,3 @@ if nc -h 2>&1 | grep -q "usage"; then
     echo "  ⚠️  nc available - would need actual connection to test blocking"
 else
     echo "  ⚠️  nc not available"
-fi
