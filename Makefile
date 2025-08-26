@@ -90,3 +90,13 @@ install: sign
 	@echo "✓ Config installed to /etc/mac-firewall.json"
 	@echo ""
 	@echo "To start the firewall:"
+	@echo "  sudo mac-firewall"
+
+# Uninstall
+uninstall:
+	@echo "Uninstalling mac-firewall..."
+	@if [ "$$(id -u)" != "0" ]; then \
+		echo "Error: Uninstallation requires root privileges"; \
+		echo "Run: sudo make uninstall"; \
+		exit 1; \
+	fi
