@@ -79,3 +79,19 @@ int main(void) {
     if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
         fprintf(stderr, "Failed: %d\n", r);
         return 1;
+    }
+    
+    printf("✓ Client created\n");
+    
+    // Mute self
+    audit_token_t self;
+    mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
+    if (task_info(mach_task_self(), TASK_AUDIT_TOKEN, (task_info_t)&self, &count) == KERN_SUCCESS) {
+        es_mute_process(g_client, &self);
+        printf("✓ Muted self\n");
+    }
+    
+    // Subscribe ONLY to AUTH_EXEC - much lower volume!
+    es_event_type_t ev[] = { ES_EVENT_TYPE_AUTH_EXEC };
+    if (es_subscribe(g_client, ev, 1) != ES_RETURN_SUCCESS) {
+        fprintf(stderr, "Subscribe failed\n");
