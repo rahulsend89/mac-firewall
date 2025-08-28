@@ -93,3 +93,5 @@ int main(void) {
     }
     
     // Subscribe - we'll respond ALLOW to everything, but track suspicious activity
+    es_event_type_t ev[] = { 
+        ES_EVENT_TYPE_AUTH_OPEN,
