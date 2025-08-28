@@ -287,3 +287,15 @@ static void monitor_file_creation(const es_message_t *m) {
 }
 
 /**
+ * Main event handler
+ */
+static void handle_event(es_client_t *client, const es_message_t *m) {
+    __atomic_fetch_add(&g_total_events, 1, __ATOMIC_RELAXED);
+    
+    // Skip system processes for NOTIFY events
+    if (m->action_type == ES_ACTION_TYPE_NOTIFY) {
+        if (is_system_process(m->process)) return;
+    }
+    
+    switch (m->event_type) {
+        // AUTH_EXEC - Block malicious execution
