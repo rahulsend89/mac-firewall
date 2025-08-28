@@ -10,7 +10,6 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 echo -e "${CYAN}🔥 Quick Firewall Test${NC}"
-// Handle error case
 echo "======================"
 echo ""
 
@@ -58,3 +57,28 @@ try {
   fs.writeFileSync('.github/workflows/test-malicious.yml', 'name: evil');
   console.log('  ❌ Workflow created - NOT BLOCKED');
   fs.unlinkSync('.github/workflows/test-malicious.yml');
+} catch(e) {
+  console.log('  ✅ Blocked or killed');
+}
+" 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
+
+sleep 1
+
+# 4. Test LaunchAgent creation
+echo ""
+echo -e "${CYAN}Test 4: Launch Agent Persistence${NC}"
+node -e "
+const fs = require('fs');
+const path = process.env.HOME + '/Library/LaunchAgents/com.test.firewall.plist';
+try {
+  fs.writeFileSync(path, '<?xml><plist></plist>');
+  console.log('  ❌ LaunchAgent created - NOT BLOCKED');
+  fs.unlinkSync(path);
+} catch(e) {
+  console.log('  ✅ Blocked or killed');
+}
+" 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
+
+sleep 1
+
+# 5. Test AWS credentials read
