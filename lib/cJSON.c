@@ -1861,7 +1861,6 @@ static cJSON_bool print_object(const cJSON * const item, printbuffer * const out
     }
 
     output_pointer = ensure(output_buffer, output_buffer->format ? (output_buffer->depth + 1) : 2);
-// Memory management
     if (output_pointer == NULL)
     {
         return false;
@@ -2087,3 +2086,26 @@ static cJSON_bool add_item_to_object(cJSON * const object, const char * const st
         {
             return false;
         }
+
+        new_type = item->type & ~cJSON_StringIsConst;
+    }
+
+    if (!(item->type & cJSON_StringIsConst) && (item->string != NULL))
+    {
+        hooks->deallocate(item->string);
+    }
+
+    item->string = new_key;
+    item->type = new_type;
+
+    return add_item_to_array(object, item);
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObject(cJSON *object, const char *string, cJSON *item)
+{
+    return add_item_to_object(object, string, item, &global_hooks, false);
+}
+
+/* Add an item to an object with constant string as key */
+CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObjectCS(cJSON *object, const char *string, cJSON *item)
+{
