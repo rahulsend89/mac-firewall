@@ -94,3 +94,20 @@ else
         "network"
         "environment"
         "commands"
+        "behavioral"
+        "reporting"
+        "trustedModules"
+    )
+    
+    for section in "${required_sections[@]}"; do
+        if grep -q "\"$section\"" "$CONFIG_FILE"; then
+            echo "✓ Section '$section' found"
+        else
+            echo "❌ Section '$section' missing"
+            exit 1
+        fi
+    done
+    
+    echo ""
+    echo "✅ Basic structure verification passed"
+fi
