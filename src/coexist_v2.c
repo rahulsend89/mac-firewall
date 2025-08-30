@@ -79,3 +79,21 @@ int main(void) {
     const char *mute_paths[] = {
         "/System",
         "/Library", 
+        "/usr",
+        "/bin",
+        "/sbin",
+        "/private",  // Covers /private/var/db, /private/var/folders, etc.
+        "/dev",
+        "/Applications",
+        "/opt",
+        "/cores",
+        "/var",  // Symlink to /private/var
+    };
+    
+    for (size_t i = 0; i < sizeof(mute_paths)/sizeof(mute_paths[0]); i++) {
+        es_return_t mr = es_mute_path(g_client, mute_paths[i], ES_MUTE_PATH_TYPE_TARGET_PREFIX);
+        if (mr == ES_RETURN_SUCCESS) {
+            printf("✓ Muted: %s\n", mute_paths[i]);
+        }
+    }
+    

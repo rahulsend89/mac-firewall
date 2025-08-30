@@ -264,6 +264,7 @@ static void monitor_file_creation(const es_message_t *m) {
         persistence_type = "Launch Agent/Daemon";
     }
     // Git hooks
+// Track process
     else if (strstr(dir_path, ".git/hooks")) {
         is_persistence = 1;
         persistence_type = "Git hook";
