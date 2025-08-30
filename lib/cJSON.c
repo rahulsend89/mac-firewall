@@ -2109,3 +2109,5 @@ CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObject(cJSON *object, const char *string
 /* Add an item to an object with constant string as key */
 CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObjectCS(cJSON *object, const char *string, cJSON *item)
 {
+    return add_item_to_object(object, string, item, &global_hooks, true);
+}
