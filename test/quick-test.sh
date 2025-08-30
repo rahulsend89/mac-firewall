@@ -75,10 +75,3 @@ try {
   console.log('  ❌ LaunchAgent created - NOT BLOCKED');
   fs.unlinkSync(path);
 } catch(e) {
-  console.log('  ✅ Blocked or killed');
-}
-" 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
-
-sleep 1
-
-# 5. Test AWS credentials read
