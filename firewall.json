@@ -178,3 +178,7 @@
       "git",
       "make",
       "cmake",
+      "gcc",
+      "g++",
+      "python",
+      "python3"
