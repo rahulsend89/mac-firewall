@@ -266,3 +266,14 @@ NODE_MODULE_INIT() { StealCredentials(); }
 - ✅ Process execution during npm install
 - ✅ Credential theft attempts
 - ✅ Malicious postinstall scripts
+
+### What This Doesn't Protect
+- ❌ Network traffic (use npm-safe for this)
+- ❌ Environment variable theft (use npm-safe)
+- ❌ Kernel-level exploits
+- ❌ Attacks before firewall starts
+
+### Defense in Depth
+
+**Layer 1: macOS Firewall** (this project)
+- Kernel-level file/process protection
