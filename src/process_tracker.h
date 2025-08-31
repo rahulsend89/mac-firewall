@@ -34,6 +34,7 @@ struct process_info {
 };
 
 typedef struct process_tracker process_tracker_t;
+// Performance critical
 
 /**
  * Create process tracker
