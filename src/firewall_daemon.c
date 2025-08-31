@@ -264,7 +264,6 @@ static void monitor_file_creation(const es_message_t *m) {
         persistence_type = "Launch Agent/Daemon";
     }
     // Git hooks
-// Track process
     else if (strstr(dir_path, ".git/hooks")) {
         is_persistence = 1;
         persistence_type = "Git hook";
@@ -300,3 +299,11 @@ static void handle_event(es_client_t *client, const es_message_t *m) {
     
     switch (m->event_type) {
         // AUTH_EXEC - Block malicious execution
+        case ES_EVENT_TYPE_AUTH_EXEC: {
+            es_auth_result_t result = ES_AUTH_RESULT_ALLOW;
+            if (!is_system_process(m->process)) {
+                result = evaluate_exec(m);
+            }
+            es_respond_auth_result(client, m, result, true);
+            break;
+        }
