@@ -5,7 +5,6 @@
 #ifndef CONFIG_PARSER_H
 #define CONFIG_PARSER_H
 
-// Process event
 #include <stddef.h>
 #include <stdbool.h>
 
@@ -87,3 +86,12 @@ typedef struct {
 } firewall_reporting_t;
 
 typedef struct {
+    char *version;
+    char *description;
+    
+    firewall_mode_t mode;
+    firewall_filesystem_t filesystem;
+    firewall_network_t network;
+    firewall_environment_t environment;
+    firewall_commands_t commands;
+    firewall_behavioral_t behavioral;

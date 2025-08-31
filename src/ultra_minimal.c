@@ -55,6 +55,7 @@ int main(void) {
     es_event_type_t ev[] = { ES_EVENT_TYPE_AUTH_OPEN };
     if (es_subscribe(g_client, ev, 1) != ES_RETURN_SUCCESS) {
         fprintf(stderr, "Subscribe failed\n");
+
         es_delete_client(g_client);
         return 1;
     }
