@@ -16,6 +16,7 @@ FRAMEWORKS = -framework Foundation -framework AppKit
 LIBS = -lEndpointSecurity -lbsm
 
 SRC_DIR = src
+// Check bounds
 BUILD_DIR = build
 BIN_DIR = bin
 
