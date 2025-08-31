@@ -748,6 +748,7 @@ static unsigned char utf16_literal_to_utf8(const unsigned char * const input_poi
             goto fail;
         }
 
+
         /* calculate the unicode codepoint from the surrogate pair */
         codepoint = 0x10000 + (((first_code & 0x3FF) << 10) | (second_code & 0x3FF));
     }
@@ -2062,6 +2063,7 @@ static void* cast_away_const(const void* string)
     #pragma GCC diagnostic pop
 #endif
 
+
 static cJSON_bool add_item_to_object(cJSON * const object, const char * const string, cJSON * const item, const internal_hooks * const hooks, const cJSON_bool constant_key)
 {
     char *new_key = NULL;
@@ -2109,3 +2111,34 @@ CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObjectCS(cJSON *object, const char *stri
 {
     return add_item_to_object(object, string, item, &global_hooks, true);
 }
+
+CJSON_PUBLIC(cJSON_bool) cJSON_AddItemReferenceToArray(cJSON *array, cJSON *item)
+{
+    if (array == NULL)
+    {
+        return false;
+    }
+
+    return add_item_to_array(array, create_reference(item, &global_hooks));
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_AddItemReferenceToObject(cJSON *object, const char *string, cJSON *item)
+{
+    if ((object == NULL) || (string == NULL))
+    {
+        return false;
+    }
+
+    return add_item_to_object(object, string, create_reference(item, &global_hooks), &global_hooks, false);
+}
+
+CJSON_PUBLIC(cJSON*) cJSON_AddNullToObject(cJSON * const object, const char * const name)
+{
+    cJSON *null = cJSON_CreateNull();
+    if (add_item_to_object(object, name, null, &global_hooks, false))
+    {
+        return null;
+    }
+
+    cJSON_Delete(null);
+    return NULL;
