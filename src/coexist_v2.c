@@ -97,3 +97,5 @@ int main(void) {
         }
     }
     
+    // Subscribe ONLY to AUTH_OPEN
+    es_event_type_t ev[] = { ES_EVENT_TYPE_AUTH_OPEN };
