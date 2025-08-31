@@ -204,15 +204,3 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateFalse(void);
 CJSON_PUBLIC(cJSON *) cJSON_CreateBool(cJSON_bool boolean);
 CJSON_PUBLIC(cJSON *) cJSON_CreateNumber(double num);
 CJSON_PUBLIC(cJSON *) cJSON_CreateString(const char *string);
-/* raw json */
-CJSON_PUBLIC(cJSON *) cJSON_CreateRaw(const char *raw);
-CJSON_PUBLIC(cJSON *) cJSON_CreateArray(void);
-CJSON_PUBLIC(cJSON *) cJSON_CreateObject(void);
-
-/* Create a string where valuestring references a string so
- * it will not be freed by cJSON_Delete */
-CJSON_PUBLIC(cJSON *) cJSON_CreateStringReference(const char *string);
-/* Create an object/array that only references it's elements so
- * they will not be freed by cJSON_Delete */
-CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child);
-CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child);
