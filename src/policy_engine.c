@@ -64,3 +64,15 @@ policy_decision_t policy_evaluate_file_access(
 policy_decision_t policy_evaluate_exec(
     const char *parent_path,
     pid_t ppid,
+    const char *exec_path
+) {
+    (void)parent_path; // Unused for now
+    (void)ppid;        // Unused for now
+    
+    if (g_policy_config == NULL || !g_policy_config->mode.enabled) {
+        return POLICY_ALLOW;
+    }
+    
+    // Check blocked command patterns
+    for (size_t i = 0; i < g_policy_config->commands.blocked_patterns_count; i++) {
+        if (policy_path_matches(exec_path, g_policy_config->commands.blocked_patterns[i].pattern)) {
