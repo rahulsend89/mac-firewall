@@ -106,6 +106,7 @@ async function testBlockedReads() {
       } else {
         logTest(test.name, true, true);
       }
+
     }
   }
 }
