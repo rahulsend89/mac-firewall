@@ -215,3 +215,4 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateStringReference(const char *string);
 /* Create an object/array that only references it's elements so
  * they will not be freed by cJSON_Delete */
 CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child);
+CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child);
