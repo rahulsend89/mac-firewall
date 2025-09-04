@@ -106,7 +106,6 @@ async function testBlockedReads() {
       } else {
         logTest(test.name, true, true);
       }
-
     }
   }
 }
@@ -290,6 +289,46 @@ async function testBlockedCommands() {
       });
       logTest(test.name, true, true);
     }
+  }
+}
+
+// ============================================
+// 5. CREDENTIAL EXFILTRATION SIMULATION
+// ============================================
+async function testCredentialExfiltration() {
+  log('\n🔐 TESTING CREDENTIAL EXFILTRATION', 'cyan');
+  log('='.repeat(50));
+  
+  // Simulate what a malicious npm package would do
+  const credentials = {};
+  
+  // Try to read various credential files
+  const credFiles = [
+    { file: `${HOME}/.npmrc`, key: 'npm_token' },
+    { file: `${HOME}/.gitconfig`, key: 'git_config' },
+    { file: `${HOME}/.aws/credentials`, key: 'aws_creds' },
+    { file: `${HOME}/.ssh/id_rsa`, key: 'ssh_key' },
+  ];
+  
+  for (const cred of credFiles) {
+    try {
+      await new Promise(r => setTimeout(r, 100));
+      credentials[cred.key] = fs.readFileSync(cred.file, 'utf8').substring(0, 100);
+      log(`  ❌ ${cred.key}: Read succeeded (should have been killed)`, 'red');
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        log(`  ⏭️  ${cred.key}: File doesn't exist`, 'yellow');
+      } else {
+        log(`  ✅ ${cred.key}: Process was killed or blocked`, 'green');
+      }
+    }
+  }
+  
+  // Try to send credentials (simulate)
+  if (Object.keys(credentials).length > 0) {
+    log(`\n  ⚠️  Would have exfiltrated ${Object.keys(credentials).length} credential files!`, 'red');
+  } else {
+    log(`\n  ✅ No credentials were exfiltrated`, 'green');
   }
 }
 
