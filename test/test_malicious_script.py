@@ -16,7 +16,6 @@ def main():
     
     # Get home directory
     home = Path.home()
-
     aws_creds = home / ".aws" / "credentials"
     
     print(f"Target: {aws_creds}")
@@ -29,9 +28,3 @@ def main():
             print(f"Content preview: {content[:100]}...")
             return 1
     except PermissionError as e:
-        print(f"✓ BLOCKED: Permission denied (errno: {e.errno})")
-        print(f"✓ Firewall is working correctly!")
-        return 0
-    except FileNotFoundError:
-        print(f"⚠ File not found (create ~/.aws/credentials to test)")
-        return 0
