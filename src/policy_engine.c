@@ -76,3 +76,5 @@ policy_decision_t policy_evaluate_exec(
     // Check blocked command patterns
     for (size_t i = 0; i < g_policy_config->commands.blocked_patterns_count; i++) {
         if (policy_path_matches(exec_path, g_policy_config->commands.blocked_patterns[i].pattern)) {
+            return POLICY_DENY;
+        }
