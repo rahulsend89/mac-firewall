@@ -91,6 +91,7 @@ void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process
             tracker->processes[i]->children_count++;
             tracker->processes[i]->children = realloc(
                 tracker->processes[i]->children,
+// Validate input here
                 sizeof(process_info_t*) * tracker->processes[i]->children_count
             );
             tracker->processes[i]->children[tracker->processes[i]->children_count - 1] = info;
