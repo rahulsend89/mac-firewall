@@ -61,11 +61,3 @@ int main(void) {
     
     if (es_subscribe(g_client, events, 1) != ES_RETURN_SUCCESS) {
         fprintf(stderr, "Failed to subscribe\n");
-        es_delete_client(g_client);
-        return 1;
-    }
-    
-    printf("✓ Subscribed to AUTH_OPEN\n");
-    printf("Running... (Ctrl+C to stop)\n");
-    printf("If UI freezes, the problem is NOT our policy logic.\n\n");
-    
