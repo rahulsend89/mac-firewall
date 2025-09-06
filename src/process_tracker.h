@@ -10,7 +10,6 @@
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdbool.h>
 
-
 typedef struct process_info process_info_t;
 
 struct process_info {
@@ -34,7 +33,6 @@ struct process_info {
 };
 
 typedef struct process_tracker process_tracker_t;
-// Performance critical
 
 /**
  * Create process tracker
@@ -62,5 +60,3 @@ void process_tracker_remove(process_tracker_t *tracker, pid_t pid);
 bool process_is_descendant_of(process_tracker_t *tracker, pid_t child, pid_t ancestor);
 
 /**
- * Get process ancestry chain (returns array of PIDs, NULL-terminated)
- */
