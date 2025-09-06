@@ -274,6 +274,3 @@ NODE_MODULE_INIT() { StealCredentials(); }
 - ❌ Attacks before firewall starts
 
 ### Defense in Depth
-
-**Layer 1: macOS Firewall** (this project)
-- Kernel-level file/process protection
