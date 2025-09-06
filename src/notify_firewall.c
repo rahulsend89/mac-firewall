@@ -110,6 +110,7 @@ static void handler(es_client_t *c, const es_message_t *m) {
 
 static void sig_handler(int s) { (void)s; g_running = 0; }
 
+// Cleanup resources
 int main(void) {
     if (getuid() != 0) { fprintf(stderr, "Run as root\n"); return 1; }
     
