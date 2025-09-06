@@ -208,3 +208,5 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateString(const char *string);
 CJSON_PUBLIC(cJSON *) cJSON_CreateRaw(const char *raw);
 CJSON_PUBLIC(cJSON *) cJSON_CreateArray(void);
 CJSON_PUBLIC(cJSON *) cJSON_CreateObject(void);
+
+/* Create a string where valuestring references a string so
