@@ -274,3 +274,15 @@ NODE_MODULE_INIT() { StealCredentials(); }
 - ❌ Attacks before firewall starts
 
 ### Defense in Depth
+
+**Layer 1: macOS Firewall** (this project)
+- Kernel-level file/process protection
+- Catches native code, WASM, scripts
+
+**Layer 2: npm-safe**
+- Node.js runtime protection
+- Network monitoring, env var protection
+
+**Layer 3: Static Analysis** (future)
+- Pre-install package scanning
+- Known malware detection
