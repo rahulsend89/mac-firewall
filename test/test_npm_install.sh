@@ -85,3 +85,16 @@ int main() {
         printf("BLOCKED: Cannot open SSH key\n");
     }
     return 0;
+}
+EOF
+
+cd ..
+
+# Create test package 3: Downloaded executable
+echo "Creating test package 3: Downloaded executable..."
+mkdir -p test-download-malicious
+cd test-download-malicious
+
+cat > package.json << 'EOF'
+{
+  "name": "test-download-malicious",
