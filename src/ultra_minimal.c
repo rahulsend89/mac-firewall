@@ -55,7 +55,6 @@ int main(void) {
     es_event_type_t ev[] = { ES_EVENT_TYPE_AUTH_OPEN };
     if (es_subscribe(g_client, ev, 1) != ES_RETURN_SUCCESS) {
         fprintf(stderr, "Subscribe failed\n");
-
         es_delete_client(g_client);
         return 1;
     }
@@ -63,3 +62,6 @@ int main(void) {
     printf("Running. Events will print every second.\n");
     printf("If killed, check: log show --predicate 'eventMessage contains \"endpoint\"' --last 1m\n\n");
     
+    // Simple loop - NO GCD, NO dispatch_main
+    while (g_running) {
+        printf("Events: %llu\n", g_count);
