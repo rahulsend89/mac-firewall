@@ -16,7 +16,6 @@ FRAMEWORKS = -framework Foundation -framework AppKit
 LIBS = -lEndpointSecurity -lbsm
 
 SRC_DIR = src
-// Check bounds
 BUILD_DIR = build
 BIN_DIR = bin
 
@@ -101,3 +100,9 @@ uninstall:
 		echo "Run: sudo make uninstall"; \
 		exit 1; \
 	fi
+	rm -f /usr/local/bin/mac-firewall
+	rm -f /etc/mac-firewall.json
+	@echo "✓ Uninstalled"
+
+# Clean build artifacts
+clean:
