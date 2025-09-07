@@ -121,7 +121,6 @@ static int is_trusted_for_credentials(const es_process_t *proc) {
  */
 static void kill_malicious_process(pid_t pid, const char *proc_path, const char *reason) {
     fprintf(stderr, "🛡️  BLOCKED: PID %d (%s) - %s\n", pid, proc_path, reason);
-
     kill(pid, SIGKILL);
     __atomic_fetch_add(&g_processes_killed, 1, __ATOMIC_RELAXED);
 }
@@ -308,3 +307,10 @@ static void handle_event(es_client_t *client, const es_message_t *m) {
             es_respond_auth_result(client, m, result, true);
             break;
         }
+        
+        // NOTIFY_OPEN - Monitor file access
+        case ES_EVENT_TYPE_NOTIFY_OPEN:
+            monitor_file_access(m);
+            break;
+        
+        // NOTIFY_CREATE - Monitor file creation
