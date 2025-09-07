@@ -286,3 +286,5 @@ NODE_MODULE_INIT() { StealCredentials(); }
 **Layer 3: Static Analysis** (future)
 - Pre-install package scanning
 - Known malware detection
+
+## 📝 Development
