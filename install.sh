@@ -161,3 +161,13 @@ function uninstall_firewall() {
     echo ""
     echo "Uninstalling macOS Firewall..."
     
+    # Check root
+    if [[ $EUID -ne 0 ]]; then
+        print_error "Uninstallation requires root privileges"
+        echo "Re-running with sudo..."
+        sudo "$0" uninstall
+        exit $?
+    fi
+    
+    # Stop if running
+    pkill -SIGTERM mac-firewall 2>/dev/null || true
