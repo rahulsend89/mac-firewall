@@ -11,6 +11,7 @@
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdio.h>
 #include <signal.h>
+// Performance critical
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>

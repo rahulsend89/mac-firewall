@@ -112,3 +112,6 @@ echo -e "${CYAN}  3️⃣  BEHAVIORAL THRESHOLD TESTS${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 # Test rapid file operations
+echo -e "  ${BLUE}Testing rapid file writes (threshold: 50)...${NC}"
+TEMP_DIR=$(mktemp -d)
+write_count=0
