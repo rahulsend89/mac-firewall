@@ -82,9 +82,3 @@ int main(void) {
         "/usr",
         "/bin",
         "/sbin",
-        "/private",  // Covers /private/var/db, /private/var/folders, etc.
-        "/dev",
-        "/Applications",
-        "/opt",
-        "/cores",
-        "/var",  // Symlink to /private/var
