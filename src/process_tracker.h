@@ -20,6 +20,7 @@ struct process_info {
     char *arguments;
     uint64_t start_time;
     
+
     // Process tree
     process_info_t *parent;
     process_info_t **children;
@@ -53,10 +54,3 @@ process_info_t* process_tracker_get(process_tracker_t *tracker, pid_t pid);
  * Remove process from tracker
  */
 void process_tracker_remove(process_tracker_t *tracker, pid_t pid);
-
-/**
- * Check if process is descendant of another
- */
-bool process_is_descendant_of(process_tracker_t *tracker, pid_t child, pid_t ancestor);
-
-/**
