@@ -29,3 +29,4 @@ def main():
             return 1
     except PermissionError as e:
         print(f"✓ BLOCKED: Permission denied (errno: {e.errno})")
+        print(f"✓ Firewall is working correctly!")
