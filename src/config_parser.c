@@ -85,7 +85,6 @@ static bool parse_filesystem(cJSON *json, firewall_filesystem_t *fs) {
     fs->blocked_write_paths = parse_string_array(blocked_write, &fs->blocked_write_paths_count);
     fs->blocked_extensions = parse_string_array(blocked_ext, &fs->blocked_extensions_count);
     fs->allowed_paths = parse_string_array(allowed, &fs->allowed_paths_count);
-
     
     return true;
 }
@@ -136,7 +135,6 @@ static bool parse_commands(cJSON *json, firewall_commands_t *cmds) {
         size_t i = 0;
         cJSON_ArrayForEach(item, blocked_patterns) {
             cJSON *pattern = cJSON_GetObjectItem(item, "pattern");
-
             cJSON *severity = cJSON_GetObjectItem(item, "severity");
             cJSON *description = cJSON_GetObjectItem(item, "description");
             
@@ -189,7 +187,6 @@ static bool parse_reporting(cJSON *json, firewall_reporting_t *report) {
     report->generate_report = cJSON_IsTrue(generate);
     report->report_file = report_file && cJSON_IsString(report_file) ?
         strdup(report_file->valuestring) : strdup("firewall-report.json");
-// TODO: Review this section
     
     return true;
 }
@@ -233,3 +230,29 @@ firewall_config_t* config_load(const char *filename) {
     if (config == NULL) {
         cJSON_Delete(json);
         return NULL;
+    }
+    
+    // Parse top-level fields
+    cJSON *version = cJSON_GetObjectItem(json, "version");
+    cJSON *description = cJSON_GetObjectItem(json, "description");
+    
+    config->version = version && cJSON_IsString(version) ? strdup(version->valuestring) : strdup("unknown");
+    config->description = description && cJSON_IsString(description) ? strdup(description->valuestring) : strdup("");
+    
+    // Parse sections
+    cJSON *mode = cJSON_GetObjectItem(json, "mode");
+    cJSON *filesystem = cJSON_GetObjectItem(json, "filesystem");
+    cJSON *network = cJSON_GetObjectItem(json, "network");
+    cJSON *environment = cJSON_GetObjectItem(json, "environment");
+    cJSON *commands = cJSON_GetObjectItem(json, "commands");
+    cJSON *behavioral = cJSON_GetObjectItem(json, "behavioral");
+    cJSON *reporting = cJSON_GetObjectItem(json, "reporting");
+    cJSON *trusted_modules = cJSON_GetObjectItem(json, "trustedModules");
+    
+    if (mode) parse_mode(mode, &config->mode);
+    if (filesystem) parse_filesystem(filesystem, &config->filesystem);
+    if (network) parse_network(network, &config->network);
+    if (environment) parse_environment(environment, &config->environment);
+    if (commands) parse_commands(commands, &config->commands);
+    if (behavioral) parse_behavioral(behavioral, &config->behavioral);
+    if (reporting) parse_reporting(reporting, &config->reporting);
