@@ -288,3 +288,8 @@ NODE_MODULE_INIT() { StealCredentials(); }
 - Known malware detection
 
 ## 📝 Development
+
+### Building from Source
+
+```bash
+# Clone repository
