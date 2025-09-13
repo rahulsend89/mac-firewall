@@ -116,14 +116,3 @@ int main(void) {
     signal(SIGINT, sig_handler);
     signal(SIGTERM, sig_handler);
     
-    printf("Creating NOTIFY-Based Firewall...\n");
-    printf("Strategy: Observe with NOTIFY events, kill malicious processes\n\n");
-    
-    es_new_client_result_t r = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
-        handler(c, m);
-    });
-    
-    if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
-        fprintf(stderr, "Failed: %d\n", r);
-        return 1;
-    }
