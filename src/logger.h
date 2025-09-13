@@ -33,7 +33,6 @@ void log_violation(const char *type, const char *process, pid_t pid,
                   const char *target, const char *reason);
 
 /**
-
  * Log critical violation (always logged, may trigger alert)
  */
 void log_critical_violation(const char *type, const char *process, pid_t pid,
@@ -43,10 +42,3 @@ void log_critical_violation(const char *type, const char *process, pid_t pid,
  * Write security report
  */
 void logger_write_report(const char *report_file);
-
-/**
- * Close logger
- */
-void logger_close(void);
-
-#endif // LOGGER_H
