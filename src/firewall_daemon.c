@@ -314,3 +314,8 @@ static void handle_event(es_client_t *client, const es_message_t *m) {
             break;
         
         // NOTIFY_CREATE - Monitor file creation
+        case ES_EVENT_TYPE_NOTIFY_CREATE:
+            monitor_file_creation(m);
+            break;
+        
+        // NOTIFY_EXEC - Track process execution
