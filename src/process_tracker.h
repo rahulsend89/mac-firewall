@@ -20,7 +20,6 @@ struct process_info {
     char *arguments;
     uint64_t start_time;
     
-
     // Process tree
     process_info_t *parent;
     process_info_t **children;
