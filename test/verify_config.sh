@@ -111,3 +111,15 @@ else
     echo ""
     echo "✅ Basic structure verification passed"
 fi
+
+echo ""
+echo "==================================="
+echo "Config Fields Used by Firewall:"
+echo "==================================="
+echo ""
+echo "✓ mode.enabled              - Enable/disable firewall"
+echo "✓ mode.strictMode           - Whitelist-only mode"
+echo "✓ mode.alertOnly            - Log but don't block"
+echo "✓ mode.interactive          - Show user prompts"
+echo ""
+echo "✓ filesystem.blockedReadPaths    - Paths to block reading"
