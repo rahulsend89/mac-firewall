@@ -128,6 +128,3 @@ func showSuspiciousExecAlert(
     
     FirewallAlert.shared.showSuspiciousExecAlert(
         process: processStr,
-        pid: Int(pid),
-        executable: execStr
-    )
