@@ -116,3 +116,20 @@ int main(void) {
     signal(SIGINT, sig_handler);
     signal(SIGTERM, sig_handler);
     
+    printf("Creating NOTIFY-Based Firewall...\n");
+    printf("Strategy: Observe with NOTIFY events, kill malicious processes\n\n");
+    
+    es_new_client_result_t r = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
+        handler(c, m);
+    });
+    
+    if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
+        fprintf(stderr, "Failed: %d\n", r);
+        return 1;
+    }
+    
+    // Mute self
+    audit_token_t self;
+    mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
+    if (task_info(mach_task_self(), TASK_AUDIT_TOKEN, (task_info_t)&self, &count) == KERN_SUCCESS) {
+        es_mute_process(g_client, &self);
