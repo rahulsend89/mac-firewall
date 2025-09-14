@@ -84,11 +84,3 @@ int main(void) {
         if (mr == ES_RETURN_SUCCESS) {
             printf("✓ Muted: %s\n", mute_paths[i]);
         }
-    }
-    
-    // Subscribe to minimal events
-    // Only AUTH_OPEN on non-muted paths (mainly user directories)
-    es_event_type_t ev[] = { ES_EVENT_TYPE_AUTH_OPEN };
-    if (es_subscribe(g_client, ev, 1) != ES_RETURN_SUCCESS) {
-        fprintf(stderr, "Subscribe failed\n");
-        es_delete_client(g_client);
