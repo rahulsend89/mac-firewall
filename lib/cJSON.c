@@ -2217,3 +2217,58 @@ CJSON_PUBLIC(cJSON*) cJSON_AddRawToObject(cJSON * const object, const char * con
 }
 
 CJSON_PUBLIC(cJSON*) cJSON_AddObjectToObject(cJSON * const object, const char * const name)
+{
+    cJSON *object_item = cJSON_CreateObject();
+    if (add_item_to_object(object, name, object_item, &global_hooks, false))
+    {
+        return object_item;
+    }
+
+    cJSON_Delete(object_item);
+    return NULL;
+}
+
+CJSON_PUBLIC(cJSON*) cJSON_AddArrayToObject(cJSON * const object, const char * const name)
+{
+    cJSON *array = cJSON_CreateArray();
+    if (add_item_to_object(object, name, array, &global_hooks, false))
+    {
+        return array;
+    }
+
+    cJSON_Delete(array);
+    return NULL;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_DetachItemViaPointer(cJSON *parent, cJSON * const item)
+{
+    if ((parent == NULL) || (item == NULL) || (item != parent->child && item->prev == NULL))
+    {
+        return NULL;
+    }
+
+    if (item != parent->child)
+    {
+        /* not the first element */
+        item->prev->next = item->next;
+    }
+    if (item->next != NULL)
+    {
+        /* not the last element */
+        item->next->prev = item->prev;
+    }
+
+    if (item == parent->child)
+    {
+        /* first element */
+        parent->child = item->next;
+    }
+    else if (item->next == NULL)
+    {
+        /* last element */
+        parent->child->prev = item->prev;
+    }
+
+    /* make sure the detached item doesn't point anywhere anymore */
+    item->prev = NULL;
+    item->next = NULL;
