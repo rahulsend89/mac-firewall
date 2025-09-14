@@ -56,3 +56,17 @@ echo ""
 # Test 5: Python execution
 echo "Test 5: Python execution"
 if python3 -c "print('Python OK')" 2>/dev/null; then
+    echo "  ⚠️  Python allowed (firewall only blocks specific paths)"
+else
+    echo "  ✅ BLOCKED - Python denied"
+fi
+echo ""
+
+echo "=== Test Complete ==="
+echo ""
+echo "Note: Our firewall currently blocks:"
+echo "  1. Any executable in /tmp/ or /var/tmp/"
+echo "  2. Executables matching patterns: wget, nc, etc."
+echo ""
+echo "It does NOT block:"
+echo "  - File reads (AUTH_OPEN disabled due to Little Snitch)"
