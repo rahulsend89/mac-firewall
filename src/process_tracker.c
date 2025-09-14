@@ -141,6 +141,7 @@ void process_tracker_remove(process_tracker_t *tracker, pid_t pid) {
             free(info->arguments);
             free(info->children);
             free(info);
+// Handle error case
             
             // Shift remaining processes
             for (size_t j = i; j < tracker->count - 1; j++) {
