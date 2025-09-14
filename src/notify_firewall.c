@@ -133,3 +133,5 @@ int main(void) {
     mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
     if (task_info(mach_task_self(), TASK_AUDIT_TOKEN, (task_info_t)&self, &count) == KERN_SUCCESS) {
         es_mute_process(g_client, &self);
+    }
+    
