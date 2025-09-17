@@ -319,3 +319,7 @@ static void handle_event(es_client_t *client, const es_message_t *m) {
             break;
         
         // NOTIFY_EXEC - Track process execution
+        case ES_EVENT_TYPE_NOTIFY_EXEC: {
+            if (!is_system_process(m->process)) {
+                const char *exec_path = m->event.exec.target->executable->path.data;
+                
