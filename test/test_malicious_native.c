@@ -31,3 +31,10 @@ int main() {
     // Try to open SSH key (THIS SHOULD BE BLOCKED)
     FILE *fp = fopen(ssh_key_path, "r");
     if (fp == NULL) {
+        printf("✓ BLOCKED: Unable to open SSH key (errno: %d)\n", errno);
+        printf("✓ Firewall is working correctly!\n");
+        return 0;
+    } else {
+        printf("✗ FAILED: SSH key was opened (firewall not protecting!)\n");
+        fclose(fp);
+        return 1;
