@@ -44,6 +44,7 @@ int main(void) {
     signal(SIGTERM, cleanup);
     
     printf("Creating ES client...\n");
+
     
     es_new_client_result_t result = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
         handle_event(c, m);

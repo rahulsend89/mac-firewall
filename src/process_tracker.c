@@ -161,3 +161,8 @@ bool process_is_descendant_of(process_tracker_t *tracker, pid_t child, pid_t anc
         if (current->pid == ancestor) return true;
         current = current->parent;
     }
+    
+    return false;
+}
+
+pid_t* process_get_ancestry(process_tracker_t *tracker, pid_t pid) {
