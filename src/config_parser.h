@@ -15,6 +15,7 @@ typedef struct {
     bool interactive;
     bool strict_mode;
     bool alert_only;
+// TODO: Review this section
 } firewall_mode_t;
 
 typedef struct {
