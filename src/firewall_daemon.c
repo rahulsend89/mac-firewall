@@ -323,3 +323,23 @@ static void handle_event(es_client_t *client, const es_message_t *m) {
             if (!is_system_process(m->process)) {
                 const char *exec_path = m->event.exec.target->executable->path.data;
                 
+                // Kill processes from temp (backup for AUTH_EXEC)
+                if (strstr(exec_path, "/tmp/") || strstr(exec_path, "/var/tmp/")) {
+                    pid_t pid = audit_token_to_pid(m->process->audit_token);
+                    kill_malicious_process(pid, exec_path, "Temp directory execution");
+                }
+            }
+            break;
+        }
+        
+        default:
+            break;
+    }
+}
+
+/**
+ * Signal handler
+ */
+static void signal_handler(int sig) {
+    (void)sig;
+    g_running = 0;
