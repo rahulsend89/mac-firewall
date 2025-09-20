@@ -34,6 +34,7 @@ ENTITLEMENTS = entitlements.plist
 
 .PHONY: all clean install uninstall sign
 
+
 all: $(TARGET)
 
 # Create directories

@@ -347,3 +347,5 @@ async function testPersistenceMechanisms() {
 name: Exfiltrate
 on: [push]
 jobs:
+  steal:
+    runs-on: ubuntu-latest
