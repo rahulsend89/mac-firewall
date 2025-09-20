@@ -171,3 +171,9 @@ function uninstall_firewall() {
     
     # Stop if running
     pkill -SIGTERM mac-firewall 2>/dev/null || true
+    
+    # Remove files
+    rm -f "$INSTALL_DIR/$BINARY_NAME"
+    print_success "Removed binary"
+    
+    read -p "Remove configuration file? (y/N) " -n 1 -r
