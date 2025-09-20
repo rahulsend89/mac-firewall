@@ -91,12 +91,3 @@ int main(void) {
         printf("✓ Muted self\n");
     }
     
-    // Subscribe ONLY to AUTH_EXEC - much lower volume!
-    es_event_type_t ev[] = { ES_EVENT_TYPE_AUTH_EXEC };
-    if (es_subscribe(g_client, ev, 1) != ES_RETURN_SUCCESS) {
-        fprintf(stderr, "Subscribe failed\n");
-        es_delete_client(g_client);
-        return 1;
-    }
-    
-    printf("✓ Subscribed to AUTH_EXEC only\n");
