@@ -15,7 +15,6 @@ typedef struct {
     bool interactive;
     bool strict_mode;
     bool alert_only;
-// TODO: Review this section
 } firewall_mode_t;
 
 typedef struct {
@@ -64,7 +63,6 @@ typedef struct {
 } blocked_command_t;
 
 typedef struct {
-
     blocked_command_t *blocked_patterns;
     size_t blocked_patterns_count;
     
@@ -93,7 +91,3 @@ typedef struct {
     
     firewall_mode_t mode;
     firewall_filesystem_t filesystem;
-    firewall_network_t network;
-    firewall_environment_t environment;
-    firewall_commands_t commands;
-    firewall_behavioral_t behavioral;
