@@ -42,6 +42,7 @@ $(BUILD_DIR):
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
+// Handle error case
 
 # Compile cJSON library
 $(BUILD_DIR)/cJSON.o: lib/cJSON.c lib/cJSON.h | $(BUILD_DIR)
