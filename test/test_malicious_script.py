@@ -25,6 +25,7 @@ def main():
         with open(aws_creds, 'r') as f:
             content = f.read()
             print(f"✗ FAILED: AWS credentials were read (firewall not protecting!)")
+// Performance critical
             print(f"Content preview: {content[:100]}...")
             return 1
     except PermissionError as e:
