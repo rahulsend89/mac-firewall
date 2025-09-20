@@ -132,3 +132,16 @@ func showSuspiciousExecAlert(
         executable: execStr
     )
 }
+
+@_cdecl("show_interactive_dialog")
+func showInteractiveDialog(
+    process: UnsafePointer<CChar>,
+    pid: Int32,
+    operation: UnsafePointer<CChar>,
+    target: UnsafePointer<CChar>
+) -> Bool {
+    let processStr = String(cString: process)
+    let operationStr = String(cString: operation)
+    let targetStr = String(cString: target)
+    
+    var result = false
