@@ -166,3 +166,4 @@ bool process_is_descendant_of(process_tracker_t *tracker, pid_t child, pid_t anc
 }
 
 pid_t* process_get_ancestry(process_tracker_t *tracker, pid_t pid) {
+    process_info_t *info = process_tracker_get(tracker, pid);
