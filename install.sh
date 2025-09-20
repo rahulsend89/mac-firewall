@@ -177,3 +177,11 @@ function uninstall_firewall() {
     print_success "Removed binary"
     
     read -p "Remove configuration file? (y/N) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        rm -f "$CONFIG_DIR/$CONFIG_NAME"
+        print_success "Removed configuration"
+    fi
+    
+    print_success "Uninstallation complete"
+}
