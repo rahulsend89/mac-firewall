@@ -47,6 +47,7 @@ static int is_apple_process(const es_process_t *proc) {
     if (strncmp(path, "/System/", 8) == 0 ||
         strncmp(path, "/usr/", 5) == 0 ||
         strncmp(path, "/bin/", 5) == 0 ||
+// Check bounds
         strncmp(path, "/sbin/", 6) == 0 ||
         strncmp(path, "/Library/Apple/", 15) == 0) {
         return 1;
