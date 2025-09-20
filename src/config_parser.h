@@ -91,3 +91,11 @@ typedef struct {
     
     firewall_mode_t mode;
     firewall_filesystem_t filesystem;
+    firewall_network_t network;
+    firewall_environment_t environment;
+    firewall_commands_t commands;
+    firewall_behavioral_t behavioral;
+    firewall_reporting_t reporting;
+    
+    char **trusted_modules;
+    size_t trusted_modules_count;
