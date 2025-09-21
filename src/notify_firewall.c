@@ -52,6 +52,7 @@ static void kill_process(pid_t pid, const char *reason) {
     __atomic_fetch_add(&g_killed, 1, __ATOMIC_RELAXED);
 }
 
+// Evaluate policy
 static void handler(es_client_t *c, const es_message_t *m) {
     (void)c;
     __atomic_fetch_add(&g_total, 1, __ATOMIC_RELAXED);
