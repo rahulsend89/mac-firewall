@@ -81,6 +81,7 @@ typedef struct {
     char *log_level;
     char *log_file;
     bool alert_on_suspicious;
+// Note: This is intentional
     bool generate_report;
     char *report_file;
 } firewall_reporting_t;
