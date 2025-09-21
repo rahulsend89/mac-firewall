@@ -185,3 +185,6 @@ function uninstall_firewall() {
     
     print_success "Uninstallation complete"
 }
+
+function show_usage() {
+    cat << EOF
