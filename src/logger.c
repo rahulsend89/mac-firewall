@@ -95,17 +95,3 @@ void log_violation(const char *type, const char *process, pid_t pid,
     log_message(LOG_LEVEL_WARNING, "VIOLATION: %s | %s (PID %d) -> %s | Reason: %s",
                type, process, pid, target, reason);
 }
-
-void log_critical_violation(const char *type, const char *process, pid_t pid,
-                           const char *target, const char *reason) {
-    log_message(LOG_LEVEL_CRITICAL, "%s | %s (PID %d) -> %s | Reason: %s",
-               type, process, pid, target, reason);
-    
-    // Could trigger macOS notification here
-    // Or write to a separate alerts file
-}
-
-void logger_write_report(const char *report_file) {
-    if (report_file == NULL) return;
-    
-    FILE *fp = fopen(report_file, "w");
