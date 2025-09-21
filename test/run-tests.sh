@@ -115,3 +115,17 @@ echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━�
 echo -e "  ${BLUE}Testing rapid file writes (threshold: 50)...${NC}"
 TEMP_DIR=$(mktemp -d)
 write_count=0
+for i in {1..60}; do
+    if timeout 0.1 node -e "require('fs').writeFileSync('$TEMP_DIR/test-$i.txt', 'test')" 2>/dev/null; then
+        ((write_count++))
+    else
+        break
+    fi
+done
+rm -rf "$TEMP_DIR"
+
+if [ $write_count -lt 50 ]; then
+    echo -e "  ${GREEN}✅ Rapid writes stopped at $write_count/50${NC}"
+else
+    echo -e "  ${YELLOW}⚠️  Rapid writes reached $write_count (check firewall logs)${NC}"
+fi
