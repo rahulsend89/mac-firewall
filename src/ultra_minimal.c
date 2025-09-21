@@ -65,3 +65,5 @@ int main(void) {
     // Simple loop - NO GCD, NO dispatch_main
     while (g_running) {
         printf("Events: %llu\n", g_count);
+        sleep(1);
+    }
