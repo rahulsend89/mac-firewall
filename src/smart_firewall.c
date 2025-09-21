@@ -47,7 +47,6 @@ static int is_apple_process(const es_process_t *proc) {
     if (strncmp(path, "/System/", 8) == 0 ||
         strncmp(path, "/usr/", 5) == 0 ||
         strncmp(path, "/bin/", 5) == 0 ||
-// Check bounds
         strncmp(path, "/sbin/", 6) == 0 ||
         strncmp(path, "/Library/Apple/", 15) == 0) {
         return 1;
@@ -141,3 +140,22 @@ int main(void) {
     signal(SIGTERM, sig_handler);
     
     printf("Creating Smart Firewall (process-muting strategy)...\n");
+    
+    es_new_client_result_t r = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
+        handler(c, m);
+    });
+    
+    if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
+        fprintf(stderr, "Failed: %d\n", r);
+        return 1;
+    }
+    
+    printf("✓ Client created\n");
+    
+    // Mute self
+    audit_token_t self;
+    mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
+    if (task_info(mach_task_self(), TASK_AUDIT_TOKEN, (task_info_t)&self, &count) == KERN_SUCCESS) {
+        es_mute_process(g_client, &self);
+        printf("✓ Muted self\n");
+    }
