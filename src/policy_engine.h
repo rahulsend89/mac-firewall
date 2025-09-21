@@ -41,15 +41,3 @@ policy_decision_t policy_evaluate_exec(
     pid_t ppid,
     const char *exec_path
 );
-
-/**
- * Check if path matches pattern (supports wildcards)
- */
-bool policy_path_matches(const char *path, const char *pattern);
-
-/**
- * Clean up policy engine
- */
-void policy_cleanup(void);
-
-#endif // POLICY_ENGINE_H
