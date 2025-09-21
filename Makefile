@@ -103,9 +103,3 @@ uninstall:
 	rm -f /usr/local/bin/mac-firewall
 	rm -f /etc/mac-firewall.json
 	@echo "✓ Uninstalled"
-
-# Clean build artifacts
-clean:
-	rm -rf $(BUILD_DIR) $(BIN_DIR)
-	rm -f $(ENTITLEMENTS)
-	@echo "✓ Cleaned build artifacts"
