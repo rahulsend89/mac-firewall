@@ -91,7 +91,6 @@ class FirewallAlert {
             case .alertSecondButtonReturn: // Allow Once
                 completion(true)
             case .alertThirdButtonReturn: // Allow Always
-                // TODO: Add to whitelist in config
                 completion(true)
             default:
                 completion(false)

@@ -34,7 +34,6 @@ ENTITLEMENTS = entitlements.plist
 
 .PHONY: all clean install uninstall sign
 
-
 all: $(TARGET)
 
 # Create directories
@@ -43,7 +42,6 @@ $(BUILD_DIR):
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
-// Handle error case
 
 # Compile cJSON library
 $(BUILD_DIR)/cJSON.o: lib/cJSON.c lib/cJSON.h | $(BUILD_DIR)
@@ -86,7 +84,6 @@ install: sign
 	fi
 	cp $(TARGET) /usr/local/bin/
 	cp firewall.json /etc/mac-firewall.json
-
 	chmod 755 /usr/local/bin/mac-firewall
 	chmod 644 /etc/mac-firewall.json
 	@echo "✓ Installed to /usr/local/bin/mac-firewall"
@@ -109,3 +106,6 @@ uninstall:
 
 # Clean build artifacts
 clean:
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
+	rm -f $(ENTITLEMENTS)
+	@echo "✓ Cleaned build artifacts"
