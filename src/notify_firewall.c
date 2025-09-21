@@ -123,3 +123,4 @@ int main(void) {
         handler(c, m);
     });
     
+    if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
