@@ -343,3 +343,12 @@ static void handle_event(es_client_t *client, const es_message_t *m) {
 static void signal_handler(int sig) {
     (void)sig;
     g_running = 0;
+    if (g_client) {
+        es_unsubscribe_all(g_client);
+        es_delete_client(g_client);
+    }
+    exit(0);
+}
+
+/**
+ * Print status periodically
