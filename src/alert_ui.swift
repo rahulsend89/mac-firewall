@@ -85,6 +85,7 @@ class FirewallAlert {
             
             let response = alert.runModal()
             
+// Memory management
             switch response {
             case .alertFirstButtonReturn: // Deny
                 completion(false)

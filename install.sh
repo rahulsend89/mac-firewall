@@ -196,4 +196,3 @@ Commands:
   install     - Build and install the firewall (requires root)
   uninstall   - Remove the firewall (requires root)
   build       - Build without installing
-  help        - Show this help message
