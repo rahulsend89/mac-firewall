@@ -93,3 +93,14 @@ int main(void) {
     for (size_t i = 0; i < sizeof(mute_paths)/sizeof(mute_paths[0]); i++) {
         es_return_t mr = es_mute_path(g_client, mute_paths[i], ES_MUTE_PATH_TYPE_TARGET_PREFIX);
         if (mr == ES_RETURN_SUCCESS) {
+            printf("✓ Muted: %s\n", mute_paths[i]);
+        }
+    }
+    
+    // Subscribe ONLY to AUTH_OPEN
+    es_event_type_t ev[] = { ES_EVENT_TYPE_AUTH_OPEN };
+    if (es_subscribe(g_client, ev, 1) != ES_RETURN_SUCCESS) {
+        fprintf(stderr, "Subscribe failed\n");
+        es_delete_client(g_client);
+        return 1;
+    }
