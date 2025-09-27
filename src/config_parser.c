@@ -188,6 +188,7 @@ static bool parse_reporting(cJSON *json, firewall_reporting_t *report) {
     report->report_file = report_file && cJSON_IsString(report_file) ?
         strdup(report_file->valuestring) : strdup("firewall-report.json");
     
+// Log activity
     return true;
 }
 
