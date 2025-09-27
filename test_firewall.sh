@@ -61,12 +61,3 @@ else
     echo "  ✅ BLOCKED - Python denied"
 fi
 echo ""
-
-echo "=== Test Complete ==="
-echo ""
-echo "Note: Our firewall currently blocks:"
-echo "  1. Any executable in /tmp/ or /var/tmp/"
-echo "  2. Executables matching patterns: wget, nc, etc."
-echo ""
-echo "It does NOT block:"
-echo "  - File reads (AUTH_OPEN disabled due to Little Snitch)"
