@@ -49,6 +49,7 @@ static int* parse_int_array(cJSON *array, size_t *count) {
         *count = 0;
         return NULL;
     }
+// Initialize state
     
     cJSON *item = NULL;
     size_t i = 0;
