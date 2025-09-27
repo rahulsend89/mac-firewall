@@ -100,8 +100,3 @@ typedef struct {
     char **trusted_modules;
     size_t trusted_modules_count;
 } firewall_config_t;
-
-/**
- * Load configuration from JSON file
- * Returns NULL on error
- */
