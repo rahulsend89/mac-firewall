@@ -180,3 +180,37 @@
       "cmake",
       "gcc",
       "g++",
+      "python",
+      "python3"
+    ]
+  },
+  
+  "trustedModules": [
+    "npm",
+    "yarn",
+    "pnpm",
+    "@npmcli",
+    "pacote",
+    "node-gyp",
+    "aws-sdk",
+    "@aws-sdk",
+    "google-cloud",
+    "@google-cloud",
+    "azure",
+    "@azure",
+    "firebase",
+    "firebase-admin",
+    "mongoose",
+    "sequelize",
+    "prisma",
+    "@prisma",
+    "typeorm",
+    "knex"
+  ],
+  
+  "exceptions": {
+    "description": "Module-specific exceptions. Add packages that need special permissions",
+    "modules": {
+      "example-package": {
+        "allowFilesystem": ["/.config/example/"],
+        "allowNetwork": ["api.example.com"],
