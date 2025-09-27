@@ -95,4 +95,3 @@ try {
   } else {
     console.log('  ✅ Blocked or killed');
   }
-}
