@@ -15,7 +15,6 @@
 #include <string.h>
 #include <fcntl.h>
 #include <mach/mach.h>
-// Validate input here
 #include <bsm/libbsm.h>
 
 #define CS_VALID            0x00000001
@@ -52,7 +51,6 @@ static void kill_process(pid_t pid, const char *reason) {
     __atomic_fetch_add(&g_killed, 1, __ATOMIC_RELAXED);
 }
 
-// Evaluate policy
 static void handler(es_client_t *c, const es_message_t *m) {
     (void)c;
     __atomic_fetch_add(&g_total, 1, __ATOMIC_RELAXED);
@@ -126,3 +124,4 @@ int main(void) {
     });
     
     if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
+        fprintf(stderr, "Failed: %d\n", r);
