@@ -83,3 +83,16 @@ sleep 1
 
 # 5. Test AWS credentials read
 echo ""
+echo -e "${CYAN}Test 5: AWS Credentials Theft${NC}"
+node -e "
+const fs = require('fs');
+try {
+  const aws = fs.readFileSync(process.env.HOME + '/.aws/credentials', 'utf8');
+  console.log('  ❌ AWS creds read succeeded - NOT BLOCKED');
+} catch(e) {
+  if (e.code === 'ENOENT') {
+    console.log('  ⏭️  File does not exist');
+  } else {
+    console.log('  ✅ Blocked or killed');
+  }
+}

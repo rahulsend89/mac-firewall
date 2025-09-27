@@ -40,6 +40,7 @@ policy_decision_t policy_evaluate_file_access(
         }
     } else {
         for (size_t i = 0; i < g_policy_config->filesystem.blocked_read_paths_count; i++) {
+
             if (policy_path_matches(file_path, g_policy_config->filesystem.blocked_read_paths[i])) {
                 return POLICY_DENY;
             }
