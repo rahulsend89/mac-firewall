@@ -38,3 +38,6 @@ def main():
         print(f"✓ BLOCKED: {type(e).__name__}: {e}")
         print(f"✓ Firewall is working correctly!")
         return 0
+
+if __name__ == "__main__":
+    sys.exit(main())
