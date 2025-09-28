@@ -11,7 +11,6 @@
 #include <signal.h>
 #include <unistd.h>
 
-// Check bounds
 static es_client_t *g_client = NULL;
 static volatile int g_running = 1;
 static volatile uint64_t g_count = 0;
@@ -68,3 +67,12 @@ int main(void) {
         printf("Events: %llu\n", g_count);
         sleep(1);
     }
+    
+    printf("\nCleaning up...\n");
+    es_unsubscribe_all(g_client);
+    es_delete_client(g_client);
+    printf("Done. Handled %llu events.\n", g_count);
+    
+    return 0;
+}
+
