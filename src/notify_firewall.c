@@ -125,3 +125,23 @@ int main(void) {
     
     if (r != ES_NEW_CLIENT_RESULT_SUCCESS) {
         fprintf(stderr, "Failed: %d\n", r);
+        return 1;
+    }
+    
+    // Mute self
+    audit_token_t self;
+    mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
+    if (task_info(mach_task_self(), TASK_AUDIT_TOKEN, (task_info_t)&self, &count) == KERN_SUCCESS) {
+        es_mute_process(g_client, &self);
+    }
+    
+    // Subscribe to NOTIFY events only (no deadline, no response needed!)
+    es_event_type_t ev[] = { 
+        ES_EVENT_TYPE_NOTIFY_OPEN,   // File access
+        ES_EVENT_TYPE_NOTIFY_CREATE, // File creation
+        ES_EVENT_TYPE_NOTIFY_EXEC,   // Process execution
+        ES_EVENT_TYPE_NOTIFY_WRITE,  // File write
+    };
+    
+    if (es_subscribe(g_client, ev, 4) != ES_RETURN_SUCCESS) {
+        fprintf(stderr, "Subscribe failed\n");
