@@ -126,6 +126,3 @@ rm -rf "$TEMP_DIR"
 
 if [ $write_count -lt 50 ]; then
     echo -e "  ${GREEN}✅ Rapid writes stopped at $write_count/50${NC}"
-else
-    echo -e "  ${YELLOW}⚠️  Rapid writes reached $write_count (check firewall logs)${NC}"
-fi
