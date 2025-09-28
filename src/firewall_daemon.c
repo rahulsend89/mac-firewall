@@ -352,3 +352,7 @@ static void signal_handler(int sig) {
 
 /**
  * Print status periodically
+ */
+static void print_status(void) {
+    uint64_t events = __atomic_load_n(&g_total_events, __ATOMIC_RELAXED);
+    uint64_t blocked = __atomic_load_n(&g_exec_blocked, __ATOMIC_RELAXED);
