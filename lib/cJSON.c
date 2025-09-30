@@ -2272,3 +2272,186 @@ CJSON_PUBLIC(cJSON *) cJSON_DetachItemViaPointer(cJSON *parent, cJSON * const it
     /* make sure the detached item doesn't point anywhere anymore */
     item->prev = NULL;
     item->next = NULL;
+
+    return item;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromArray(cJSON *array, int which)
+{
+    if (which < 0)
+    {
+        return NULL;
+    }
+
+    return cJSON_DetachItemViaPointer(array, get_array_item(array, (size_t)which));
+}
+
+CJSON_PUBLIC(void) cJSON_DeleteItemFromArray(cJSON *array, int which)
+{
+    cJSON_Delete(cJSON_DetachItemFromArray(array, which));
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObject(cJSON *object, const char *string)
+{
+    cJSON *to_detach = cJSON_GetObjectItem(object, string);
+
+    return cJSON_DetachItemViaPointer(object, to_detach);
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObjectCaseSensitive(cJSON *object, const char *string)
+{
+    cJSON *to_detach = cJSON_GetObjectItemCaseSensitive(object, string);
+
+    return cJSON_DetachItemViaPointer(object, to_detach);
+}
+
+CJSON_PUBLIC(void) cJSON_DeleteItemFromObject(cJSON *object, const char *string)
+{
+    cJSON_Delete(cJSON_DetachItemFromObject(object, string));
+}
+
+CJSON_PUBLIC(void) cJSON_DeleteItemFromObjectCaseSensitive(cJSON *object, const char *string)
+{
+    cJSON_Delete(cJSON_DetachItemFromObjectCaseSensitive(object, string));
+}
+
+/* Replace array/object items with new ones. */
+CJSON_PUBLIC(cJSON_bool) cJSON_InsertItemInArray(cJSON *array, int which, cJSON *newitem)
+{
+    cJSON *after_inserted = NULL;
+
+    if (which < 0 || newitem == NULL)
+    {
+        return false;
+    }
+
+    after_inserted = get_array_item(array, (size_t)which);
+    if (after_inserted == NULL)
+    {
+        return add_item_to_array(array, newitem);
+    }
+
+    if (after_inserted != array->child && after_inserted->prev == NULL) {
+        /* return false if after_inserted is a corrupted array item */
+        return false;
+    }
+
+    newitem->next = after_inserted;
+    newitem->prev = after_inserted->prev;
+    after_inserted->prev = newitem;
+    if (after_inserted == array->child)
+    {
+        array->child = newitem;
+    }
+    else
+    {
+        newitem->prev->next = newitem;
+    }
+    return true;
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemViaPointer(cJSON * const parent, cJSON * const item, cJSON * replacement)
+{
+    if ((parent == NULL) || (parent->child == NULL) || (replacement == NULL) || (item == NULL))
+    {
+        return false;
+    }
+
+    if (replacement == item)
+    {
+        return true;
+    }
+
+    replacement->next = item->next;
+    replacement->prev = item->prev;
+
+    if (replacement->next != NULL)
+    {
+        replacement->next->prev = replacement;
+    }
+    if (parent->child == item)
+    {
+        if (parent->child->prev == parent->child)
+        {
+            replacement->prev = replacement;
+        }
+        parent->child = replacement;
+    }
+    else
+    {   /*
+         * To find the last item in array quickly, we use prev in array.
+         * We can't modify the last item's next pointer where this item was the parent's child
+         */
+        if (replacement->prev != NULL)
+        {
+            replacement->prev->next = replacement;
+        }
+        if (replacement->next == NULL)
+        {
+            parent->child->prev = replacement;
+        }
+    }
+
+    item->next = NULL;
+    item->prev = NULL;
+    cJSON_Delete(item);
+
+    return true;
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInArray(cJSON *array, int which, cJSON *newitem)
+{
+    if (which < 0)
+    {
+        return false;
+    }
+
+    return cJSON_ReplaceItemViaPointer(array, get_array_item(array, (size_t)which), newitem);
+}
+
+static cJSON_bool replace_item_in_object(cJSON *object, const char *string, cJSON *replacement, cJSON_bool case_sensitive)
+{
+    if ((replacement == NULL) || (string == NULL))
+    {
+        return false;
+    }
+
+    /* replace the name in the replacement */
+    if (!(replacement->type & cJSON_StringIsConst) && (replacement->string != NULL))
+    {
+        cJSON_free(replacement->string);
+    }
+    replacement->string = (char*)cJSON_strdup((const unsigned char*)string, &global_hooks);
+    if (replacement->string == NULL)
+    {
+        return false;
+    }
+
+    replacement->type &= ~cJSON_StringIsConst;
+
+    return cJSON_ReplaceItemViaPointer(object, get_object_item(object, string, case_sensitive), replacement);
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInObject(cJSON *object, const char *string, cJSON *newitem)
+{
+    return replace_item_in_object(object, string, newitem, false);
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInObjectCaseSensitive(cJSON *object, const char *string, cJSON *newitem)
+{
+    return replace_item_in_object(object, string, newitem, true);
+}
+
+/* Create basic types: */
+CJSON_PUBLIC(cJSON *) cJSON_CreateNull(void)
+{
+    cJSON *item = cJSON_New_Item(&global_hooks);
+    if(item)
+    {
+        item->type = cJSON_NULL;
+    }
+
+    return item;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_CreateTrue(void)
