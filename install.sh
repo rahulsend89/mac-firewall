@@ -185,14 +185,3 @@ function uninstall_firewall() {
     
     print_success "Uninstallation complete"
 }
-
-function show_usage() {
-    cat << EOF
-macOS Firewall Installation Script
-
-Usage: $0 [command]
-
-Commands:
-  install     - Build and install the firewall (requires root)
-  uninstall   - Remove the firewall (requires root)
-  build       - Build without installing
