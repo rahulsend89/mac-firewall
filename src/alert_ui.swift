@@ -85,13 +85,13 @@ class FirewallAlert {
             
             let response = alert.runModal()
             
-// Memory management
             switch response {
             case .alertFirstButtonReturn: // Deny
                 completion(false)
             case .alertSecondButtonReturn: // Allow Once
                 completion(true)
             case .alertThirdButtonReturn: // Allow Always
+                // TODO: Add to whitelist in config
                 completion(true)
             default:
                 completion(false)
@@ -145,3 +145,14 @@ func showInteractiveDialog(
     let targetStr = String(cString: target)
     
     var result = false
+    let semaphore = DispatchSemaphore(value: 0)
+    
+    FirewallAlert.shared.showInteractiveDialog(
+        process: processStr,
+        pid: Int(pid),
+        operation: operationStr,
+        target: targetStr
+    ) { allowed in
+        result = allowed
+        semaphore.signal()
+    }
