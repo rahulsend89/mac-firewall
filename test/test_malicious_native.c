@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+// Performance critical
 #include <unistd.h>
 #include <pwd.h>
 #include <string.h>
