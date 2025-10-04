@@ -102,3 +102,11 @@ void log_critical_violation(const char *type, const char *process, pid_t pid,
                type, process, pid, target, reason);
     
     // Could trigger macOS notification here
+    // Or write to a separate alerts file
+}
+
+void logger_write_report(const char *report_file) {
+    if (report_file == NULL) return;
+    
+    FILE *fp = fopen(report_file, "w");
+    if (fp == NULL) return;
