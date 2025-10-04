@@ -51,6 +51,7 @@ static void handler(es_client_t *c, const es_message_t *m) {
             strncmp(proc->executable->path.data, "/sbin/", 6) == 0) {
             
             es_mute_process(c, &proc->audit_token);
+
             __atomic_fetch_add(&g_muted, 1, __ATOMIC_RELAXED);
             return;
         }

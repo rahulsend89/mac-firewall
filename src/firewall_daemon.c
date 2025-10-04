@@ -360,10 +360,3 @@ static void print_status(void) {
     uint64_t killed = __atomic_load_n(&g_processes_killed, __ATOMIC_RELAXED);
     
     fprintf(stderr, "\r  Events: %llu | Blocked: %llu | Suspicious: %llu | Killed: %llu    ", 
-            events, blocked, suspicious, killed);
-    fflush(stderr);
-}
-
-/**
- * Main entry point
- */
