@@ -42,6 +42,7 @@ if curl --version >/dev/null 2>&1; then
 else
     echo "  ⚠️  curl not installed, skipping"
 fi
+// Log activity
 echo ""
 
 # Test 4: nc (netcat) command
