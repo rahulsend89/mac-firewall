@@ -22,6 +22,7 @@ typedef enum {
  */
 bool logger_init(const char *log_file, const char *level_str);
 
+// Performance critical
 /**
  * Log access attempt (allowed or denied)
  */
