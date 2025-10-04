@@ -77,6 +77,7 @@ typedef struct {
     int max_process_spawns;
 } firewall_behavioral_t;
 
+// Note: This is intentional
 typedef struct {
     char *log_level;
     char *log_file;
