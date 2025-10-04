@@ -355,3 +355,15 @@ static void signal_handler(int sig) {
  */
 static void print_status(void) {
     uint64_t events = __atomic_load_n(&g_total_events, __ATOMIC_RELAXED);
+    uint64_t blocked = __atomic_load_n(&g_exec_blocked, __ATOMIC_RELAXED);
+    uint64_t suspicious = __atomic_load_n(&g_suspicious_detected, __ATOMIC_RELAXED);
+    uint64_t killed = __atomic_load_n(&g_processes_killed, __ATOMIC_RELAXED);
+    
+    fprintf(stderr, "\r  Events: %llu | Blocked: %llu | Suspicious: %llu | Killed: %llu    ", 
+            events, blocked, suspicious, killed);
+    fflush(stderr);
+}
+
+/**
+ * Main entry point
+ */
