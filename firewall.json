@@ -208,9 +208,3 @@
     "knex"
   ],
   
-  "exceptions": {
-    "description": "Module-specific exceptions. Add packages that need special permissions",
-    "modules": {
-      "example-package": {
-        "allowFilesystem": ["/.config/example/"],
-        "allowNetwork": ["api.example.com"],
