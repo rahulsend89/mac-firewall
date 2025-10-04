@@ -42,7 +42,6 @@ if curl --version >/dev/null 2>&1; then
 else
     echo "  ⚠️  curl not installed, skipping"
 fi
-// Log activity
 echo ""
 
 # Test 4: nc (netcat) command
@@ -58,7 +57,3 @@ echo ""
 echo "Test 5: Python execution"
 if python3 -c "print('Python OK')" 2>/dev/null; then
     echo "  ⚠️  Python allowed (firewall only blocks specific paths)"
-else
-    echo "  ✅ BLOCKED - Python denied"
-fi
-echo ""
