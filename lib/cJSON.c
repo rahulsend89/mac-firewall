@@ -2455,3 +2455,49 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateNull(void)
 }
 
 CJSON_PUBLIC(cJSON *) cJSON_CreateTrue(void)
+{
+    cJSON *item = cJSON_New_Item(&global_hooks);
+    if(item)
+    {
+        item->type = cJSON_True;
+    }
+
+    return item;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_CreateFalse(void)
+{
+    cJSON *item = cJSON_New_Item(&global_hooks);
+    if(item)
+    {
+        item->type = cJSON_False;
+    }
+
+    return item;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_CreateBool(cJSON_bool boolean)
+{
+    cJSON *item = cJSON_New_Item(&global_hooks);
+    if(item)
+    {
+        item->type = boolean ? cJSON_True : cJSON_False;
+    }
+
+    return item;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_CreateNumber(double num)
+{
+    cJSON *item = cJSON_New_Item(&global_hooks);
+    if(item)
+    {
+        item->type = cJSON_Number;
+        item->valuedouble = num;
+
+        /* use saturation in case of overflow */
+        if (num >= INT_MAX)
+        {
+            item->valueint = INT_MAX;
+        }
+        else if (num <= (double)INT_MIN)
