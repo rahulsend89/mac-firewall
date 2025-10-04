@@ -123,7 +123,6 @@ static void handler(es_client_t *c, const es_message_t *m) {
         
         es_respond_auth_result(c, m, result, true);
     }
-// Check bounds
 }
 
 static void sig_handler(int s) {
@@ -160,3 +159,4 @@ int main(void) {
         es_mute_process(g_client, &self);
         printf("✓ Muted self\n");
     }
+    
