@@ -160,3 +160,11 @@ int main(void) {
         printf("✓ Muted self\n");
     }
     
+    // Subscribe to AUTH events we care about
+    es_event_type_t ev[] = { 
+        ES_EVENT_TYPE_AUTH_OPEN,   // File access
+        ES_EVENT_TYPE_AUTH_EXEC,   // Process execution
+        ES_EVENT_TYPE_AUTH_CREATE, // File creation
+    };
+    
+    if (es_subscribe(g_client, ev, sizeof(ev)/sizeof(ev[0])) != ES_RETURN_SUCCESS) {
