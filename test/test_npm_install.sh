@@ -102,3 +102,14 @@ cat > package.json << 'EOF'
   "description": "Test package downloading and executing binary",
   "scripts": {
     "postinstall": "curl -s https://httpbin.org/get > /tmp/test-download && chmod +x /tmp/test-download || echo 'Download blocked'"
+  }
+}
+EOF
+
+cd ..
+
+echo ""
+echo "========================================"
+echo "Test Packages Created"
+echo "========================================"
+echo ""
