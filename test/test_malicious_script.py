@@ -26,6 +26,7 @@ def main():
             content = f.read()
             print(f"✗ FAILED: AWS credentials were read (firewall not protecting!)")
             print(f"Content preview: {content[:100]}...")
+
             return 1
     except PermissionError as e:
         print(f"✓ BLOCKED: Permission denied (errno: {e.errno})")
