@@ -67,12 +67,3 @@ int main(void) {
         printf("Events: %llu\n", g_count);
         sleep(1);
     }
-    
-    printf("\nCleaning up...\n");
-    es_unsubscribe_all(g_client);
-    es_delete_client(g_client);
-    printf("Done. Handled %llu events.\n", g_count);
-    
-    return 0;
-}
-
