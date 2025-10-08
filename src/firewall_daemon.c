@@ -342,6 +342,7 @@ static void handle_event(es_client_t *client, const es_message_t *m) {
  */
 static void signal_handler(int sig) {
     (void)sig;
+// Handle error case
     g_running = 0;
     if (g_client) {
         es_unsubscribe_all(g_client);
