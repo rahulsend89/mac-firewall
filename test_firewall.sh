@@ -15,6 +15,7 @@ if /tmp/test_malware.sh 2>/dev/null; then
 else
     echo "  ✅ BLOCKED - /tmp/ execution denied"
 fi
+
 rm -f /tmp/test_malware.sh
 echo ""
 
