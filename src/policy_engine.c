@@ -52,7 +52,6 @@ policy_decision_t policy_evaluate_file_access(
         for (size_t i = 0; i < g_policy_config->filesystem.allowed_paths_count; i++) {
             if (policy_path_matches(file_path, g_policy_config->filesystem.allowed_paths[i])) {
                 allowed = true;
-
                 break;
             }
         }
