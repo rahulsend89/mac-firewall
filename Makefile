@@ -113,17 +113,3 @@ clean:
 # Development: build and run (requires SIP disabled)
 dev: sign
 	@echo "Starting firewall in development mode..."
-	@echo "Note: Requires SIP disabled and System Extension approval"
-	sudo $(TARGET) firewall.json
-
-# Print help
-help:
-	@echo "macOS Firewall Build System"
-	@echo ""
-	@echo "Targets:"
-	@echo "  all       - Build the firewall daemon"
-	@echo "  sign      - Code sign with entitlements"
-	@echo "  install   - Install to /usr/local/bin (requires root)"
-	@echo "  uninstall - Remove from system (requires root)"
-	@echo "  clean     - Remove build artifacts"
-	@echo "  dev       - Build, sign, and run in dev mode (requires root)"
