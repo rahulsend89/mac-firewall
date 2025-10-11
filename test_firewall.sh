@@ -15,7 +15,6 @@ if /tmp/test_malware.sh 2>/dev/null; then
 else
     echo "  ✅ BLOCKED - /tmp/ execution denied"
 fi
-
 rm -f /tmp/test_malware.sh
 echo ""
 
@@ -58,3 +57,12 @@ echo ""
 echo "Test 5: Python execution"
 if python3 -c "print('Python OK')" 2>/dev/null; then
     echo "  ⚠️  Python allowed (firewall only blocks specific paths)"
+else
+    echo "  ✅ BLOCKED - Python denied"
+fi
+echo ""
+
+echo "=== Test Complete ==="
+echo ""
+echo "Note: Our firewall currently blocks:"
+echo "  1. Any executable in /tmp/ or /var/tmp/"
