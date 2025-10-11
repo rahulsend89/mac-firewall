@@ -20,7 +20,6 @@ static volatile int g_running = 1;
 static volatile uint64_t g_total = 0;
 static volatile uint64_t g_blocked = 0;
 
-
 // Check if path looks suspicious (npm supply chain attack vectors)
 static int is_suspicious_exec(const char *path) {
     // Block executables from temp directories
@@ -102,3 +101,16 @@ int main(void) {
     
     printf("✓ Subscribed to AUTH_EXEC only\n");
     printf("\n🛡️  Exec-Only Firewall Running\n");
+    printf("Blocking: Scripts in node_modules, executables in /tmp\n");
+    printf("Press Ctrl+C to stop\n\n");
+    
+    while (g_running) {
+        printf("  Execs: %llu | Blocked: %llu\n", g_total, g_blocked);
+        sleep(1);
+    }
+    
+    printf("\nDone. Total: %llu, Blocked: %llu\n", g_total, g_blocked);
+    es_unsubscribe_all(g_client);
+    es_delete_client(g_client);
+    
+    return 0;
