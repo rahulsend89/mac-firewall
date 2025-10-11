@@ -123,3 +123,14 @@ for i in {1..60}; do
     fi
 done
 rm -rf "$TEMP_DIR"
+
+if [ $write_count -lt 50 ]; then
+    echo -e "  ${GREEN}✅ Rapid writes stopped at $write_count/50${NC}"
+else
+    echo -e "  ${YELLOW}⚠️  Rapid writes reached $write_count (check firewall logs)${NC}"
+fi
+
+echo ""
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${CYAN}  4️⃣  FULL ATTACK SIMULATION (Node.js)${NC}"
+echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
