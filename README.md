@@ -294,3 +294,34 @@ NODE_MODULE_INIT() { StealCredentials(); }
 ```bash
 # Clone repository
 git clone https://github.com/yourusername/mac-firewall.git
+cd mac-firewall
+
+# Build
+make clean
+make all
+make sign
+
+# Run in development mode
+sudo make dev
+```
+
+### Project Structure
+
+```
+mac-firewall/
+├── src/
+│   ├── firewall_daemon.c      # Main ES client
+│   ├── config_parser.c        # JSON config parser
+│   ├── process_tracker.c      # Process tree tracking
+│   ├── logger.c               # Logging system
+│   └── policy_engine.c        # Policy evaluation
+├── lib/
+│   ├── cJSON.c                # JSON library
+│   └── cJSON.h
+├── firewall.json              # Configuration
+├── Makefile                   # Build system
+├── install.sh                 # Installation script
+└── README.md
+```
+
+### Code Signing
