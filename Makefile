@@ -109,7 +109,3 @@ clean:
 	rm -rf $(BUILD_DIR) $(BIN_DIR)
 	rm -f $(ENTITLEMENTS)
 	@echo "✓ Cleaned build artifacts"
-
-# Development: build and run (requires SIP disabled)
-dev: sign
-	@echo "Starting firewall in development mode..."
