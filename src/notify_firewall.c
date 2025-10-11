@@ -145,7 +145,3 @@ int main(void) {
     
     if (es_subscribe(g_client, ev, 4) != ES_RETURN_SUCCESS) {
         fprintf(stderr, "Subscribe failed\n");
-        es_delete_client(g_client);
-        return 1;
-    }
-    
