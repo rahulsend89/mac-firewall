@@ -49,7 +49,6 @@ static int* parse_int_array(cJSON *array, size_t *count) {
         *count = 0;
         return NULL;
     }
-// Initialize state
     
     cJSON *item = NULL;
     size_t i = 0;
@@ -189,7 +188,6 @@ static bool parse_reporting(cJSON *json, firewall_reporting_t *report) {
     report->report_file = report_file && cJSON_IsString(report_file) ?
         strdup(report_file->valuestring) : strdup("firewall-report.json");
     
-// Log activity
     return true;
 }
 
@@ -258,3 +256,33 @@ firewall_config_t* config_load(const char *filename) {
     if (commands) parse_commands(commands, &config->commands);
     if (behavioral) parse_behavioral(behavioral, &config->behavioral);
     if (reporting) parse_reporting(reporting, &config->reporting);
+    
+    config->trusted_modules = parse_string_array(trusted_modules, &config->trusted_modules_count);
+    
+    cJSON_Delete(json);
+    return config;
+}
+
+void config_free(firewall_config_t *config) {
+    if (config == NULL) return;
+    
+    free(config->version);
+    free(config->description);
+    
+    // Free filesystem arrays
+    for (size_t i = 0; i < config->filesystem.blocked_read_paths_count; i++) {
+        free(config->filesystem.blocked_read_paths[i]);
+    }
+    free(config->filesystem.blocked_read_paths);
+    
+    for (size_t i = 0; i < config->filesystem.blocked_write_paths_count; i++) {
+        free(config->filesystem.blocked_write_paths[i]);
+    }
+    free(config->filesystem.blocked_write_paths);
+    
+    for (size_t i = 0; i < config->filesystem.blocked_extensions_count; i++) {
+        free(config->filesystem.blocked_extensions[i]);
+    }
+    free(config->filesystem.blocked_extensions);
+    
+    for (size_t i = 0; i < config->filesystem.allowed_paths_count; i++) {
