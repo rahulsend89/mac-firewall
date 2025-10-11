@@ -51,7 +51,6 @@ static void handler(es_client_t *c, const es_message_t *m) {
             strncmp(proc->executable->path.data, "/sbin/", 6) == 0) {
             
             es_mute_process(c, &proc->audit_token);
-
             __atomic_fetch_add(&g_muted, 1, __ATOMIC_RELAXED);
             return;
         }
@@ -96,3 +95,12 @@ int main(void) {
     // Subscribe - we'll respond ALLOW to everything, but track suspicious activity
     es_event_type_t ev[] = { 
         ES_EVENT_TYPE_AUTH_OPEN,
+        ES_EVENT_TYPE_AUTH_EXEC,
+    };
+    
+    if (es_subscribe(g_client, ev, 2) != ES_RETURN_SUCCESS) {
+        fprintf(stderr, "Subscribe failed\n");
+        es_delete_client(g_client);
+        return 1;
+    }
+    
