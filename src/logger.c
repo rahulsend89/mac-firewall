@@ -116,6 +116,3 @@ void logger_write_report(const char *report_file) {
     fprintf(fp, "  \"firewall\": \"macOS EndpointSecurity Firewall\",\n");
     fprintf(fp, "  \"status\": \"active\"\n");
     fprintf(fp, "}\n");
-    
-    fclose(fp);
-}
