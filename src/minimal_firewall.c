@@ -74,3 +74,11 @@ int main(void) {
         dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
     dispatch_source_set_timer(timer, dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC),
         NSEC_PER_SEC, 0);
+    dispatch_source_set_event_handler(timer, ^{
+        printf("  Events: %llu\n", g_event_count);
+    });
+    dispatch_resume(timer);
+    
+    // Keep process alive
+    dispatch_main();
+    
