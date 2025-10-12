@@ -34,6 +34,7 @@ if command -v jq &> /dev/null; then
     enabled=$(jq -r '.mode.enabled' "$CONFIG_FILE")
     strict=$(jq -r '.mode.strictMode' "$CONFIG_FILE")
     alert=$(jq -r '.mode.alertOnly' "$CONFIG_FILE")
+
     interactive=$(jq -r '.mode.interactive' "$CONFIG_FILE")
     
     echo ""
