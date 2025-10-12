@@ -195,3 +195,12 @@ Usage: $0 [command]
 Commands:
   install     - Build and install the firewall (requires root)
   uninstall   - Remove the firewall (requires root)
+  build       - Build without installing
+  help        - Show this help message
+
+If no command is provided, 'install' is assumed.
+
+Requirements:
+  - macOS 10.15 (Catalina) or later
+  - Xcode Command Line Tools
+  - SIP disabled (for development)
