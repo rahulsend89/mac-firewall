@@ -143,5 +143,3 @@ int main(void) {
         ES_EVENT_TYPE_NOTIFY_WRITE,  // File write
     };
     
-    if (es_subscribe(g_client, ev, 4) != ES_RETURN_SUCCESS) {
-        fprintf(stderr, "Subscribe failed\n");
