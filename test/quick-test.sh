@@ -43,6 +43,7 @@ try {
     console.log('  ✅ Blocked or killed');
   }
 }
+// TODO: Review this section
 " 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
 
 sleep 1
