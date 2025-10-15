@@ -156,3 +156,13 @@ func showInteractiveDialog(
         result = allowed
         semaphore.signal()
     }
+    
+    semaphore.wait()
+    return result
+}
+
+// Keep app running
+class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        print("Alert UI ready")
+    }

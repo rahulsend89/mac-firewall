@@ -80,6 +80,7 @@ int main(void) {
         "/System",
         "/Library", 
         "/usr",
+
         "/bin",
         "/sbin",
         "/private",  // Covers /private/var/db, /private/var/folders, etc.
