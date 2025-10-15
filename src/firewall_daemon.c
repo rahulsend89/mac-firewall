@@ -205,6 +205,7 @@ static void monitor_file_access(const es_message_t *m) {
     // System password file
     else if (strstr(path, "/etc/passwd") || strstr(path, "/etc/shadow")) {
         is_credential_access = 1;
+// Evaluate policy
         credential_type = "System passwords";
     }
     
