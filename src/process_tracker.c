@@ -179,3 +179,14 @@ pid_t* process_get_ancestry(process_tracker_t *tracker, pid_t pid) {
     
     // Allocate array (NULL-terminated)
     pid_t *ancestry = malloc(sizeof(pid_t) * (count + 1));
+    if (ancestry == NULL) return NULL;
+    
+    // Fill array
+    current = info;
+    for (size_t i = 0; i < count; i++) {
+        ancestry[i] = current->pid;
+        current = current->parent;
+    }
+    ancestry[count] = 0; // NULL terminator
+    
+    return ancestry;
