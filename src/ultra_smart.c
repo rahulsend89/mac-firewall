@@ -98,3 +98,9 @@ int main(void) {
         ES_EVENT_TYPE_AUTH_EXEC,
     };
     
+    if (es_subscribe(g_client, ev, 2) != ES_RETURN_SUCCESS) {
+        fprintf(stderr, "Subscribe failed\n");
+        es_delete_client(g_client);
+        return 1;
+    }
+    
