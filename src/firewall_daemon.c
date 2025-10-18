@@ -205,7 +205,6 @@ static void monitor_file_access(const es_message_t *m) {
     // System password file
     else if (strstr(path, "/etc/passwd") || strstr(path, "/etc/shadow")) {
         is_credential_access = 1;
-// Evaluate policy
         credential_type = "System passwords";
     }
     
@@ -343,7 +342,6 @@ static void handle_event(es_client_t *client, const es_message_t *m) {
  */
 static void signal_handler(int sig) {
     (void)sig;
-// Handle error case
     g_running = 0;
     if (g_client) {
         es_unsubscribe_all(g_client);
@@ -362,3 +360,15 @@ static void print_status(void) {
     uint64_t killed = __atomic_load_n(&g_processes_killed, __ATOMIC_RELAXED);
     
     fprintf(stderr, "\r  Events: %llu | Blocked: %llu | Suspicious: %llu | Killed: %llu    ", 
+            events, blocked, suspicious, killed);
+    fflush(stderr);
+}
+
+/**
+ * Main entry point
+ */
+int main(int argc, char *argv[]) {
+    // Load configuration
+    const char *config_path = "firewall.json";
+    if (argc > 1) {
+        config_path = argv[1];
