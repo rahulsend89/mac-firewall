@@ -212,3 +212,13 @@
     "description": "Module-specific exceptions. Add packages that need special permissions",
     "modules": {
       "example-package": {
+        "allowFilesystem": ["/.config/example/"],
+        "allowNetwork": ["api.example.com"],
+        "allowCommands": ["example-cli"],
+        "reason": "Legitimate config file access"
+      }
+    }
+  },
+  
+  "behavioral": {
+    "monitorLifecycleScripts": true,
