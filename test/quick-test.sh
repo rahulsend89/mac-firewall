@@ -67,6 +67,7 @@ sleep 1
 
 # 4. Test LaunchAgent creation
 echo ""
+
 echo -e "${CYAN}Test 4: Launch Agent Persistence${NC}"
 node -e "
 const fs = require('fs');
