@@ -45,3 +45,6 @@ policy_decision_t policy_evaluate_exec(
 /**
  * Check if path matches pattern (supports wildcards)
  */
+bool policy_path_matches(const char *path, const char *pattern);
+
+/**
