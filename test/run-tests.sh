@@ -134,3 +134,11 @@ echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${CYAN}  4️⃣  FULL ATTACK SIMULATION (Node.js)${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+
+# Run the full Node.js attack simulator
+if [ -f "$SCRIPT_DIR/attack-simulator.js" ]; then
+    echo -e "  ${BLUE}Running attack-simulator.js...${NC}"
+    timeout 30 node "$SCRIPT_DIR/attack-simulator.js" 2>&1 || true
+else
+    echo -e "  ${YELLOW}⏭️  attack-simulator.js not found${NC}"
+fi
