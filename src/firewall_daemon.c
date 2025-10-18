@@ -380,3 +380,5 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Warning: Could not load config, using defaults\n");
     } else {
         printf("✓ Configuration loaded\n");
+        printf("  Mode: %s\n", g_config->mode.strict_mode ? "STRICT" : "ENFORCE");
+    }
