@@ -104,3 +104,13 @@ int main(void) {
         return 1;
     }
     
+    printf("✓ Running - Respond first, analyze later\n");
+    printf("✓ Will mute system processes automatically\n\n");
+    
+    while (g_running) {
+        printf("Events: %llu | Muted: %llu | Suspicious: %llu\n", 
+               g_total, g_muted, g_suspicious);
+        sleep(1);
+    }
+    
+    printf("\nDone.\n");
