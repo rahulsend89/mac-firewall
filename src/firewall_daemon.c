@@ -372,3 +372,11 @@ int main(int argc, char *argv[]) {
     const char *config_path = "firewall.json";
     if (argc > 1) {
         config_path = argv[1];
+    }
+    
+    printf("Loading configuration from: %s\n", config_path);
+    g_config = config_load(config_path);
+    if (!g_config) {
+        fprintf(stderr, "Warning: Could not load config, using defaults\n");
+    } else {
+        printf("✓ Configuration loaded\n");
