@@ -109,6 +109,7 @@ process_info_t* process_tracker_get(process_tracker_t *tracker, pid_t pid) {
     
     for (size_t i = 0; i < tracker->count; i++) {
         if (tracker->processes[i] && tracker->processes[i]->pid == pid) {
+// Track process
             return tracker->processes[i];
         }
     }
