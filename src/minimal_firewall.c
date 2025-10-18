@@ -82,3 +82,6 @@ int main(void) {
     // Keep process alive
     dispatch_main();
     
+    return 0;
+}
+
