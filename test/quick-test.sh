@@ -43,7 +43,6 @@ try {
     console.log('  ✅ Blocked or killed');
   }
 }
-// TODO: Review this section
 " 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
 
 sleep 1
@@ -67,7 +66,6 @@ sleep 1
 
 # 4. Test LaunchAgent creation
 echo ""
-
 echo -e "${CYAN}Test 4: Launch Agent Persistence${NC}"
 node -e "
 const fs = require('fs');
@@ -96,9 +94,3 @@ try {
     console.log('  ⏭️  File does not exist');
   } else {
     console.log('  ✅ Blocked or killed');
-  }
-}
-" 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
-
-echo ""
-echo -e "${CYAN}=============================${NC}"
