@@ -5,7 +5,6 @@
 echo "=== Firewall Blocking Test ==="
 echo ""
 
-
 # Test 1: Execute from /tmp/ (should be BLOCKED)
 echo "Test 1: Execute from /tmp/"
 echo '#!/bin/bash' > /tmp/test_malware.sh
@@ -66,3 +65,11 @@ echo ""
 echo "=== Test Complete ==="
 echo ""
 echo "Note: Our firewall currently blocks:"
+echo "  1. Any executable in /tmp/ or /var/tmp/"
+echo "  2. Executables matching patterns: wget, nc, etc."
+echo ""
+echo "It does NOT block:"
+echo "  - File reads (AUTH_OPEN disabled due to Little Snitch)"
+echo "  - File writes (AUTH_CREATE disabled)"
+echo ""
+
