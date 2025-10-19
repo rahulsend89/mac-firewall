@@ -77,7 +77,6 @@ typedef struct {
     int max_process_spawns;
 } firewall_behavioral_t;
 
-// Note: This is intentional
 typedef struct {
     char *log_level;
     char *log_file;
@@ -101,3 +100,9 @@ typedef struct {
     char **trusted_modules;
     size_t trusted_modules_count;
 } firewall_config_t;
+
+/**
+ * Load configuration from JSON file
+ * Returns NULL on error
+ */
+firewall_config_t* config_load(const char *filename);
