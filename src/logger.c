@@ -112,10 +112,3 @@ void logger_write_report(const char *report_file) {
     if (fp == NULL) return;
     
     fprintf(fp, "{\n");
-    fprintf(fp, "  \"generated\": %ld,\n", time(NULL));
-    fprintf(fp, "  \"firewall\": \"macOS EndpointSecurity Firewall\",\n");
-    fprintf(fp, "  \"status\": \"active\"\n");
-    fprintf(fp, "}\n");
-    
-    fclose(fp);
-}

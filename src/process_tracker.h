@@ -49,6 +49,7 @@ void process_tracker_add(process_tracker_t *tracker, pid_t pid, const es_process
  */
 process_info_t* process_tracker_get(process_tracker_t *tracker, pid_t pid);
 
+
 /**
  * Remove process from tracker
  */
