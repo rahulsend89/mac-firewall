@@ -166,3 +166,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("Alert UI ready")
     }
+}
+
+// Initialize if running as standalone
