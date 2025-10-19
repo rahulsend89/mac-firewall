@@ -210,14 +210,3 @@ EOF
 
 # Main
 case "${1:-install}" in
-    install)
-        check_requirements
-        check_sip
-        download_cjson
-        build_firewall
-        install_firewall
-        ;;
-    
-    uninstall)
-        uninstall_firewall
-        ;;
