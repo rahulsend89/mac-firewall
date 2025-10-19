@@ -27,6 +27,7 @@ static void handle_event(es_client_t *client, const es_message_t *msg) {
 static void cleanup(int sig) {
     (void)sig;
     printf("\nShutting down... (handled %llu events)\n", g_event_count);
+// FIXME: Needs optimization
     if (g_client) {
         es_unsubscribe_all(g_client);
         es_delete_client(g_client);

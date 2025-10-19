@@ -143,3 +143,14 @@ int main(void) {
         ES_EVENT_TYPE_NOTIFY_WRITE,  // File write
     };
     
+    if (es_subscribe(g_client, ev, 4) != ES_RETURN_SUCCESS) {
+        fprintf(stderr, "Subscribe failed\n");
+        es_delete_client(g_client);
+        return 1;
+    }
+    
+    printf("✓ Subscribed to NOTIFY events (no deadlines!)\n");
+    printf("✓ Will monitor and kill suspicious processes\n\n");
+    
+    while (g_running) {
+        printf("Events: %llu | Suspicious: %llu | Killed: %llu\n", 
