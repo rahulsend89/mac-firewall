@@ -81,3 +81,8 @@ policy_decision_t policy_evaluate_exec(
     }
     
     return POLICY_ALLOW;
+}
+
+void policy_cleanup(void) {
+    g_policy_config = NULL;
+}
