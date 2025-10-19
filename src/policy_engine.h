@@ -48,3 +48,4 @@ policy_decision_t policy_evaluate_exec(
 bool policy_path_matches(const char *path, const char *pattern);
 
 /**
+ * Clean up policy engine
