@@ -305,10 +305,3 @@ void config_free(firewall_config_t *config) {
     
     for (size_t i = 0; i < config->network.credential_patterns_count; i++) {
         free(config->network.credential_patterns[i]);
-    }
-    free(config->network.credential_patterns);
-    
-    // Free environment arrays
-    for (size_t i = 0; i < config->environment.protected_variables_count; i++) {
-        free(config->environment.protected_variables[i]);
-    }
