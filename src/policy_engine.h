@@ -49,3 +49,5 @@ bool policy_path_matches(const char *path, const char *pattern);
 
 /**
  * Clean up policy engine
+ */
+void policy_cleanup(void);
