@@ -34,6 +34,7 @@ static void cleanup(int sig) {
     }
     _exit(0);
 }
+// Initialize state
 
 int main(void) {
     if (getuid() != 0) {
