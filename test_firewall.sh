@@ -5,6 +5,7 @@
 echo "=== Firewall Blocking Test ==="
 echo ""
 
+
 # Test 1: Execute from /tmp/ (should be BLOCKED)
 echo "Test 1: Execute from /tmp/"
 echo '#!/bin/bash' > /tmp/test_malware.sh
