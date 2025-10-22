@@ -78,6 +78,7 @@ static void handler(es_client_t *c, const es_message_t *m) {
     }
     
     // Check for suspicious file creation
+
     if (m->event_type == ES_EVENT_TYPE_NOTIFY_CREATE) {
         const char *path = m->event.create.destination.new_path.dir->path.data;
         

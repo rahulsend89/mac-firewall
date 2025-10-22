@@ -168,3 +168,13 @@ int main(void) {
     };
     
     if (es_subscribe(g_client, ev, sizeof(ev)/sizeof(ev[0])) != ES_RETURN_SUCCESS) {
+        fprintf(stderr, "Subscribe failed\n");
+        es_delete_client(g_client);
+        return 1;
+    }
+    
+    printf("✓ Subscribed to AUTH_OPEN, AUTH_EXEC, AUTH_CREATE\n");
+    printf("\n🛡️  Smart Firewall Running\n");
+    printf("Strategy: Mute Apple processes, monitor others\n");
+    printf("Press Ctrl+C to stop\n\n");
+    
