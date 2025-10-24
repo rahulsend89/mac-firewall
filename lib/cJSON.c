@@ -2661,3 +2661,68 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateFloatArray(const float *numbers, int count)
     {
         n = cJSON_CreateNumber((double)numbers[i]);
         if(!n)
+        {
+            cJSON_Delete(a);
+            return NULL;
+        }
+        if(!i)
+        {
+            a->child = n;
+        }
+        else
+        {
+            suffix_object(p, n);
+        }
+        p = n;
+    }
+
+    if (a && a->child) {
+        a->child->prev = n;
+    }
+
+    return a;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_CreateDoubleArray(const double *numbers, int count)
+{
+    size_t i = 0;
+    cJSON *n = NULL;
+    cJSON *p = NULL;
+    cJSON *a = NULL;
+
+    if ((count < 0) || (numbers == NULL))
+    {
+        return NULL;
+    }
+
+    a = cJSON_CreateArray();
+
+    for(i = 0; a && (i < (size_t)count); i++)
+    {
+        n = cJSON_CreateNumber(numbers[i]);
+        if(!n)
+        {
+            cJSON_Delete(a);
+            return NULL;
+        }
+        if(!i)
+        {
+            a->child = n;
+        }
+        else
+        {
+            suffix_object(p, n);
+        }
+        p = n;
+    }
+
+    if (a && a->child) {
+        a->child->prev = n;
+    }
+
+    return a;
+}
+
+CJSON_PUBLIC(cJSON *) cJSON_CreateStringArray(const char *const *strings, int count)
+{
+    size_t i = 0;
