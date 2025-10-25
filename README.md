@@ -344,5 +344,3 @@ EOF
 codesign --force --sign - --entitlements entitlements.plist \
   --deep bin/mac-firewall
 ```
-
-## 🤝 Integration with npm-safe
