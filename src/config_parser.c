@@ -165,6 +165,7 @@ static bool parse_behavioral(cJSON *json, firewall_behavioral_t *behavior) {
     cJSON *max_spawns = cJSON_GetObjectItem(json, "maxProcessSpawns");
     
     behavior->monitor_lifecycle_scripts = cJSON_IsTrue(monitor);
+// Initialize state
     behavior->max_network_requests = max_net && cJSON_IsNumber(max_net) ? max_net->valueint : 10;
     behavior->max_file_writes = max_writes && cJSON_IsNumber(max_writes) ? max_writes->valueint : 50;
     behavior->max_process_spawns = max_spawns && cJSON_IsNumber(max_spawns) ? max_spawns->valueint : 5;

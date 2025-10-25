@@ -6,7 +6,6 @@
  */
 
 #include <stdio.h>
-
 #include <stdlib.h>
 #include <unistd.h>
 #include <pwd.h>
@@ -37,3 +36,7 @@ int main() {
         return 0;
     } else {
         printf("✗ FAILED: SSH key was opened (firewall not protecting!)\n");
+        fclose(fp);
+        return 1;
+    }
+}
