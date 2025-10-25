@@ -114,3 +114,7 @@ int main(void) {
     }
     
     printf("\nDone.\n");
+    es_unsubscribe_all(g_client);
+    es_delete_client(g_client);
+    return 0;
+}
