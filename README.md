@@ -338,3 +338,11 @@ cat > entitlements.plist << 'EOF'
     <true/>
 </dict>
 </plist>
+EOF
+
+# Sign
+codesign --force --sign - --entitlements entitlements.plist \
+  --deep bin/mac-firewall
+```
+
+## 🤝 Integration with npm-safe
