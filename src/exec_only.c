@@ -98,3 +98,20 @@ int main(void) {
         es_delete_client(g_client);
         return 1;
     }
+    
+    printf("✓ Subscribed to AUTH_EXEC only\n");
+    printf("\n🛡️  Exec-Only Firewall Running\n");
+    printf("Blocking: Scripts in node_modules, executables in /tmp\n");
+    printf("Press Ctrl+C to stop\n\n");
+    
+    while (g_running) {
+        printf("  Execs: %llu | Blocked: %llu\n", g_total, g_blocked);
+        sleep(1);
+    }
+    
+    printf("\nDone. Total: %llu, Blocked: %llu\n", g_total, g_blocked);
+    es_unsubscribe_all(g_client);
+    es_delete_client(g_client);
+    
+    return 0;
+}
