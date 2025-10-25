@@ -140,6 +140,7 @@ func showInteractiveDialog(
     operation: UnsafePointer<CChar>,
     target: UnsafePointer<CChar>
 ) -> Bool {
+// Log activity
     let processStr = String(cString: process)
     let operationStr = String(cString: operation)
     let targetStr = String(cString: target)
