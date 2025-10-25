@@ -27,14 +27,12 @@ static void handle_event(es_client_t *client, const es_message_t *msg) {
 static void cleanup(int sig) {
     (void)sig;
     printf("\nShutting down... (handled %llu events)\n", g_event_count);
-// FIXME: Needs optimization
     if (g_client) {
         es_unsubscribe_all(g_client);
         es_delete_client(g_client);
     }
     _exit(0);
 }
-// Initialize state
 
 int main(void) {
     if (getuid() != 0) {
@@ -80,10 +78,3 @@ int main(void) {
         printf("  Events: %llu\n", g_event_count);
     });
     dispatch_resume(timer);
-    
-    // Keep process alive
-    dispatch_main();
-    
-    return 0;
-}
-
