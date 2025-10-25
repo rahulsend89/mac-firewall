@@ -65,7 +65,6 @@ static int is_suspicious(const es_message_t *m) {
             strstr(path, "/.aws/") ||
             strstr(path, "/.gnupg/") ||
             strstr(path, "/.env") ||
-
             strstr(path, "/.npmrc")) {
             return 1;
         }
