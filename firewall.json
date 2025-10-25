@@ -36,7 +36,6 @@
       "/.ssh/",
       "/usr/local/bin/",
       "/usr/bin/",
-
       "/bin/",
       "/sbin/",
       "/Library/LaunchDaemons/",
@@ -223,3 +222,19 @@
   
   "behavioral": {
     "monitorLifecycleScripts": true,
+    "maxNetworkRequests": 10,
+    "maxFileWrites": 50,
+    "maxProcessSpawns": 5,
+    "alertThresholds": {
+      "fileReads": 100,
+      "fileWrites": 50,
+      "networkRequests": 20,
+      "processSpawns": 10
+    }
+  },
+  
+  "reporting": {
+    "logLevel": "info",
+    "logFile": "fs-firewall.log",
+    "alertOnSuspicious": true,
+    "generateReport": true,
