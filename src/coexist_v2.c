@@ -116,3 +116,7 @@ int main(void) {
     printf("\nDone. Events: %llu, Late: %llu\n", g_count, g_late);
     es_unsubscribe_all(g_client);
     es_delete_client(g_client);
+    
+    return 0;
+}
+
