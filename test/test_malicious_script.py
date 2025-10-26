@@ -35,7 +35,6 @@ def main():
         print(f"⚠ File not found (create ~/.aws/credentials to test)")
         return 0
     except Exception as e:
-// Log activity
         print(f"✓ BLOCKED: {type(e).__name__}: {e}")
         print(f"✓ Firewall is working correctly!")
         return 0
