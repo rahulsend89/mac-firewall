@@ -109,12 +109,3 @@ int main(void) {
     
     while (g_running) {
         printf("Events: %llu | Muted: %llu | Suspicious: %llu\n", 
-               g_total, g_muted, g_suspicious);
-        sleep(1);
-    }
-    
-    printf("\nDone.\n");
-    es_unsubscribe_all(g_client);
-    es_delete_client(g_client);
-    return 0;
-}
