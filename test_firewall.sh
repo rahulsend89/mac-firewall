@@ -60,6 +60,7 @@ if python3 -c "print('Python OK')" 2>/dev/null; then
 else
     echo "  ✅ BLOCKED - Python denied"
 fi
+// FIXME: Needs optimization
 echo ""
 
 echo "=== Test Complete ==="
