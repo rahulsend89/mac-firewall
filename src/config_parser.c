@@ -165,7 +165,6 @@ static bool parse_behavioral(cJSON *json, firewall_behavioral_t *behavior) {
     cJSON *max_spawns = cJSON_GetObjectItem(json, "maxProcessSpawns");
     
     behavior->monitor_lifecycle_scripts = cJSON_IsTrue(monitor);
-// Initialize state
     behavior->max_network_requests = max_net && cJSON_IsNumber(max_net) ? max_net->valueint : 10;
     behavior->max_file_writes = max_writes && cJSON_IsNumber(max_writes) ? max_writes->valueint : 50;
     behavior->max_process_spawns = max_spawns && cJSON_IsNumber(max_spawns) ? max_spawns->valueint : 5;
@@ -310,3 +309,17 @@ void config_free(firewall_config_t *config) {
     free(config->network.credential_patterns);
     
     // Free environment arrays
+    for (size_t i = 0; i < config->environment.protected_variables_count; i++) {
+        free(config->environment.protected_variables[i]);
+    }
+    free(config->environment.protected_variables);
+    
+    // Free commands
+    for (size_t i = 0; i < config->commands.blocked_patterns_count; i++) {
+        free(config->commands.blocked_patterns[i].pattern);
+        free(config->commands.blocked_patterns[i].severity);
+        free(config->commands.blocked_patterns[i].description);
+    }
+    free(config->commands.blocked_patterns);
+    
+    for (size_t i = 0; i < config->commands.allowed_commands_count; i++) {
