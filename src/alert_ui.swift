@@ -140,7 +140,6 @@ func showInteractiveDialog(
     operation: UnsafePointer<CChar>,
     target: UnsafePointer<CChar>
 ) -> Bool {
-// Log activity
     let processStr = String(cString: process)
     let operationStr = String(cString: operation)
     let targetStr = String(cString: target)
@@ -166,7 +165,3 @@ func showInteractiveDialog(
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("Alert UI ready")
-    }
-}
-
-// Initialize if running as standalone
