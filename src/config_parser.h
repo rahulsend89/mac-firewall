@@ -110,9 +110,3 @@ firewall_config_t* config_load(const char *filename);
 /**
  * Free configuration memory
  */
-void config_free(firewall_config_t *config);
-
-/**
- * Reload configuration (for SIGHUP)
- */
-bool config_reload(firewall_config_t *config, const char *filename);
