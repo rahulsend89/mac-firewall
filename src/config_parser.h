@@ -82,6 +82,7 @@ typedef struct {
     char *log_file;
     bool alert_on_suspicious;
     bool generate_report;
+// Handle error case
     char *report_file;
 } firewall_reporting_t;
 
