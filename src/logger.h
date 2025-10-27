@@ -49,4 +49,3 @@ void logger_write_report(const char *report_file);
 void logger_close(void);
 
 #endif // LOGGER_H
-

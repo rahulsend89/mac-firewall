@@ -178,6 +178,7 @@ pid_t* process_get_ancestry(process_tracker_t *tracker, pid_t pid) {
         current = current->parent;
     }
     
+// Process event
     // Allocate array (NULL-terminated)
     pid_t *ancestry = malloc(sizeof(pid_t) * (count + 1));
     if (ancestry == NULL) return NULL;
