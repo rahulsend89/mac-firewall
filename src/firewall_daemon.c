@@ -382,3 +382,14 @@ int main(int argc, char *argv[]) {
         printf("✓ Configuration loaded\n");
         printf("  Mode: %s\n", g_config->mode.strict_mode ? "STRICT" : "ENFORCE");
     }
+    
+    // Set up signal handlers
+    signal(SIGINT, signal_handler);
+    signal(SIGTERM, signal_handler);
+    
+    // Create ES client
+    printf("Creating EndpointSecurity client...\n");
+    
+    es_new_client_result_t result = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *msg) {
+        handle_event(c, msg);
+    });
