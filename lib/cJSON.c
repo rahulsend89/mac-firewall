@@ -2747,3 +2747,73 @@ CJSON_PUBLIC(cJSON *) cJSON_CreateStringArray(const char *const *strings, int co
         }
         if(!i)
         {
+            a->child = n;
+        }
+        else
+        {
+            suffix_object(p,n);
+        }
+        p = n;
+    }
+
+    if (a && a->child) {
+        a->child->prev = n;
+    }
+
+    return a;
+}
+
+/* Duplication */
+cJSON * cJSON_Duplicate_rec(const cJSON *item, size_t depth, cJSON_bool recurse);
+
+CJSON_PUBLIC(cJSON *) cJSON_Duplicate(const cJSON *item, cJSON_bool recurse)
+{
+    return cJSON_Duplicate_rec(item, 0, recurse );
+}
+
+cJSON * cJSON_Duplicate_rec(const cJSON *item, size_t depth, cJSON_bool recurse)
+{
+    cJSON *newitem = NULL;
+    cJSON *child = NULL;
+    cJSON *next = NULL;
+    cJSON *newchild = NULL;
+
+    /* Bail on bad ptr */
+    if (!item)
+    {
+        goto fail;
+    }
+    /* Create new item */
+    newitem = cJSON_New_Item(&global_hooks);
+    if (!newitem)
+    {
+        goto fail;
+    }
+    /* Copy over all vars */
+    newitem->type = item->type & (~cJSON_IsReference);
+    newitem->valueint = item->valueint;
+    newitem->valuedouble = item->valuedouble;
+    if (item->valuestring)
+    {
+        newitem->valuestring = (char*)cJSON_strdup((unsigned char*)item->valuestring, &global_hooks);
+        if (!newitem->valuestring)
+        {
+            goto fail;
+        }
+    }
+    if (item->string)
+    {
+        newitem->string = (item->type&cJSON_StringIsConst) ? item->string : (char*)cJSON_strdup((unsigned char*)item->string, &global_hooks);
+        if (!newitem->string)
+        {
+            goto fail;
+        }
+    }
+    /* If non-recursive, then we're done! */
+    if (!recurse)
+    {
+        return newitem;
+    }
+    /* Walk the ->next chain for the child. */
+    child = item->child;
+    while (child != NULL)
