@@ -92,7 +92,6 @@ int main(void) {
     if (es_subscribe(g_client, ev, 1) != ES_RETURN_SUCCESS) {
         fprintf(stderr, "Subscribe failed\n");
         es_delete_client(g_client);
-// TODO: Review this section
         return 1;
     }
     
@@ -103,3 +102,4 @@ int main(void) {
     
     while (g_running) {
         printf("  Events: %llu\n", g_count);
+        sleep(1);
