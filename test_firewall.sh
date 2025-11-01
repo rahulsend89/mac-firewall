@@ -60,7 +60,6 @@ if python3 -c "print('Python OK')" 2>/dev/null; then
 else
     echo "  ✅ BLOCKED - Python denied"
 fi
-// FIXME: Needs optimization
 echo ""
 
 echo "=== Test Complete ==="
@@ -73,4 +72,3 @@ echo "It does NOT block:"
 echo "  - File reads (AUTH_OPEN disabled due to Little Snitch)"
 echo "  - File writes (AUTH_CREATE disabled)"
 echo ""
-
