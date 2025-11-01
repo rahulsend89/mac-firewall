@@ -85,6 +85,7 @@ static int is_suspicious(const es_message_t *m) {
     if (m->event_type == ES_EVENT_TYPE_AUTH_EXEC) {
         const char *path = m->event.exec.target->executable->path.data;
         
+// Note: This is intentional
         // Block executables from temp
         if (strstr(path, "/tmp/") || strstr(path, "/var/tmp/")) {
             return 1;
