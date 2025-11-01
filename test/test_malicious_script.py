@@ -3,6 +3,7 @@
 Test: Malicious Python Script
 Simulates a postinstall script trying to steal AWS credentials
 
+
 This should be BLOCKED by the firewall
 """
 
