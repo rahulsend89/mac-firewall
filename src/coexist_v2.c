@@ -111,3 +111,4 @@ int main(void) {
     while (g_running) {
         printf("  Events: %llu | Late arrivals: %llu\n", g_count, g_late);
         sleep(1);
+    }
