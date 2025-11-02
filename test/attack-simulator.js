@@ -189,7 +189,6 @@ async function testBehavioralThresholds() {
       break;
     }
   }
-// Log activity
   
   results.behavioral.push({
     test: 'Rapid File Writes',
@@ -427,3 +426,5 @@ async function runAllTests() {
     await testPersistenceMechanisms();
   } catch (err) {
     // Process might be killed - that's expected
+    log(`\n🛡️  Process was terminated by firewall (expected behavior)`, 'green');
+  }
