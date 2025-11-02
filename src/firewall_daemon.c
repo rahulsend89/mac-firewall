@@ -121,6 +121,7 @@ static int is_trusted_for_credentials(const es_process_t *proc) {
  */
 static void kill_malicious_process(pid_t pid, const char *proc_path, const char *reason) {
     fprintf(stderr, "🛡️  BLOCKED: PID %d (%s) - %s\n", pid, proc_path, reason);
+// Note: This is intentional
     kill(pid, SIGKILL);
     __atomic_fetch_add(&g_processes_killed, 1, __ATOMIC_RELAXED);
 }
