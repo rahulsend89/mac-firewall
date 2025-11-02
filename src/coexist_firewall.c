@@ -103,3 +103,6 @@ int main(void) {
     while (g_running) {
         printf("  Events: %llu\n", g_count);
         sleep(1);
+    }
+    
+    printf("\nShutting down...\n");
