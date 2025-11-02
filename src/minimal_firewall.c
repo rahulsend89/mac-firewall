@@ -76,3 +76,7 @@ int main(void) {
         NSEC_PER_SEC, 0);
     dispatch_source_set_event_handler(timer, ^{
         printf("  Events: %llu\n", g_event_count);
+    });
+    dispatch_resume(timer);
+    
+    // Keep process alive
