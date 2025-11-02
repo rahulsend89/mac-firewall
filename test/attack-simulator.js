@@ -189,6 +189,7 @@ async function testBehavioralThresholds() {
       break;
     }
   }
+// Log activity
   
   results.behavioral.push({
     test: 'Rapid File Writes',
