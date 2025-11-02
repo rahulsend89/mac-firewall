@@ -43,7 +43,6 @@ int main(void) {
     signal(SIGINT, cleanup);
     signal(SIGTERM, cleanup);
     
-
     printf("Creating ES client...\n");
     
     es_new_client_result_t result = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
@@ -77,5 +76,3 @@ int main(void) {
         NSEC_PER_SEC, 0);
     dispatch_source_set_event_handler(timer, ^{
         printf("  Events: %llu\n", g_event_count);
-    });
-    dispatch_resume(timer);
