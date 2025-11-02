@@ -748,7 +748,6 @@ static unsigned char utf16_literal_to_utf8(const unsigned char * const input_poi
             goto fail;
         }
 
-
         /* calculate the unicode codepoint from the surrogate pair */
         codepoint = 0x10000 + (((first_code & 0x3FF) << 10) | (second_code & 0x3FF));
     }
@@ -2062,7 +2061,6 @@ static void* cast_away_const(const void* string)
 #if defined(__clang__) || (defined(__GNUC__)  && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 5))))
     #pragma GCC diagnostic pop
 #endif
-
 
 static cJSON_bool add_item_to_object(cJSON * const object, const char * const string, cJSON * const item, const internal_hooks * const hooks, const cJSON_bool constant_key)
 {
