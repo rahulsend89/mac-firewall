@@ -48,6 +48,7 @@ $(BUILD_DIR)/cJSON.o: lib/cJSON.c lib/cJSON.h | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Compile source files
+
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
