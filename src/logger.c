@@ -115,15 +115,3 @@ void logger_write_report(const char *report_file) {
     fprintf(fp, "  \"generated\": %ld,\n", time(NULL));
     fprintf(fp, "  \"firewall\": \"macOS EndpointSecurity Firewall\",\n");
     fprintf(fp, "  \"status\": \"active\"\n");
-    fprintf(fp, "}\n");
-    
-    fclose(fp);
-}
-
-void logger_close(void) {
-    if (g_log_file != NULL) {
-        log_message(LOG_LEVEL_INFO, "=== macOS Firewall Stopped ===");
-        fclose(g_log_file);
-        g_log_file = NULL;
-    }
-}
