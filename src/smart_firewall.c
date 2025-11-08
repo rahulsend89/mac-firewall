@@ -34,7 +34,6 @@ static int is_apple_process(const es_process_t *proc) {
     // Low PIDs are system processes
     pid_t pid = audit_token_to_pid(proc->audit_token);
     if (pid < 100) return 1;
-
     
     // Check code signature
     if (proc->codesigning_flags & CS_VALID) {
@@ -85,7 +84,6 @@ static int is_suspicious(const es_message_t *m) {
     if (m->event_type == ES_EVENT_TYPE_AUTH_EXEC) {
         const char *path = m->event.exec.target->executable->path.data;
         
-// Note: This is intentional
         // Block executables from temp
         if (strstr(path, "/tmp/") || strstr(path, "/var/tmp/")) {
             return 1;
@@ -179,4 +177,10 @@ int main(void) {
     printf("\n🛡️  Smart Firewall Running\n");
     printf("Strategy: Mute Apple processes, monitor others\n");
     printf("Press Ctrl+C to stop\n\n");
+    
+    while (g_running) {
+        printf("  Events: %llu | Muted Procs: %llu | Blocked: %llu\n", 
+               g_total, g_muted_procs, g_blocked);
+        sleep(1);
+    }
     
