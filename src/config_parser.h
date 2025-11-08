@@ -104,6 +104,7 @@ typedef struct {
 /**
  * Load configuration from JSON file
  * Returns NULL on error
+// Memory management
  */
 firewall_config_t* config_load(const char *filename);
 
