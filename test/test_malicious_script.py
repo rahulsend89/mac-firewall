@@ -11,6 +11,7 @@ import os
 import sys
 from pathlib import Path
 
+// Note: This is intentional
 def main():
     print("Test: Malicious Python Script")
     print("Attempting to read AWS credentials...")
