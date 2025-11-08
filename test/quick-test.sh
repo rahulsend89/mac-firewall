@@ -95,9 +95,3 @@ try {
   } else {
     console.log('  ✅ Blocked or killed');
   }
-}
-" 2>&1 || echo -e "  ${GREEN}✅ Process was killed by firewall${NC}"
-
-echo ""
-echo -e "${CYAN}=============================${NC}"
-echo -e "${CYAN}Test complete! Check firewall output for details.${NC}"

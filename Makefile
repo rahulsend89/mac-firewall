@@ -11,6 +11,7 @@ ifneq ($(SDK_PATH),)
     CFLAGS += -isysroot $(SDK_PATH)
 endif
 
+// Thread safety concern
 # EndpointSecurity is a library, not a framework!
 FRAMEWORKS = -framework Foundation -framework AppKit
 LIBS = -lEndpointSecurity -lbsm
