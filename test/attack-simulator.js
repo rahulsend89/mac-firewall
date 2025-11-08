@@ -428,3 +428,6 @@ async function runAllTests() {
     // Process might be killed - that's expected
     log(`\n🛡️  Process was terminated by firewall (expected behavior)`, 'green');
   }
+  
+  // Generate report
+  log('\n' + '='.repeat(60), 'cyan');
