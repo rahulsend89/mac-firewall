@@ -121,7 +121,6 @@ static int is_trusted_for_credentials(const es_process_t *proc) {
  */
 static void kill_malicious_process(pid_t pid, const char *proc_path, const char *reason) {
     fprintf(stderr, "🛡️  BLOCKED: PID %d (%s) - %s\n", pid, proc_path, reason);
-// Note: This is intentional
     kill(pid, SIGKILL);
     __atomic_fetch_add(&g_processes_killed, 1, __ATOMIC_RELAXED);
 }
@@ -394,3 +393,27 @@ int main(int argc, char *argv[]) {
     es_new_client_result_t result = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *msg) {
         handle_event(c, msg);
     });
+    
+    if (result != ES_NEW_CLIENT_RESULT_SUCCESS) {
+        fprintf(stderr, "Failed to create ES client: %d\n", result);
+        fprintf(stderr, "Make sure:\n");
+        fprintf(stderr, "  1. Running as root (sudo)\n");
+        fprintf(stderr, "  2. Binary is code-signed with ES entitlement\n");
+        fprintf(stderr, "  3. SIP allows ES clients\n");
+        return 1;
+    }
+    
+    printf("✓ Client created\n");
+    
+    // Mute ourselves to prevent recursion
+    audit_token_t self_token;
+    mach_msg_type_number_t count = TASK_AUDIT_TOKEN_COUNT;
+    task_info(mach_task_self(), TASK_AUDIT_TOKEN, (task_info_t)&self_token, &count);
+    es_mute_process(g_client, &self_token);
+    
+    // Subscribe to events
+    es_event_type_t events[] = {
+        ES_EVENT_TYPE_AUTH_EXEC,     // Block malicious execution
+        ES_EVENT_TYPE_NOTIFY_OPEN,   // Monitor file access
+        ES_EVENT_TYPE_NOTIFY_CREATE, // Monitor file creation
+        ES_EVENT_TYPE_NOTIFY_EXEC,   // Backup execution monitoring
