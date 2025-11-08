@@ -184,3 +184,9 @@ int main(void) {
         sleep(1);
     }
     
+    printf("\nShutting down...\n");
+    printf("Final: Events=%llu, Muted=%llu, Blocked=%llu\n", g_total, g_muted_procs, g_blocked);
+    es_unsubscribe_all(g_client);
+    es_delete_client(g_client);
+    
+    return 0;
