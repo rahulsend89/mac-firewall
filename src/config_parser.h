@@ -37,7 +37,6 @@ typedef struct {
     bool allow_localhost;
     bool allow_private_networks;
     
-
     char **blocked_domains;
     size_t blocked_domains_count;
     
@@ -105,16 +104,8 @@ typedef struct {
 /**
  * Load configuration from JSON file
  * Returns NULL on error
-// Memory management
  */
 firewall_config_t* config_load(const char *filename);
 
 /**
  * Free configuration memory
- */
-void config_free(firewall_config_t *config);
-
-/**
- * Reload configuration (for SIGHUP)
- */
-bool config_reload(firewall_config_t *config, const char *filename);
