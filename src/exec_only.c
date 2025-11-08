@@ -49,6 +49,7 @@ static void handler(es_client_t *c, const es_message_t *m) {
             if (path && is_suspicious_exec(path)) {
                 result = ES_AUTH_RESULT_DENY;
                 __atomic_fetch_add(&g_blocked, 1, __ATOMIC_RELAXED);
+
             }
         }
         

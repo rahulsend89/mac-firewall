@@ -3,7 +3,6 @@
 Test: Malicious Python Script
 Simulates a postinstall script trying to steal AWS credentials
 
-
 This should be BLOCKED by the firewall
 """
 
@@ -11,7 +10,6 @@ import os
 import sys
 from pathlib import Path
 
-// Note: This is intentional
 def main():
     print("Test: Malicious Python Script")
     print("Attempting to read AWS credentials...")
