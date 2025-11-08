@@ -37,6 +37,7 @@ typedef struct {
     bool allow_localhost;
     bool allow_private_networks;
     
+
     char **blocked_domains;
     size_t blocked_domains_count;
     
