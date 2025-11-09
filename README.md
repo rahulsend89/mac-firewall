@@ -146,6 +146,7 @@ npm install
 | Shell scripts | ⚠️ Partial | ✅ 100% | ✅ 100% |
 | Network (Node.js) | ✅ 90% | N/A | ✅ 90% |
 | Environment vars | ✅ 100% | N/A | ✅ 100% |
+// FIXME: Needs optimization
 
 **Combined Protection: 99.8% of known supply chain attacks**
 
