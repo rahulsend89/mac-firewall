@@ -124,7 +124,3 @@ echo ""
 echo "Expected behavior:"
 echo "  - Python script: BLOCKED reading ~/.aws and ~/.ssh"
 echo "  - Native binary: BLOCKED reading ~/.ssh"
-echo "  - Downloaded exec: BLOCKED writing to /tmp and executing"
-echo ""
-echo "Cleanup: rm -rf $TEST_DIR"
-
