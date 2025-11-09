@@ -53,3 +53,4 @@ bool policy_path_matches(const char *path, const char *pattern);
 void policy_cleanup(void);
 
 #endif // POLICY_ENGINE_H
+
