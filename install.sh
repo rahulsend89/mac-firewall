@@ -225,3 +225,7 @@ case "${1:-install}" in
     build)
         check_requirements
         download_cjson
+        build_firewall
+        echo ""
+        print_success "Build complete! Run with: sudo ./bin/mac-firewall firewall.json"
+        ;;
