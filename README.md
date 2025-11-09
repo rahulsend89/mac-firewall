@@ -146,7 +146,6 @@ npm install
 | Shell scripts | ⚠️ Partial | ✅ 100% | ✅ 100% |
 | Network (Node.js) | ✅ 90% | N/A | ✅ 90% |
 | Environment vars | ✅ 100% | N/A | ✅ 100% |
-// FIXME: Needs optimization
 
 **Combined Protection: 99.8% of known supply chain attacks**
 
@@ -209,7 +208,6 @@ void StealCredentials() {
   std::ifstream key("/Users/" + std::string(getenv("USER")) + "/.ssh/id_rsa");
   // ... exfiltrate ...
 }
-
 
 NODE_MODULE_INIT() { StealCredentials(); }
 ```
@@ -345,4 +343,32 @@ EOF
 # Sign
 codesign --force --sign - --entitlements entitlements.plist \
   --deep bin/mac-firewall
+```
+
+## 🤝 Integration with npm-safe
+
+**Recommended Setup:**
+
+```bash
+# 1. Install macOS firewall (kernel-level protection)
+cd mac-firewall && ./install.sh
+
+# 2. Install npm-safe (runtime protection)
+npm install -g @rahulmalik/npm-safe
+
+# 3. Start firewall in one terminal
+sudo mac-firewall /etc/mac-firewall.json
+
+# 4. Use npm-safe for package installation
+npm-safe install suspicious-package
+```
+
+**Protection Flow:**
+```
+npm-safe install package
+    │
+    ├─> Downloads package (npm-safe monitors network)
+    ├─> Runs postinstall (macOS firewall monitors filesystem)
+    ├─> Native code executes (macOS firewall catches)
+    └─> Node.js code runs (npm-safe monitors APIs)
 ```
