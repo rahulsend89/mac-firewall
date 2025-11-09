@@ -110,4 +110,3 @@ int main(void) {
     es_delete_client(g_client);
     printf("Done. Handled %llu events.\n", g_count);
     
-    return 0;
