@@ -153,3 +153,8 @@ int main(void) {
     printf("✓ Will monitor and kill suspicious processes\n\n");
     
     while (g_running) {
+        printf("Events: %llu | Suspicious: %llu | Killed: %llu\n", 
+               g_total, g_suspicious, g_killed);
+        sleep(1);
+    }
+    
