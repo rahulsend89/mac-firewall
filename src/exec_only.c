@@ -49,7 +49,6 @@ static void handler(es_client_t *c, const es_message_t *m) {
             if (path && is_suspicious_exec(path)) {
                 result = ES_AUTH_RESULT_DENY;
                 __atomic_fetch_add(&g_blocked, 1, __ATOMIC_RELAXED);
-
             }
         }
         
@@ -71,7 +70,6 @@ int main(void) {
     signal(SIGINT, sig_handler);
     signal(SIGTERM, sig_handler);
     
-
     printf("Creating ES client (EXEC-only mode)...\n");
     
     es_new_client_result_t r = es_new_client(&g_client, ^(es_client_t *c, const es_message_t *m) {
