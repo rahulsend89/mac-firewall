@@ -417,3 +417,14 @@ int main(int argc, char *argv[]) {
         ES_EVENT_TYPE_NOTIFY_OPEN,   // Monitor file access
         ES_EVENT_TYPE_NOTIFY_CREATE, // Monitor file creation
         ES_EVENT_TYPE_NOTIFY_EXEC,   // Backup execution monitoring
+    };
+    
+    if (es_subscribe(g_client, events, sizeof(events) / sizeof(events[0])) != ES_RETURN_SUCCESS) {
+        fprintf(stderr, "Failed to subscribe to events\n");
+        es_delete_client(g_client);
+        return 1;
+    }
+    
+    printf("✓ Subscribed to events\n");
+    printf("\n🛡️  macOS Firewall Active\n");
+    printf("  • AUTH_EXEC: Blocking malicious execution\n");
