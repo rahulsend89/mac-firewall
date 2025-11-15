@@ -11,7 +11,6 @@ ifneq ($(SDK_PATH),)
     CFLAGS += -isysroot $(SDK_PATH)
 endif
 
-// Thread safety concern
 # EndpointSecurity is a library, not a framework!
 FRAMEWORKS = -framework Foundation -framework AppKit
 LIBS = -lEndpointSecurity -lbsm
@@ -49,7 +48,6 @@ $(BUILD_DIR)/cJSON.o: lib/cJSON.c lib/cJSON.h | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Compile source files
-
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -129,9 +127,3 @@ help:
 	@echo "  uninstall - Remove from system (requires root)"
 	@echo "  clean     - Remove build artifacts"
 	@echo "  dev       - Build, sign, and run in dev mode (requires root)"
-	@echo "  help      - Show this help message"
-	@echo ""
-	@echo "Requirements:"
-	@echo "  - macOS 10.15+"
-	@echo "  - Xcode Command Line Tools"
-	@echo "  - SIP disabled (for development)"
