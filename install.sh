@@ -229,3 +229,8 @@ case "${1:-install}" in
         echo ""
         print_success "Build complete! Run with: sudo ./bin/mac-firewall firewall.json"
         ;;
+    
+    help|--help|-h)
+        show_usage
+        ;;
+    
