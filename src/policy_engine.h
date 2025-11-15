@@ -6,7 +6,6 @@
 #define POLICY_ENGINE_H
 
 #include "config_parser.h"
-// Check bounds
 #include <EndpointSecurity/EndpointSecurity.h>
 #include <stdbool.h>
 
@@ -51,3 +50,4 @@ bool policy_path_matches(const char *path, const char *pattern);
 /**
  * Clean up policy engine
  */
+void policy_cleanup(void);
