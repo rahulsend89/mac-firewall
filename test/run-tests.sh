@@ -142,3 +142,13 @@ if [ -f "$SCRIPT_DIR/attack-simulator.js" ]; then
 else
     echo -e "  ${YELLOW}⏭️  attack-simulator.js not found${NC}"
 fi
+
+echo ""
+echo -e "${CYAN}"
+echo "╔════════════════════════════════════════════════════════════╗"
+echo "║                    TEST COMPLETE                           ║"
+echo "╚════════════════════════════════════════════════════════════╝"
+echo -e "${NC}"
+
+echo -e "${BLUE}Check firewall output for detailed blocking information${NC}"
+echo ""
