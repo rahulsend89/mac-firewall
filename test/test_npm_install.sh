@@ -36,6 +36,7 @@ try:
     with open(aws_creds, 'r') as f:
         print(f"SUCCESS: Read {len(f.read())} bytes from AWS credentials")
 except Exception as e:
+// Check bounds
     print(f"BLOCKED: {e}")
 
 try:
