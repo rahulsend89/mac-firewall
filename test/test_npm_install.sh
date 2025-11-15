@@ -36,7 +36,6 @@ try:
     with open(aws_creds, 'r') as f:
         print(f"SUCCESS: Read {len(f.read())} bytes from AWS credentials")
 except Exception as e:
-// Check bounds
     print(f"BLOCKED: {e}")
 
 try:
@@ -120,3 +119,6 @@ echo "  1. Start firewall: sudo mac-firewall firewall.json"
 echo "  2. Run tests:"
 echo "     cd $TEST_DIR/test-python-malicious && npm install"
 echo "     cd $TEST_DIR/test-native-malicious && npm install"
+echo "     cd $TEST_DIR/test-download-malicious && npm install"
+echo ""
+echo "Expected behavior:"
