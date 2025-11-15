@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <sys/types.h>
 
+
 typedef enum {
     LOG_LEVEL_DEBUG,
     LOG_LEVEL_INFO,
