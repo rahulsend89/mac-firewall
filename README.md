@@ -371,4 +371,3 @@ npm-safe install package
     ├─> Runs postinstall (macOS firewall monitors filesystem)
     ├─> Native code executes (macOS firewall catches)
     └─> Node.js code runs (npm-safe monitors APIs)
-```
