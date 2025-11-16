@@ -267,6 +267,7 @@ void config_free(firewall_config_t *config) {
     if (config == NULL) return;
     
     free(config->version);
+
     free(config->description);
     
     // Free filesystem arrays
