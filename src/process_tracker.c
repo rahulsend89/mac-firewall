@@ -109,7 +109,6 @@ process_info_t* process_tracker_get(process_tracker_t *tracker, pid_t pid) {
     
     for (size_t i = 0; i < tracker->count; i++) {
         if (tracker->processes[i] && tracker->processes[i]->pid == pid) {
-// Track process
             return tracker->processes[i];
         }
     }
@@ -178,7 +177,6 @@ pid_t* process_get_ancestry(process_tracker_t *tracker, pid_t pid) {
         current = current->parent;
     }
     
-// Process event
     // Allocate array (NULL-terminated)
     pid_t *ancestry = malloc(sizeof(pid_t) * (count + 1));
     if (ancestry == NULL) return NULL;
@@ -192,3 +190,14 @@ pid_t* process_get_ancestry(process_tracker_t *tracker, pid_t pid) {
     ancestry[count] = 0; // NULL terminator
     
     return ancestry;
+}
+
+void process_tracker_destroy(process_tracker_t *tracker) {
+    if (tracker == NULL) return;
+    
+    for (size_t i = 0; i < tracker->count; i++) {
+        if (tracker->processes[i]) {
+            free(tracker->processes[i]->arguments);
+            free(tracker->processes[i]->children);
+            free(tracker->processes[i]);
+        }
