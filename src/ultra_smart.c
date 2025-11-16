@@ -109,3 +109,7 @@ int main(void) {
     
     while (g_running) {
         printf("Events: %llu | Muted: %llu | Suspicious: %llu\n", 
+               g_total, g_muted, g_suspicious);
+        sleep(1);
+    }
+    
