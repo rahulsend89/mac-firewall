@@ -748,6 +748,7 @@ static unsigned char utf16_literal_to_utf8(const unsigned char * const input_poi
             goto fail;
         }
 
+
         /* calculate the unicode codepoint from the surrogate pair */
         codepoint = 0x10000 + (((first_code & 0x3FF) << 10) | (second_code & 0x3FF));
     }
@@ -2062,6 +2063,7 @@ static void* cast_away_const(const void* string)
     #pragma GCC diagnostic pop
 #endif
 
+
 static cJSON_bool add_item_to_object(cJSON * const object, const char * const string, cJSON * const item, const internal_hooks * const hooks, const cJSON_bool constant_key)
 {
     char *new_key = NULL;
@@ -2815,3 +2817,195 @@ cJSON * cJSON_Duplicate_rec(const cJSON *item, size_t depth, cJSON_bool recurse)
     /* Walk the ->next chain for the child. */
     child = item->child;
     while (child != NULL)
+    {
+        if(depth >= CJSON_CIRCULAR_LIMIT) {
+            goto fail;
+        }
+        newchild = cJSON_Duplicate_rec(child, depth + 1, true); /* Duplicate (with recurse) each item in the ->next chain */
+        if (!newchild)
+        {
+            goto fail;
+        }
+        if (next != NULL)
+        {
+            /* If newitem->child already set, then crosswire ->prev and ->next and move on */
+            next->next = newchild;
+            newchild->prev = next;
+            next = newchild;
+        }
+        else
+        {
+            /* Set newitem->child and move to it */
+            newitem->child = newchild;
+            next = newchild;
+        }
+        child = child->next;
+    }
+    if (newitem && newitem->child)
+    {
+        newitem->child->prev = newchild;
+    }
+
+    return newitem;
+
+fail:
+    if (newitem != NULL)
+    {
+        cJSON_Delete(newitem);
+    }
+
+    return NULL;
+}
+
+static void skip_oneline_comment(char **input)
+{
+    *input += static_strlen("//");
+
+    for (; (*input)[0] != '\0'; ++(*input))
+    {
+        if ((*input)[0] == '\n') {
+            *input += static_strlen("\n");
+            return;
+        }
+    }
+}
+
+static void skip_multiline_comment(char **input)
+{
+    *input += static_strlen("/*");
+
+    for (; (*input)[0] != '\0'; ++(*input))
+    {
+        if (((*input)[0] == '*') && ((*input)[1] == '/'))
+        {
+            *input += static_strlen("*/");
+            return;
+        }
+    }
+}
+
+static void minify_string(char **input, char **output) {
+    (*output)[0] = (*input)[0];
+    *input += static_strlen("\"");
+    *output += static_strlen("\"");
+
+
+    for (; (*input)[0] != '\0'; (void)++(*input), ++(*output)) {
+        (*output)[0] = (*input)[0];
+
+        if ((*input)[0] == '\"') {
+            (*output)[0] = '\"';
+            *input += static_strlen("\"");
+            *output += static_strlen("\"");
+            return;
+        } else if (((*input)[0] == '\\') && ((*input)[1] == '\"')) {
+            (*output)[1] = (*input)[1];
+            *input += static_strlen("\"");
+            *output += static_strlen("\"");
+        }
+    }
+}
+
+CJSON_PUBLIC(void) cJSON_Minify(char *json)
+{
+    char *into = json;
+
+    if (json == NULL)
+    {
+        return;
+    }
+
+    while (json[0] != '\0')
+    {
+        switch (json[0])
+        {
+            case ' ':
+            case '\t':
+            case '\r':
+            case '\n':
+                json++;
+                break;
+
+            case '/':
+                if (json[1] == '/')
+                {
+                    skip_oneline_comment(&json);
+                }
+                else if (json[1] == '*')
+                {
+                    skip_multiline_comment(&json);
+                } else {
+                    json++;
+                }
+                break;
+
+            case '\"':
+                minify_string(&json, (char**)&into);
+                break;
+
+            default:
+                into[0] = json[0];
+                json++;
+                into++;
+        }
+    }
+
+    /* and null-terminate. */
+    *into = '\0';
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_IsInvalid(const cJSON * const item)
+{
+    if (item == NULL)
+    {
+        return false;
+    }
+
+    return (item->type & 0xFF) == cJSON_Invalid;
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_IsFalse(const cJSON * const item)
+{
+    if (item == NULL)
+    {
+        return false;
+    }
+
+    return (item->type & 0xFF) == cJSON_False;
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_IsTrue(const cJSON * const item)
+{
+    if (item == NULL)
+    {
+        return false;
+    }
+
+    return (item->type & 0xff) == cJSON_True;
+}
+
+
+CJSON_PUBLIC(cJSON_bool) cJSON_IsBool(const cJSON * const item)
+{
+    if (item == NULL)
+    {
+        return false;
+    }
+
+    return (item->type & (cJSON_True | cJSON_False)) != 0;
+}
+CJSON_PUBLIC(cJSON_bool) cJSON_IsNull(const cJSON * const item)
+{
+    if (item == NULL)
+    {
+        return false;
+    }
+
+    return (item->type & 0xFF) == cJSON_NULL;
+}
+
+CJSON_PUBLIC(cJSON_bool) cJSON_IsNumber(const cJSON * const item)
+{
+    if (item == NULL)
+    {
+        return false;
