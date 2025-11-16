@@ -63,6 +63,7 @@ fi
 echo ""
 
 echo "=== Test Complete ==="
+
 echo ""
 echo "Note: Our firewall currently blocks:"
 echo "  1. Any executable in /tmp/ or /var/tmp/"
