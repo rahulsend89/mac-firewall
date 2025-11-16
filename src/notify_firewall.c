@@ -158,3 +158,8 @@ int main(void) {
         sleep(1);
     }
     
+    printf("\nShutting down...\n");
+    es_unsubscribe_all(g_client);
+    es_delete_client(g_client);
+    return 0;
+}
