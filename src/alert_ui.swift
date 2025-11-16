@@ -175,4 +175,3 @@ if CommandLine.arguments.contains("--standalone") {
     app.delegate = delegate
     app.run()
 }
-
