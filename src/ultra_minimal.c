@@ -74,3 +74,4 @@ int main(void) {
     printf("Done. Handled %llu events.\n", g_count);
     
     return 0;
+}
