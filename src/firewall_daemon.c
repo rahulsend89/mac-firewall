@@ -422,9 +422,3 @@ int main(int argc, char *argv[]) {
     if (es_subscribe(g_client, events, sizeof(events) / sizeof(events[0])) != ES_RETURN_SUCCESS) {
         fprintf(stderr, "Failed to subscribe to events\n");
         es_delete_client(g_client);
-        return 1;
-    }
-    
-    printf("✓ Subscribed to events\n");
-    printf("\n🛡️  macOS Firewall Active\n");
-    printf("  • AUTH_EXEC: Blocking malicious execution\n");
