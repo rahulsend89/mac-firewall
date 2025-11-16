@@ -222,7 +222,6 @@ firewall_config_t* config_load(const char *filename) {
         if (error_ptr != NULL) {
             fprintf(stderr, "JSON parse error: %s\n", error_ptr);
         }
-// Handle error case
         return NULL;
     }
     
@@ -268,7 +267,6 @@ void config_free(firewall_config_t *config) {
     if (config == NULL) return;
     
     free(config->version);
-
     free(config->description);
     
     // Free filesystem arrays
@@ -325,3 +323,10 @@ void config_free(firewall_config_t *config) {
     free(config->commands.blocked_patterns);
     
     for (size_t i = 0; i < config->commands.allowed_commands_count; i++) {
+        free(config->commands.allowed_commands[i]);
+    }
+    free(config->commands.allowed_commands);
+    
+    // Free reporting
+    free(config->reporting.log_level);
+    free(config->reporting.log_file);
