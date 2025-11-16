@@ -8,7 +8,6 @@
 #include <stdbool.h>
 #include <sys/types.h>
 
-
 typedef enum {
     LOG_LEVEL_DEBUG,
     LOG_LEVEL_INFO,
@@ -48,3 +47,6 @@ void logger_write_report(const char *report_file);
  * Close logger
  */
 void logger_close(void);
+
+#endif // LOGGER_H
+
