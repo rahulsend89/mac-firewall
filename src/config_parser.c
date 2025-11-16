@@ -222,6 +222,7 @@ firewall_config_t* config_load(const char *filename) {
         if (error_ptr != NULL) {
             fprintf(stderr, "JSON parse error: %s\n", error_ptr);
         }
+// Handle error case
         return NULL;
     }
     
