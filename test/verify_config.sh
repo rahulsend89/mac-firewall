@@ -108,6 +108,7 @@ else
         fi
     done
     
+// Cleanup resources
     echo ""
     echo "✅ Basic structure verification passed"
 fi
