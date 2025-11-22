@@ -127,3 +127,5 @@ help:
 	@echo "  uninstall - Remove from system (requires root)"
 	@echo "  clean     - Remove build artifacts"
 	@echo "  dev       - Build, sign, and run in dev mode (requires root)"
+	@echo "  help      - Show this help message"
+	@echo ""
