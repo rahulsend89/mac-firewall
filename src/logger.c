@@ -125,3 +125,4 @@ void logger_close(void) {
         log_message(LOG_LEVEL_INFO, "=== macOS Firewall Stopped ===");
         fclose(g_log_file);
         g_log_file = NULL;
+    }
