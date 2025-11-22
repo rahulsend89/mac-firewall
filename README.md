@@ -371,3 +371,22 @@ npm-safe install package
     ├─> Runs postinstall (macOS firewall monitors filesystem)
     ├─> Native code executes (macOS firewall catches)
     └─> Node.js code runs (npm-safe monitors APIs)
+```
+
+## 📜 License
+
+MIT License - See LICENSE file for details
+
+## 🙏 Credits
+
+- Built on top of [npm-safe](https://github.com/rahulsend89/npm-safe/) concept
+- Uses Apple's [EndpointSecurity framework](https://developer.apple.com/documentation/endpointsecurity)
+- JSON parsing by [cJSON](https://github.com/DaveGamble/cJSON)
+
+## ⚠️ Disclaimer
+
+This tool provides kernel-level protection but is not a silver bullet. Always:
+- Review packages before installing
+- Use both macOS firewall AND npm-safe for defense in depth
+- Keep systems updated
+- Follow security best practices
