@@ -61,7 +61,6 @@ policy_decision_t policy_evaluate_file_access(
     return POLICY_ALLOW;
 }
 
-
 policy_decision_t policy_evaluate_exec(
     const char *parent_path,
     pid_t ppid,
@@ -70,7 +69,6 @@ policy_decision_t policy_evaluate_exec(
     (void)parent_path; // Unused for now
     (void)ppid;        // Unused for now
     
-
     if (g_policy_config == NULL || !g_policy_config->mode.enabled) {
         return POLICY_ALLOW;
     }
@@ -83,4 +81,8 @@ policy_decision_t policy_evaluate_exec(
     }
     
     return POLICY_ALLOW;
+}
+
+void policy_cleanup(void) {
+    g_policy_config = NULL;
 }
