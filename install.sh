@@ -234,3 +234,9 @@ case "${1:-install}" in
         show_usage
         ;;
     
+    *)
+        print_error "Unknown command: $1"
+        show_usage
+        exit 1
+        ;;
+esac
