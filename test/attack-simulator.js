@@ -435,3 +435,20 @@ async function runAllTests() {
   log('='.repeat(60), 'cyan');
   
   log(`\n  Total Tests: ${results.summary.total}`, 'blue');
+  log(`  ✅ Blocked:  ${results.summary.blocked}`, 'green');
+  log(`  ❌ Allowed:  ${results.summary.allowed}`, 'red');
+  log(`  ⚠️  Errors:   ${results.summary.errors}`, 'yellow');
+  
+  // Save report
+  fs.writeFileSync(REPORT_FILE, JSON.stringify(results, null, 2));
+  log(`\n📄 Full report saved to: ${REPORT_FILE}`, 'blue');
+  
+  // Exit code based on results
+  const exitCode = results.summary.allowed > 0 ? 1 : 0;
+  log(`\n${exitCode === 0 ? '✅ All attacks blocked!' : '⚠️  Some attacks succeeded - check firewall logs'}`, 
+      exitCode === 0 ? 'green' : 'red');
+  
+  process.exit(exitCode);
+}
+
+// Run if called directly
