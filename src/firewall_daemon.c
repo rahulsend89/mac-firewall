@@ -422,3 +422,15 @@ int main(int argc, char *argv[]) {
     if (es_subscribe(g_client, events, sizeof(events) / sizeof(events[0])) != ES_RETURN_SUCCESS) {
         fprintf(stderr, "Failed to subscribe to events\n");
         es_delete_client(g_client);
+        return 1;
+    }
+    
+    printf("✓ Subscribed to events\n");
+    printf("\n🛡️  macOS Firewall Active\n");
+    printf("  • AUTH_EXEC: Blocking malicious execution\n");
+    printf("  • NOTIFY_OPEN: Monitoring credential access\n");
+    printf("  • NOTIFY_CREATE: Monitoring persistence attempts\n");
+    printf("\nPress Ctrl+C to stop\n\n");
+    
+    // Status update timer
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, 
