@@ -80,3 +80,4 @@ int main(void) {
     dispatch_resume(timer);
     
     // Keep process alive
+    dispatch_main();
