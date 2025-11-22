@@ -107,3 +107,8 @@ int main(void) {
     
     printf("\nShutting down...\n");
     es_unsubscribe_all(g_client);
+    es_delete_client(g_client);
+    printf("Done. Handled %llu events.\n", g_count);
+    
+    return 0;
+}
