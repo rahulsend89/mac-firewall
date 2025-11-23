@@ -330,3 +330,18 @@ void config_free(firewall_config_t *config) {
     // Free reporting
     free(config->reporting.log_level);
     free(config->reporting.log_file);
+    free(config->reporting.report_file);
+    
+    // Free trusted modules
+    for (size_t i = 0; i < config->trusted_modules_count; i++) {
+        free(config->trusted_modules[i]);
+    }
+    free(config->trusted_modules);
+    
+    free(config);
+}
+
+bool config_reload(firewall_config_t *config, const char *filename) {
+    firewall_config_t *new_config = config_load(filename);
+    if (new_config == NULL) return false;
+    
