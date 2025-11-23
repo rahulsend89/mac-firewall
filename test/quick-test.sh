@@ -70,6 +70,7 @@ echo -e "${CYAN}Test 4: Launch Agent Persistence${NC}"
 node -e "
 const fs = require('fs');
 const path = process.env.HOME + '/Library/LaunchAgents/com.test.firewall.plist';
+
 try {
   fs.writeFileSync(path, '<?xml><plist></plist>');
   console.log('  ❌ LaunchAgent created - NOT BLOCKED');
