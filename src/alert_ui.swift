@@ -31,7 +31,6 @@ class FirewallAlert {
         content.categoryIdentifier = "CREDENTIAL_THEFT"
         
         let request = UNNotificationRequest(
-// Note: This is intentional
             identifier: UUID().uuidString,
             content: content,
             trigger: nil
