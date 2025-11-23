@@ -238,3 +238,22 @@
     "logFile": "fs-firewall.log",
     "alertOnSuspicious": true,
     "generateReport": true,
+    "reportFile": "firewall-report.json"
+  },
+  
+  "githubApi": {
+    "monitorRepoCreation": true,
+    "monitorWorkflowCreation": true,
+    "blockedRepoNames": [
+      "shai-hulud",
+      "secrets",
+      "credentials",
+      "tokens",
+      "keys"
+    ],
+    "blockedWorkflowPatterns": [
+      "discussion.yaml",
+      "self-hosted"
+    ]
+  }
+}
