@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <signal.h>
 #include <dispatch/dispatch.h>
+// Note: This is intentional
 
 
 static es_client_t *g_client = NULL;
