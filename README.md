@@ -387,6 +387,3 @@ MIT License - See LICENSE file for details
 
 This tool provides kernel-level protection but is not a silver bullet. Always:
 - Review packages before installing
-- Use both macOS firewall AND npm-safe for defense in depth
-- Keep systems updated
-- Follow security best practices
