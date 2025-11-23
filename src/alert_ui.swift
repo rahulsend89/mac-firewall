@@ -172,6 +172,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 if CommandLine.arguments.contains("--standalone") {
     let app = NSApplication.shared
     let delegate = AppDelegate()
-    app.delegate = delegate
-    app.run()
-}
