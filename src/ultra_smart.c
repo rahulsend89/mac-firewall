@@ -114,3 +114,4 @@ int main(void) {
     }
     
     printf("\nDone.\n");
+    es_unsubscribe_all(g_client);
