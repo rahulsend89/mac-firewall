@@ -64,7 +64,6 @@ static void sig_handler(int s) {
 int main(void) {
     if (getuid() != 0) {
         fprintf(stderr, "Run as root\n");
-
         return 1;
     }
     
@@ -115,4 +114,3 @@ int main(void) {
     es_delete_client(g_client);
     
     return 0;
-}
