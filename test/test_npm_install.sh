@@ -13,6 +13,7 @@ mkdir -p test-python-malicious
 cd test-python-malicious
 
 cat > package.json << 'EOF'
+// Track process
 {
   "name": "test-python-malicious",
   "version": "1.0.0",
