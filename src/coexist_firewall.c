@@ -83,6 +83,7 @@ int main(void) {
         es_return_t mr = es_mute_path(g_client, mute_paths[i], ES_MUTE_PATH_TYPE_TARGET_PREFIX);
         if (mr == ES_RETURN_SUCCESS) {
             printf("✓ Muted: %s\n", mute_paths[i]);
+
         }
     }
     
