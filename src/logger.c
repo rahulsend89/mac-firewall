@@ -74,7 +74,6 @@ bool logger_init(const char *log_file, const char *level_str) {
         g_log_file = fopen(log_file, "a");
         if (g_log_file == NULL) {
             fprintf(stderr, "Warning: Failed to open log file: %s\n", log_file);
-
             return false;
         }
     }
@@ -127,3 +126,5 @@ void logger_close(void) {
         fclose(g_log_file);
         g_log_file = NULL;
     }
+}
+
