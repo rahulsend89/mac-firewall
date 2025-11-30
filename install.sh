@@ -232,3 +232,10 @@ case "${1:-install}" in
     
     help|--help|-h)
         show_usage
+        ;;
+    
+    *)
+        print_error "Unknown command: $1"
+        show_usage
+        exit 1
+        ;;
