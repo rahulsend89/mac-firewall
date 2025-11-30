@@ -131,7 +131,6 @@ void process_tracker_remove(process_tracker_t *tracker, pid_t pid) {
                         for (size_t k = j; k < info->parent->children_count - 1; k++) {
                             info->parent->children[k] = info->parent->children[k + 1];
                         }
-
                         info->parent->children_count--;
                         break;
                     }
@@ -149,7 +148,6 @@ void process_tracker_remove(process_tracker_t *tracker, pid_t pid) {
             }
             tracker->count--;
             break;
-
         }
     }
 }
@@ -203,3 +201,8 @@ void process_tracker_destroy(process_tracker_t *tracker) {
             free(tracker->processes[i]->children);
             free(tracker->processes[i]);
         }
+    }
+    
+    free(tracker->processes);
+    free(tracker);
+}
