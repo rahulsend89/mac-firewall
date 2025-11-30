@@ -146,6 +146,7 @@ func showInteractiveDialog(
     
     var result = false
     let semaphore = DispatchSemaphore(value: 0)
+
     
     FirewallAlert.shared.showInteractiveDialog(
         process: processStr,
