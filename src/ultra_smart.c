@@ -117,3 +117,4 @@ int main(void) {
     es_unsubscribe_all(g_client);
     es_delete_client(g_client);
     return 0;
+}
