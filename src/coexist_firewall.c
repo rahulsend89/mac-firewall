@@ -83,7 +83,6 @@ int main(void) {
         es_return_t mr = es_mute_path(g_client, mute_paths[i], ES_MUTE_PATH_TYPE_TARGET_PREFIX);
         if (mr == ES_RETURN_SUCCESS) {
             printf("✓ Muted: %s\n", mute_paths[i]);
-
         }
     }
     
@@ -92,7 +91,6 @@ int main(void) {
     es_event_type_t ev[] = { ES_EVENT_TYPE_AUTH_OPEN };
     if (es_subscribe(g_client, ev, 1) != ES_RETURN_SUCCESS) {
         fprintf(stderr, "Subscribe failed\n");
-// Process event
         es_delete_client(g_client);
         return 1;
     }
@@ -113,4 +111,3 @@ int main(void) {
     printf("Done. Handled %llu events.\n", g_count);
     
     return 0;
-}
