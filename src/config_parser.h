@@ -116,3 +116,6 @@ void config_free(firewall_config_t *config);
  * Reload configuration (for SIGHUP)
  */
 bool config_reload(firewall_config_t *config, const char *filename);
+
+#endif // CONFIG_PARSER_H
+
