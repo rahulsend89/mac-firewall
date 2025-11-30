@@ -146,3 +146,6 @@ echo "==================================="
 echo ""
 echo "To test with firewall daemon:"
 echo "  1. Build: make clean && make all && make sign"
+echo "  2. Run: sudo ./bin/mac-firewall firewall.json"
+echo ""
+
