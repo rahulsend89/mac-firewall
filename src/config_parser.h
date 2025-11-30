@@ -118,4 +118,3 @@ void config_free(firewall_config_t *config);
 bool config_reload(firewall_config_t *config, const char *filename);
 
 #endif // CONFIG_PARSER_H
-
