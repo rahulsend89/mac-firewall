@@ -11,7 +11,6 @@
 #include <signal.h>
 #include <dispatch/dispatch.h>
 
-
 static es_client_t *g_client = NULL;
 static volatile uint64_t g_event_count = 0;
 
@@ -82,3 +81,6 @@ int main(void) {
     
     // Keep process alive
     dispatch_main();
+    
+    return 0;
+}
