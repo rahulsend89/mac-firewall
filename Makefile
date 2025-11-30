@@ -129,3 +129,9 @@ help:
 	@echo "  dev       - Build, sign, and run in dev mode (requires root)"
 	@echo "  help      - Show this help message"
 	@echo ""
+	@echo "Requirements:"
+	@echo "  - macOS 10.15+"
+	@echo "  - Xcode Command Line Tools"
+	@echo "  - SIP disabled (for development)"
+	@echo "  - System Extension approval"
+
