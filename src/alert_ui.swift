@@ -146,7 +146,6 @@ func showInteractiveDialog(
     
     var result = false
     let semaphore = DispatchSemaphore(value: 0)
-
     
     FirewallAlert.shared.showInteractiveDialog(
         process: processStr,
@@ -175,3 +174,5 @@ if CommandLine.arguments.contains("--standalone") {
     let delegate = AppDelegate()
     app.delegate = delegate
     app.run()
+}
+
