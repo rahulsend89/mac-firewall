@@ -72,3 +72,4 @@ echo "It does NOT block:"
 echo "  - File reads (AUTH_OPEN disabled due to Little Snitch)"
 echo "  - File writes (AUTH_CREATE disabled)"
 echo ""
+
