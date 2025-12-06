@@ -377,7 +377,6 @@ npm-safe install package
 
 MIT License - See LICENSE file for details
 
-
 ## 🙏 Credits
 
 - Built on top of [npm-safe](https://github.com/rahulsend89/npm-safe/) concept
@@ -388,3 +387,15 @@ MIT License - See LICENSE file for details
 
 This tool provides kernel-level protection but is not a silver bullet. Always:
 - Review packages before installing
+- Use both macOS firewall AND npm-safe for defense in depth
+- Keep systems updated
+- Follow security best practices
+
+No security tool is 100% effective against all attacks.
+
+---
+
+**Made with 🛡️ for the security community**
+
+For bugs, feature requests, or contributions, please open an issue on GitHub.
+
