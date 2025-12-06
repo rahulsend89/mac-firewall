@@ -326,7 +326,6 @@ static void handle_event(es_client_t *client, const es_message_t *m) {
                 // Kill processes from temp (backup for AUTH_EXEC)
                 if (strstr(exec_path, "/tmp/") || strstr(exec_path, "/var/tmp/")) {
                     pid_t pid = audit_token_to_pid(m->process->audit_token);
-
                     kill_malicious_process(pid, exec_path, "Temp directory execution");
                 }
             }
@@ -435,3 +434,15 @@ int main(int argc, char *argv[]) {
     
     // Status update timer
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, 
+                                                      dispatch_get_main_queue());
+    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC, 0);
+    dispatch_source_set_event_handler(timer, ^{
+        print_status();
+    });
+    dispatch_resume(timer);
+    
+    // Run the event loop
+    dispatch_main();
+    
+    return 0;
+}

@@ -346,3 +346,9 @@ bool config_reload(firewall_config_t *config, const char *filename) {
     if (new_config == NULL) return false;
     
     config_free(config);
+    memcpy(config, new_config, sizeof(firewall_config_t));
+    free(new_config); // Only free the struct, not the contents
+    
+    return true;
+}
+

@@ -239,3 +239,5 @@ case "${1:-install}" in
         show_usage
         exit 1
         ;;
+esac
+

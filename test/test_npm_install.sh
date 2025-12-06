@@ -13,7 +13,6 @@ mkdir -p test-python-malicious
 cd test-python-malicious
 
 cat > package.json << 'EOF'
-// Track process
 {
   "name": "test-python-malicious",
   "version": "1.0.0",
@@ -128,3 +127,4 @@ echo "  - Native binary: BLOCKED reading ~/.ssh"
 echo "  - Downloaded exec: BLOCKED writing to /tmp and executing"
 echo ""
 echo "Cleanup: rm -rf $TEST_DIR"
+

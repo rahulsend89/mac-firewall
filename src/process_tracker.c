@@ -206,3 +206,4 @@ void process_tracker_destroy(process_tracker_t *tracker) {
     free(tracker->processes);
     free(tracker);
 }
+

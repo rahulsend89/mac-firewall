@@ -59,7 +59,6 @@ void process_tracker_remove(process_tracker_t *tracker, pid_t pid);
  */
 bool process_is_descendant_of(process_tracker_t *tracker, pid_t child, pid_t ancestor);
 
-// Track process
 /**
  * Get process ancestry chain (returns array of PIDs, NULL-terminated)
  */
@@ -71,3 +70,4 @@ pid_t* process_get_ancestry(process_tracker_t *tracker, pid_t pid);
 void process_tracker_destroy(process_tracker_t *tracker);
 
 #endif // PROCESS_TRACKER_H
+

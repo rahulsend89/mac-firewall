@@ -85,3 +85,5 @@ policy_decision_t policy_evaluate_exec(
 
 void policy_cleanup(void) {
     g_policy_config = NULL;
+}
+

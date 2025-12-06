@@ -101,3 +101,4 @@ try {
 echo ""
 echo -e "${CYAN}=============================${NC}"
 echo -e "${CYAN}Test complete! Check firewall output for details.${NC}"
+
