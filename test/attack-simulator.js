@@ -458,4 +458,3 @@ if (require.main === module) {
     log('This may indicate the firewall killed the test process (expected)', 'green');
     process.exit(0);
   });
-}
