@@ -152,3 +152,4 @@ echo -e "${NC}"
 
 echo -e "${BLUE}Check firewall output for detailed blocking information${NC}"
 echo ""
+
